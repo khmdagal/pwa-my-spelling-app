@@ -1,6 +1,9 @@
 {
   "short_name": "PWA",
   "name": "Create Progressive Web App",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +21,12 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/://pwa-myspelling-app.netlify.app/",
-  "display": "standalone",
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=cheeaun.hackerweb"
+    }
+  ],
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "orientation":"portrait"
 }
