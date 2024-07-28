@@ -1,0 +1,62 @@
+import React from "react";
+import {useForm} from 'react-hook-form'
+
+function  SignUp() {
+    // const [name, setName] = useState('');
+    
+    const { register, handleSubmit, formState: { error } } = useForm();
+    
+    // const submitData = async input => {
+        
+    // }
+
+    const onSubmit = async data => {
+        const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: data
+    };
+        console.log(data)
+      await fetch('127.0.0.1:3000/api/v1/spelling/users/signup', requestOptions).then(response => response.json())
+        
+    }
+    
+    return (
+        <div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <label htmlFor="name">Name </label>
+                <input id="name" {...register('name', { required: 'Name is required' })}></input>
+                <label htmlFor="role">Role </label>
+                <input id="role" {...register('role', { required: 'User role is required' })}></input>
+                <label htmlFor="username">Username </label>
+                <input id="username" {...register('username', {
+                    required: 'Username is required',
+                    minLength: {
+                        value: 5,
+                        message: 'Username should 5 character long'
+                    }
+                })}></input>
+                <label htmlFor="password">Password </label>
+                  <input  id="password" {...register('password', {
+                    required: 'Password is required',
+                    minLength: {
+                        value: 6,
+                        message: 'Password should 5 character long'
+                    }
+                  })}></input>
+                <label htmlFor="school">School </label>
+                <input id="email" {...register('shool', { required: 'Your School name is required' })}></input>
+                
+                <label htmlFor="email">Your Email </label>
+                <input id="email" {...register('email', { required: 'Email is required' })}></input>
+                
+                 <label htmlFor="submit">Your Email </label>
+                  <input type="Submit" id="submit" ></input>
+            </form>
+        </div>
+    )
+
+    
+}
+
+export default SignUp;
