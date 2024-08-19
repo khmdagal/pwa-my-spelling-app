@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../api/axios';
+import {axiosForLoginAndSignUpOnly} from '../api/axios';
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 import Button from '../component/Button';
 
@@ -36,7 +36,7 @@ function SignUp() {
         e.preventDefault();
         setErrors('');
         try {
-            const response = await axios.post('/api/v1/spelling/users/signUp', formData);
+            const response = await axiosForLoginAndSignUpOnly.post('/api/v1/spelling/users/signUp', formData);
             // Handle success, maybe clear the form or show a success message
 
             setFormData({
