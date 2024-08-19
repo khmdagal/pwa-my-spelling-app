@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-globals */
-
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
@@ -41,7 +40,6 @@ registerRoute(
     ],
   })
 );
-
 
 // Handle the 'SKIP_WAITING' message to activate the service worker immediately
 self.addEventListener('message', (event) => {
