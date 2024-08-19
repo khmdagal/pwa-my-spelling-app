@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = 'http://localhost:3500'
+const baseURL = 'https://spellingapi.glitch.me'
 
 const axiosForLoginAndSignUpOnly = axios.create({
     baseURL: baseURL
