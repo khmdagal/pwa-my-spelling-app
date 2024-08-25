@@ -18,20 +18,24 @@ function GetWords() {
 
             } catch (error) {
                 console.log(error)
-                setErrorMessage(error)
+                setErrorMessage(error.response.data.message)
 
             }
 
         }
 
-        fetchWords()
+         fetchWords()
 
     }, [])
 
     if (!wordsData) <p>...loading</p>
+    console.log(selectedWords)
     
     return (
         <div className="word-list">
+            <>
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                {selectedWords && <p style={{color:'black'}}>{ selectedWords}</p>}
             {wordsData.map(word => (
                 <div className="word-container" key={word.word_id}>
                     <input
@@ -53,6 +57,7 @@ function GetWords() {
                     </label>
                 </div>
             ))}
+            </>
         </div>
     );
 
