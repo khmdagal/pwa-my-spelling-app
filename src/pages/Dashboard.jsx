@@ -1,4 +1,4 @@
-import { jwtDecode } from 'jwt-decode';
+
 import Time from '../component/Time';
 import GetWords from '../component/Words';
 
