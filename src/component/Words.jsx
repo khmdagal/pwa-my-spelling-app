@@ -36,7 +36,7 @@ function GetWords() {
             <>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 {selectedWords && <p style={{color:'black'}}>{ selectedWords}</p>}
-            {wordsData.map(word => (
+            {wordsData?.map(word => (
                 <div className="word-container" key={word.word_id}>
                     <input
                         type="checkbox"
