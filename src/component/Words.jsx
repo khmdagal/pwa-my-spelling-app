@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { allOtherAxiosRequest } from '../api/axios';
 
-import './Words.css'
+import '../css/Words.css'
 
 function GetWords() {
     const [wordsData, setWordsData] = useState([])
