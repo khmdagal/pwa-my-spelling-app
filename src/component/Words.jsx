@@ -3,16 +3,16 @@ import { allOtherAxiosRequest } from '../api/axios';
 
 import '../css/Words.css'
 
-function GetWords() {
+function GetWords({yearWords}) {
     const [wordsData, setWordsData] = useState([])
     const [errorMessage, setErrorMessage] = useState('')
     const [selectedWords, setSelectedWords] = useState([])
-   
+
 
     useEffect(() => {
         async function fetchWords() {
             try {
-                const response = await allOtherAxiosRequest.get('api/v1/spelling/words/year3and4words')
+                const response = await allOtherAxiosRequest.get(`api/v1/spelling/words/${yearWords}`)
 
                 setWordsData(response.data.words)
 
@@ -26,16 +26,15 @@ function GetWords() {
 
          fetchWords()
 
-    }, [])
+    }, [yearWords])
 
     if (!wordsData) <p>...loading</p>
-    console.log(selectedWords)
     
     return (
         <div className="word-list">
             <>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                {selectedWords && <p style={{color:'black'}}>{ selectedWords}</p>}
+                {selectedWords && <p style={{ color: 'black' }}>{selectedWords}</p>}
             {wordsData?.map(word => (
                 <div className="word-container" key={word.word_id}>
                     <input
@@ -50,10 +49,10 @@ function GetWords() {
                             );
                         }}
                         id={word.word_id}
-                        value={word.year3and4words}
+                        value={word[yearWords]}
                     />
                     <label htmlFor={word.word_id}>
-                        {word.word_id}: {word.year3and4words}
+                        {word.word_id}: {word[yearWords]}
                     </label>
                 </div>
             ))}

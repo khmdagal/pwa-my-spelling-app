@@ -4,7 +4,7 @@ import { axiosForLoginAndSignUpOnly } from '../api/axios';
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 import Button from '../component/Button';
 
-import './Login.css'
+import '../css/Login.css'
 
 function LogIn() {
     const [formData, setFormData] = useState({
