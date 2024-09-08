@@ -1,17 +1,35 @@
-/* Container for each word */
-/* .word-container {
+/* ======= Mobile view ====== */
+/* Flexbox layout for the word list */
+.word-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: scroll;
+    height: 250px;
+}
+.word-container{
     display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s, box-shadow 0.3s;
-} */
+    flex-direction: row;
+}
+
+/* Label styling */
+.word-container label {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
 
 /* Checkbox styling */
-.word-container input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
+ .word-container input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
     cursor: pointer;
     transition: transform 0.2s;
 }
@@ -22,17 +40,9 @@
 
 .word-container input[type="checkbox"]:checked {
     transform: scale(1.2);
-}
+} 
 
-/* Label styling */
-.word-container label {
-    margin-left: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    cursor: pointer;
-    transition: color 0.3s;
-}
+
 
 /* Highlighting when a word is selected */
 .word-container input[type="checkbox"]:checked + label {
@@ -47,14 +57,3 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Flexbox layout for the word list */
-.word-list {
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    margin: 0 auto;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
