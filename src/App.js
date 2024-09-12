@@ -5,6 +5,8 @@ import Dashboard from './pages/Dashboard';
 import HomePage from './pages/Home';
 import SignUp from './pages/SignUp';
 
+import ProtectedRoutes from './pages/ProtocedRoutes';
+
 function App() {
   return (
     <Router>
@@ -14,7 +16,12 @@ function App() {
           <Route exact path='/' element={<HomePage />} />
           <Route exact path='/signup' element={<SignUp />} />
           <Route exact path='/login' element={<Login />} />
-          <Route exact path='/dashboard' element={<Dashboard />} />
+          <Route exact path='/dashboard' element={
+            <ProtectedRoutes >
+              <Dashboard />
+            </ProtectedRoutes>
+          }
+          />
         </Routes>
 
       </div>
