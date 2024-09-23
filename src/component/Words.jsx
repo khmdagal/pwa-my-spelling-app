@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { allOtherAxiosRequest } from '../api/axios';
+import AssignmentForm from '../forms/AssignmentForm';
+import Button from '../component/Button'
 
 import '../css/Words.css'
 
-function GetWords({yearWords}) {
+function GetWords({ yearWords }) {
     const [wordsData, setWordsData] = useState([])
     const [errorMessage, setErrorMessage] = useState('')
     const [selectedWords, setSelectedWords] = useState([])
-
+    const [showHide, setShowHide] = useState(true)
 
     useEffect(() => {
         async function fetchWords() {
@@ -24,40 +26,44 @@ function GetWords({yearWords}) {
 
         }
 
-         fetchWords()
+        fetchWords()
 
     }, [yearWords])
 
     if (!wordsData) <p>...loading</p>
-    
     return (
-        <div className="word-list">
-            <>
+        <>
+            <Button className='showHidButton' backgroundColor='#04AA6D' label={`${showHide ? 'Hide Words' : 'Show Words'}`} onClick={() => setShowHide((prev) => !prev)} />
+            <div className="word-list" style={{ display: `${showHide ? 'grid' : 'none'}` }}>
+
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                {selectedWords && <p style={{ color: 'black' }}>{selectedWords}</p>}
-            {wordsData?.map(word => (
-                <div className="word-container" key={word.word_id}>
-                    <input
-                        type="checkbox"
-                        onClick={(e) => {
-                            const checkedWords = e.target.value;
-                            const isChecked = e.target.checked;
-                            setSelectedWords((previous) =>
-                                isChecked ?
-                                    [...previous, checkedWords]
-                                    : previous.filter((word) => word !== checkedWords)
-                            );
-                        }}
-                        id={word.word_id}
-                        value={word[yearWords]}
-                    />
-                    <label htmlFor={word.word_id}>
-                        {word.word_id}: {word[yearWords]}
-                    </label>
-                </div>
-            ))}
-            </>
-        </div>
+                {wordsData?.map(word => (
+                    <div className="word-container" key={word.word_id}>
+                        <input
+                            type="checkbox"
+                            onClick={(e) => {
+                                const checkedWords = e.target.value;
+                                const isChecked = e.target.checked;
+                                setSelectedWords((previous) =>
+                                    isChecked ?
+                                        [...previous, checkedWords]
+                                        : previous.filter((word) => word !== checkedWords)
+                                );
+                            }}
+                            id={word.word_id}
+                            value={word[yearWords]}
+                        />
+                        <label htmlFor={word.word_id}>
+                            {word.word_id}: {word[yearWords]}
+                        </label>
+                    </div>
+                ))}
+
+
+            </div>
+
+            <AssignmentForm selectedWords={selectedWords} />
+        </>
     );
 
 
