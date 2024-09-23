@@ -1,12 +1,13 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 
 import Time from '../component/Time';
 import GetWords from '../component/Words';
 import Header from '../component/Header';
+//import AssignmentForm from '../forms/WeeklyAssignmentForm';
 import '../css/Dashboard.css'
 
 function Dashboard() {
-    const [yearWords, setYearWords] = useState()
+    const [yearWords, setYearWords] = useState('year3and4words')
 
     const handleYearWords = (e) => {
         e.preventDefault()

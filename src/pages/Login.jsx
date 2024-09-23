@@ -28,30 +28,38 @@ function LogIn() {
         setErrors('');
         try {
             const response = await axiosForLoginAndSignUpOnly.post('/api/v1/spelling/users/login', formData);
-            // Handle success, maybe clear the form or show a success message
 
             setFormData({
                 username: '',
                 password: ''
             });
-
-            const token = await response.data.token;
+            const { token, approved: admin, school_id } = response.data;
 
             if (!token) {
-                setErrors(response.data.message)
-
-            } else {
-                console.log(` response data ${response.data} `)
-                localStorage.setItem('token', token)
-                navigate('/dashboard')
+                setErrors(response.data.message);
+                return;
             }
 
+            if (token) {
+                localStorage.setItem('token', token);
+                localStorage.setItem('school_id', school_id);
 
+                if (admin) {
+                    localStorage.setItem('admin', admin);
+                    localStorage.setItem('dashboard', 'Admin-dashboard');
+                    navigate('/admin-dashboard');
+                } else {
+                    localStorage.setItem('dashboard', 'Student-dashboard');
+                    navigate('/student-dashboard');
+                }
+            } else {
+                setErrors(response.data.message);
+                navigate('/login');
+            }
 
         } catch (error) {
-            setErrors(error.response.data.message)
+            setErrors(error?.response?.data?.message || 'An unexpected error occurred');
         }
-
 
     };
 
@@ -71,9 +79,10 @@ function LogIn() {
                 <div className="inputDive">
                     <label htmlFor="password">Password </label>
                     <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange} required />
-                    <img src={visibilityIcon} alt='Show password icon' onClick={() => setShowPassword((previous) => !previous)} />
+                    <img src={visibilityIcon}  alt='Show password icon' onClick={() => setShowPassword((previous) => !previous)} />
                 </div>
-
+                <div style={{display:'none'}}>
+                </div>
                 {/* <button type="submit">Login</button> */}
                 <Button backgroundColor={'#2196f3'} color={'white'} type={'submit'} label={'Login'} />
             </form>
