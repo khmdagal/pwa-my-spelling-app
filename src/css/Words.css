@@ -12,7 +12,8 @@
     overflow: scroll;
     height: 250px;
 }
-.word-container{
+
+.word-container {
     display: flex;
     flex-direction: row;
 }
@@ -27,7 +28,7 @@
 
 
 /* Checkbox styling */
- .word-container input[type="checkbox"] {
+.word-container input[type="checkbox"] {
     width: 15px;
     height: 15px;
     cursor: pointer;
@@ -40,20 +41,52 @@
 
 .word-container input[type="checkbox"]:checked {
     transform: scale(1.2);
-} 
+}
 
 
 
 /* Highlighting when a word is selected */
-.word-container input[type="checkbox"]:checked + label {
+.word-container input[type="checkbox"]:checked+label {
     color: #141fc0;
     font-style: italic;
     font-weight: bold;
 }
 
 /* Container background changes when checkbox is selected */
-.word-container input[type="checkbox"]:checked ~ .word-container {
+.word-container input[type="checkbox"]:checked~.word-container {
     background-color: #4caf50;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.showHidButton {
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #04AA6D;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px #999;
+    width: 100px;
+    align-self: flex-end;
+}
+
+button:hover {
+    background-color: #80d383
+}
+
+button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #af9999;
+    transform: translateY(4px);
+}
+
+@media screen and (min-width: 900px) {
+    .word-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: auto;
+    }
+}
