@@ -6,9 +6,11 @@ import '../css/Header.css'
 
 
 function Header() {
-    const pages = ['Home', 'Contact', 'About-Us','Dashboard']
+    
     const navigate = useNavigate();
 
+
+    const pages = ['Home', 'Contact', 'About-Us', `${localStorage.getItem('dashboard') ? localStorage.getItem('dashboard') : ''}`]
     return (
 
         <header className="header">
@@ -16,7 +18,7 @@ function Header() {
                 <ul className="navList">
                     {pages.map(page => {
                         return (
-                            <li className="navItem" onClick={() => {
+                            <li key={page} className="navItem" onClick={() => {
                                 if (page === 'Home') {
                                     navigate('/')
                                 } else {
