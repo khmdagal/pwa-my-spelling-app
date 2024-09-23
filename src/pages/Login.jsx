@@ -36,15 +36,29 @@ function LogIn() {
             });
 
             const token = await response.data.token;
+            const admin = await response.data.approved
 
             if (!token) {
+                navigate('/login')
                 setErrors(response.data.message)
-
-            } else {
-                console.log(` response data ${response.data} `)
-                localStorage.setItem('token', token)
-                navigate('/dashboard')
             }
+
+            if (token && admin) {
+                localStorage.setItem('token', token)
+                localStorage.setItem('admin', admin)
+                localStorage.setItem('dashboard', 'Admin-dashboard')
+                navigate('/admin-dashboard')
+                
+            } else if (token) {
+                localStorage.setItem('token', token)
+                localStorage.setItem('dashboard', 'Student-dashboard')
+                navigate('/student-dashboard')
+                
+            }
+
+            
+
+
 
 
 
@@ -73,7 +87,8 @@ function LogIn() {
                     <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange} required />
                     <img src={visibilityIcon} alt='Show password icon' onClick={() => setShowPassword((previous) => !previous)} />
                 </div>
-
+                <div style={{display:'none'}}>
+                </div>
                 {/* <button type="submit">Login</button> */}
                 <Button backgroundColor={'#2196f3'} color={'white'} type={'submit'} label={'Login'} />
             </form>
