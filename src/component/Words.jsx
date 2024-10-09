@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { allOtherAxiosRequest } from '../api/axios';
-import AssignmentForm from '../forms/AssignmentForm';
-import Button from '../component/Button'
+import Button from '../component/Button';
+import SetAssignment from '../forms/SetAssignment';
 
 import '../css/Words.css'
 
@@ -62,7 +62,7 @@ function GetWords({ yearWords }) {
 
             </div>
 
-            <AssignmentForm selectedWords={selectedWords} />
+            <SetAssignment selectedWords={selectedWords} />
         </>
     );
 
