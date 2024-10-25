@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { allOtherAxiosRequest } from '../../api/axios'
 
+import '../../css/MyAssignment.css'
+
 function MyAssignment() {
-   const [words, setWords] = useState([])
+   const [assignment, setAssignment] = useState({})
     const [practice_id, setPractice_id] = useState('')
 
     const school_id = localStorage.getItem('school_id');
@@ -15,25 +17,34 @@ function MyAssignment() {
 
     const handleGetData = async () => {
         try {
-            console.log({practice_id},{school_id})
             const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
-            setWords(response.data.myAssignment[0].words)
-            console.log({ response })
+            setAssignment(response.data.myAssignment)
         } catch (err) {
             console.log('==>> error', err.message);
         }
     };
 
-    if(words) console.log({words})
-    
     return (
-        <div>
+        <div className="assignmentContainer">
             <button onClick={handleGetData}>Get the Assignment</button>
-            <input name="practice_id" type="text" onChange={handleChange} />
-            <p>{practice_id }</p>
-            {words?.map((word) => {
-                return (<p>{word}</p>)
-            })}
+            <div>
+                <label htmlFor="practice_id">Enter your Assignment Code</label>
+                <input id="practice_id" name="practice_id" type="text" onChange={handleChange} />
+            </div>
+            <div className="assignmentIfo">
+                <label className="title" htmlFor="title">Title :</label>
+                <p className="title" id="title">{assignment.name}</p> 
+            </div>
+            <div className="assignmentIfo">
+                <label className="description" htmlFor="description">Description :</label>
+                <p className="description" id="description">{assignment.description}</p>
+            </div>
+            <div className="selectedWordsContainer">
+
+                {assignment.words?.map(word => {
+                    return (<div className="words" name="words" >{word}</div>)
+                })}
+            </div>
         </div>
     )
 
