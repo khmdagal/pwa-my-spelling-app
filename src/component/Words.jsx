@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { allOtherAxiosRequest } from '../api/axios';
 import Button from '../component/Button';
-import SetAssignment from '../forms/SetAssignment';
+import SetAssignment from '../assignments/setAssignments/SetAssignment';
 
 import '../css/Words.css'
 

@@ -1,39 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
-import { allOtherAxiosRequest } from '../api/axios'
-import Button from '../component/Button'
-import { getDate } from '../helpers/Helpers'
+import { allOtherAxiosRequest } from '../../api/axios'
+import Button from '../../component/Button'
+import TableData from "../../component/TableData";
 
-import '../css/Table.css';
-import '../css/SetAssignment.css';
+
+import '../../css/SetAssignment.css';
 
 
 
 function SetAssignment({ selectedWords }) {
-    const [assignments, setAssignments] = useState([])
+
     const [formData, setFormData] = useState({ name: '', assignedYear: '', school_id: localStorage.getItem('school_id'), practice_id: uuidv4(), description: '', words: [], expires_in: '' })
     const [successMessage, setSuccessMessage] = useState('');
     const [errors, setErrors] = useState('');
 
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const response = await allOtherAxiosRequest.get('/api/v1/spelling/words/weeklypractice/all');
-                const initialAssignmentData = Object.entries(response.data.result).map(el => el[1]);
-                setAssignments(initialAssignmentData.reverse())
-            } catch (err) {
-                console.log('==>> error', err.message);
-            }
-        };
 
-        getData()
-
-    }, [])
-
-    useEffect(() => {
-
-    }, [assignments])
 
 
     // reading exiting classes for current school
@@ -66,8 +49,6 @@ function SetAssignment({ selectedWords }) {
     async function handleSubmit(e) {
         try {
             e.preventDefault()
-            setAssignments([...assignments, formData, formData.words.push(...selectedWords)])
-
             const response = await allOtherAxiosRequest.post('/api/v1/spelling/words/weeklypractice', formData)
             if (response.status === 201) {
                 setSuccessMessage('Assignment has successfully created ✔')
@@ -86,7 +67,7 @@ function SetAssignment({ selectedWords }) {
             <form className="assignmentForm" onSubmit={handleSubmit}>
                 {errors && <p className="errorMessage">{errors}</p>}
                 <h2>Set Up New Assignment</h2>
-                <input name="practice_id" type="text" value={formData.practice_id} disabled hidden/>
+                <input name="practice_id" type="text" value={formData.practice_id} disabled hidden />
                 <div>
                     <label>Title</label>
                     <input name="name" type="text" value={formData.name} onChange={handleChange} />
@@ -128,32 +109,7 @@ function SetAssignment({ selectedWords }) {
                 {successMessage && <p className="successMessage">{successMessage}</p>}
             </form>
 
-            <table className="styled-table">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Words</th>
-                        <th>Due Date</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {assignments && assignments.map((assignment, index) => {
-
-                        return (
-                            <tr key={index}>
-                                <td>{assignment.name}</td>
-                                <td>{assignment.description}</td>
-                                <td>{assignment.words.map((word) => {
-                                    return (<p className="eachWord">{word}</p>)
-                                })}</td>
-                                <td>{getDate(assignment.expires_in)}</td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
+            <TableData formData={formData} />
         </div>
     )
 

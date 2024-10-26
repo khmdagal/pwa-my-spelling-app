@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { v4 as uuidv4 } from 'uuid';
-import Button from '../component/Button';
-import { allOtherAxiosRequest } from '../api/axios'
+import Button from '../../component/Button';
+import { allOtherAxiosRequest } from '../../api/axios'
 
 import "react-datepicker/dist/react-datepicker.css";
 import '../css/AssignmentsForm.css'
@@ -10,12 +10,14 @@ import '../css/AssignmentsForm.css'
 
 
 function AssignmentForm({ selectedWords }) {
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
     const [successMessage, setSuccessMessage] = useState('');
     const [assignmentId, setAssignmentId] = useState(uuidv4());
     const [class_id, setClass_id] = useState('');
     const [created_at, setCreated_at] = useState();
     const [expires_in, setExpires_in] = useState();
-    //const [errors, setErrors] = useState('');
+    const [errors, setErrors] = useState('');
 
 
 
@@ -46,6 +48,8 @@ function AssignmentForm({ selectedWords }) {
         e.preventDefault()
 
         const updatedFormData = {
+            name,
+            description,
             school_id: localStorage.getItem('school_id'),
             assignmentId,
             class_id,
@@ -54,7 +58,7 @@ function AssignmentForm({ selectedWords }) {
             expires_in
         }
         try {
-            const response = await allOtherAxiosRequest.post('/api/v1/spelling/words/practice-sessions', updatedFormData)
+            const response = await allOtherAxiosRequest.post('/api/v1/spelling/words/weeklypractice', updatedFormData)
             if (response.status === 201) {
                 setSuccessMessage('Assignment has successfully created ✔')
 
@@ -68,6 +72,7 @@ function AssignmentForm({ selectedWords }) {
        
         } catch (error) {
             console.log(error)
+            setErrors(error.message)
         }
 
 
@@ -75,7 +80,7 @@ function AssignmentForm({ selectedWords }) {
 
     return (
         <form className="assignmentForm" onSubmit={handleSubmit}>
-            {/* {errors && <p className="errorMessage">{errors}</p>} */}
+            {errors && <p className="errorMessage">{errors}</p>}
             <h1>Spelling Assignment Form (SAF)</h1>
             <select onChange={handleClassChange}>
                 <option value="">Select a class</option>
@@ -102,8 +107,16 @@ function AssignmentForm({ selectedWords }) {
                 <DatePicker name="created_at" selected={created_at} onChange={(date) => setCreated_at(date)} />
             </div>
             <div>
-                <label htmlFor="expires_in">Created at</label>
+                <label htmlFor="expires_in">Dead line</label>
                 <DatePicker name="expires_in" selected={expires_in} onChange={(date) => setExpires_in(date)} />
+            </div>
+            <div>
+                <label htmlFor="name">Assignment Name</label>
+                <input type="tex" value={name} name="name" onChange={(e) => setName(e.target.value)} className="name"/>
+            </div>
+            <div>
+                <label htmlFor="description"> Description </label>
+                <input type="text" value={description} name="description" onChange={(e) => setDescription(e.target.value)}  className="description" />
             </div>
 
             <Button type='submit' label='Submit' backgroundColor='green' color='white' />
