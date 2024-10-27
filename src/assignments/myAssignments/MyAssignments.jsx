@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { allOtherAxiosRequest } from '../../api/axios'
+import PracticeMyAssignment from "./PracticeMyAssignments";
 
 import '../../css/MyAssignment.css'
 
@@ -45,6 +46,7 @@ function MyAssignment() {
                     return (<div className="words" name="words" >{word}</div>)
                 })}
             </div>
+            <PracticeMyAssignment assignment={assignment}/>
         </div>
     )
 
