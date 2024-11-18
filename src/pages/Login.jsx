@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { axiosForLoginAndSignUpOnly } from '../api/axios';
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 import Button from '../component/Button';
+import Spinner from '../component/Spinner';
 
 import '../css/Login.css'
 
@@ -13,6 +14,7 @@ function LogIn() {
     });
     const [errors, setErrors] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+    const [spinner, setSpinner] = useState(false)
 
     const navigate = useNavigate()
     const handleChange = (e) => {
@@ -24,16 +26,19 @@ function LogIn() {
     };
 
     const handleSubmit = async (e) => {
+        setSpinner(true)
         e.preventDefault();
         setErrors('');
         try {
             const response = await axiosForLoginAndSignUpOnly.post('/api/v1/spelling/users/login', formData);
+            if (response.status === 200) setSpinner(false)
 
             setFormData({
                 username: '',
                 password: ''
             });
             const { token, approved: admin, school_id } = response.data;
+
 
             if (!token) {
                 setErrors(response.data.message);
@@ -62,32 +67,36 @@ function LogIn() {
         }
 
     };
+   
+    
+        return (
+            <div className="mainContainer">
+                {spinner && <Spinner />}
+                <header className="pageHeader">
+                    <p className="pageHeaderParagraph">Welcome Back, please long in</p>
+                </header>
 
-    return (
-        <div className="mainContainer">
-            <header className="pageHeader">
-                <p className="pageHeaderParagraph">Welcome Back, please long in</p>
-            </header>
+                {errors && <p style={{ color: 'red' }}>{errors}</p>}
+                <form onSubmit={handleSubmit}>
 
-            {errors && <p style={{ color: 'red' }}>{errors}</p>}
-            <form onSubmit={handleSubmit}>
+                    <div className="inputDive">
+                        <label htmlFor="usernameInput">Username </label>
+                        <input type="text" name="username" value={formData.username} onChange={handleChange} required />
+                    </div>
+                    <div className="inputDive">
+                        <label htmlFor="password">Password </label>
+                        <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange} required />
+                        <img src={visibilityIcon} alt='Show password icon' onClick={() => setShowPassword((previous) => !previous)} />
+                    </div>
+                    <div style={{ display: 'none' }}>
+                    </div>
+                    {/* <button type="submit">Login</button> */}
+                    <Button backgroundColor={'#2196f3'} color={'white'} type={'submit'} label={'Login'} />
+                </form>
+            </div>
+        );
+    
 
-                <div className="inputDive">
-                    <label htmlFor="usernameInput">Username </label>
-                    <input type="text" name="username" value={formData.username} onChange={handleChange} required />
-                </div>
-                <div className="inputDive">
-                    <label htmlFor="password">Password </label>
-                    <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange} required />
-                    <img src={visibilityIcon}  alt='Show password icon' onClick={() => setShowPassword((previous) => !previous)} />
-                </div>
-                <div style={{display:'none'}}>
-                </div>
-                {/* <button type="submit">Login</button> */}
-                <Button backgroundColor={'#2196f3'} color={'white'} type={'submit'} label={'Login'} />
-            </form>
-        </div>
-    );
 }
 
 export default LogIn;
