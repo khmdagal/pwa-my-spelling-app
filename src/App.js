@@ -5,6 +5,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import StudentDashboard from './pages/StudentDashboard';
 import HomePage from './pages/Home';
 import SignUp from './pages/SignUp';
+import PracticeMyAssignment from './assignments/myAssignments/PracticeMyAssignments';
 
 import ProtectedRoutes from './pages/ProtocedRoutes';
 
@@ -25,10 +26,15 @@ function App() {
           />
           <Route exact path='/student-dashboard' element={
             <ProtectedRoutes >
-              <StudentDashboard />
+                <StudentDashboard />
             </ProtectedRoutes>
           }
           />
+          <Route exact path='/practicePage' element={ 
+            <ProtectedRoutes >
+              <PracticeMyAssignment />
+            </ProtectedRoutes>  
+          } />
         </Routes>
 
       </div>
