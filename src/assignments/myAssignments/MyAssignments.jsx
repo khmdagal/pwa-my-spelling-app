@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { allOtherAxiosRequest } from '../../api/axios'
 import Button from "../../component/Button";
+import Spinner from "../../component/Spinner";
 
 import '../../css/MyAssignment.css'
 
@@ -9,6 +10,7 @@ function MyAssignment() {
     const [assignment, setAssignment] = useState({})
     const [practice_id, setPractice_id] = useState('')
     const [words, setWords] = useState([])
+    const [spinner, setSpinner] = useState(false)
 
     const school_id = localStorage.getItem('school_id');
 
@@ -19,10 +21,13 @@ function MyAssignment() {
         setPractice_id(e.target.value)
 
     }
+   
 
     const handleGetData = async () => {
         try {
+            setSpinner(true)
             const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
+            if (response.status === 200) setSpinner(false)
             setAssignment(response.data.myAssignment)
             setWords(await response.data.myAssignment.words)
         } catch (err) {
@@ -36,9 +41,10 @@ function MyAssignment() {
         navigate('/practicePage')
     }
 
-    if (assignment) {
+   
         return (
             <div className="assignmentContainer">
+                {spinner && <Spinner />}
                 <button onClick={handleGetData}>Get the Assignment</button>
                 <div>
                     <label htmlFor="practice_id">Enter your Assignment Code</label>
@@ -62,13 +68,7 @@ function MyAssignment() {
                 <Button label='Lets Practice' backgroundColor='Blue' onClick={handleWords} />
             </div>
         )
-      
-
-    } else {
-        return (<p>....coming soon</p>)
-    }
-
-
+    
 }
 
 export default MyAssignment;
