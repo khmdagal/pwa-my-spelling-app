@@ -27,6 +27,8 @@ function MyAssignment() {
         try {
             setSpinner(true)
             const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
+           console.log('==>> response', response)
+           
             if (response.status === 200) setSpinner(false)
 
             setAssignment(response.data.myAssignment)
@@ -44,6 +46,7 @@ function MyAssignment() {
         }
     };
 
+    console.log('==>> words', words)
 
     const handleWords = () => {
         setTimeout(() => {
