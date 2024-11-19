@@ -21,15 +21,23 @@ function MyAssignment() {
         setPractice_id(e.target.value)
 
     }
-   
+
 
     const handleGetData = async () => {
         try {
             setSpinner(true)
             const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
             if (response.status === 200) setSpinner(false)
+
             setAssignment(response.data.myAssignment)
-            setWords(await response.data.myAssignment.words)
+
+            // We are checking if the words are an array before setting the words state. 
+            // If it is not an array, we set it to an empty array.
+            Array.isArray(await response.data.myAssignment.words) ?
+                setWords(await response.data.myAssignment.words) :
+                setWords([]);
+
+
         } catch (err) {
             console.log('==>> error', err.message);
         }
@@ -37,11 +45,16 @@ function MyAssignment() {
 
 
     const handleWords = () => {
-        localStorage.setItem('words', JSON.stringify(words))
-        navigate('/practicePage')
+        setTimeout(() => {
+
+            localStorage.setItem('words', JSON.stringify(words))
+            navigate('/practicePage')
+
+        }, 1000)
+
     }
 
-   
+    if (assignment)
         return (
             <div className="assignmentContainer">
                 {spinner && <Spinner />}
@@ -68,7 +81,7 @@ function MyAssignment() {
                 <Button label='Lets Practice' backgroundColor='Blue' onClick={handleWords} />
             </div>
         )
-    
+
 }
 
 export default MyAssignment;
