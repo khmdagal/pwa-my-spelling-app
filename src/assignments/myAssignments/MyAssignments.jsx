@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { allOtherAxiosRequest } from '../../api/axios'
 import Button from "../../component/Button";
@@ -27,36 +27,28 @@ function MyAssignment() {
         try {
             setSpinner(true)
             const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
-           console.log('==>> response', response)
-           
+
             if (response.status === 200) setSpinner(false)
 
             setAssignment(response.data.myAssignment)
-
-            // We are checking if the words are an array before setting the words state. 
-            // If it is not an array, we set it to an empty array.
-            Array.isArray(await response.data.myAssignment.words) ?
-                setWords(await response.data.myAssignment.words) :
-                setWords([]);
-
-
+        
         } catch (err) {
             console.log(err)
             console.log('==>> error', err.message);
         }
     };
+    useEffect(() => {
+        // We are checking if the words are an array before setting the words state.
+        // If it is not an array, we set it to an empty array.
+        Array.isArray(assignment.words) ? setWords(assignment.words) : setWords([])
+        localStorage.setItem('words', JSON.stringify(assignment.words))
+    }, [assignment])
+
+
+
 
     console.log('==>> words', words)
 
-    const handleWords = () => {
-        setTimeout(() => {
-
-            localStorage.setItem('words', JSON.stringify(words))
-            navigate('/practicePage')
-
-        }, 1000)
-
-    }
 
     if (assignment)
         return (
@@ -82,7 +74,7 @@ function MyAssignment() {
                     })}
                 </div>
 
-                <Button label='Lets Practice' backgroundColor='Blue' onClick={handleWords} />
+                <Button label='Lets Practice' backgroundColor='Blue' onClick={() => navigate('/practicePage')} />
             </div>
         )
 
