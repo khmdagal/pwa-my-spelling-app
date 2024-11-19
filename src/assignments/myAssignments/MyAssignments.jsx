@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { allOtherAxiosRequest } from '../../api/axios'
 import Button from "../../component/Button";
@@ -21,27 +21,36 @@ function MyAssignment() {
         setPractice_id(e.target.value)
 
     }
-   
+
 
     const handleGetData = async () => {
         try {
             setSpinner(true)
             const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
+
             if (response.status === 200) setSpinner(false)
+
             setAssignment(response.data.myAssignment)
-            setWords(await response.data.myAssignment.words)
+        
         } catch (err) {
+            console.log(err)
             console.log('==>> error', err.message);
         }
     };
+    useEffect(() => {
+        // We are checking if the words are an array before setting the words state.
+        // If it is not an array, we set it to an empty array.
+        Array.isArray(assignment.words) ? setWords(assignment.words) : setWords([])
+        localStorage.setItem('words', JSON.stringify(assignment.words))
+    }, [assignment])
 
 
-    const handleWords = () => {
-        localStorage.setItem('words', JSON.stringify(words))
-        navigate('/practicePage')
-    }
 
-   
+
+    console.log('==>> words', words)
+
+
+    if (assignment)
         return (
             <div className="assignmentContainer">
                 {spinner && <Spinner />}
@@ -65,10 +74,10 @@ function MyAssignment() {
                     })}
                 </div>
 
-                <Button label='Lets Practice' backgroundColor='Blue' onClick={handleWords} />
+                <Button label='Lets Practice' backgroundColor='Blue' onClick={() => navigate('/practicePage')} />
             </div>
         )
-    
+
 }
 
 export default MyAssignment;
