@@ -42,10 +42,14 @@ function MyAssignment() {
     useEffect(() => {
         // We are checking if the words are an array before setting the words state.
         // If it is not an array, we set it to an empty array.
-        Array.isArray(assignment.words) ? setWords(assignment.words) : setWords([])
-        localStorage.setItem('words', JSON.stringify(words))
-    }, [assignment,words])
+        Array.isArray(assignment.words) ? setWords([...assignment.words]) : setWords([])
+        
+    }, [assignment])
 
+    const handleGoPracticePage = () => {
+        localStorage.setItem('words', JSON.stringify(words))
+        navigate('/practicePage')
+    }
 
     if (assignment)
         return (
@@ -72,7 +76,7 @@ function MyAssignment() {
                     })}
                 </div>
 
-                <Button label='Lets Practice' backgroundColor='Blue' onClick={() => navigate('/practicePage')} />
+                <Button label='Lets Practice' backgroundColor='Blue' onClick={handleGoPracticePage} />
             </div>
         )
 
