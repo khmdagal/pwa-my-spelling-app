@@ -11,6 +11,7 @@ function MyAssignment() {
     const [practice_id, setPractice_id] = useState('')
     const [words, setWords] = useState([])
     const [spinner, setSpinner] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
 
     const school_id = localStorage.getItem('school_id');
 
@@ -27,33 +28,30 @@ function MyAssignment() {
         try {
             setSpinner(true)
             const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
+            if (response.status === 200)
+                setSpinner(false)
+            setAssignment(response.data.myAssignment[0])
 
-            if (response.status === 200) setSpinner(false)
-
-            setAssignment(response.data.myAssignment)
-        
         } catch (err) {
             console.log(err)
             console.log('==>> error', err.message);
+            setErrorMessage(err.response.data.message)
+            setSpinner(false)
         }
     };
     useEffect(() => {
         // We are checking if the words are an array before setting the words state.
         // If it is not an array, we set it to an empty array.
         Array.isArray(assignment.words) ? setWords(assignment.words) : setWords([])
-        localStorage.setItem('words', JSON.stringify(assignment.words))
-    }, [assignment])
-
-
-
-
-    console.log('==>> words', words)
+        localStorage.setItem('words', JSON.stringify(words))
+    }, [assignment,words])
 
 
     if (assignment)
         return (
             <div className="assignmentContainer">
                 {spinner && <Spinner />}
+                {errorMessage && <p className="errorMessages">{errorMessage}</p>}
                 <button onClick={handleGetData}>Get the Assignment</button>
                 <div>
                     <label htmlFor="practice_id">Enter your Assignment Code</label>

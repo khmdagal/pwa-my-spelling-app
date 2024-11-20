@@ -64,6 +64,29 @@ input[type="text"]:focus {
     color: #1d0202;
 }
 
-.assignmentIfo{
+.assignmentIfo {
     display: flex;
+}
+
+.errorMessages {
+    color: red;
+    margin: 10px 0;
+    font-size: large;
+    font-weight: bolder;
+    text-align: center;
+    animation: shake 0.6s;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(10px);
+    }
 }
