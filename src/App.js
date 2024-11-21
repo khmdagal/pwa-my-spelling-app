@@ -8,6 +8,7 @@ import SignUp from './pages/SignUp';
 import PracticeMyAssignment from './assignments/myAssignments/PracticeMyAssignments';
 
 import ProtectedRoutes from './pages/ProtocedRoutes';
+import './css/GlobalStyle.css'
 
 function App() {
   return (
@@ -26,14 +27,14 @@ function App() {
           />
           <Route exact path='/student-dashboard' element={
             <ProtectedRoutes >
-                <StudentDashboard />
+              <StudentDashboard />
             </ProtectedRoutes>
           }
           />
-          <Route exact path='/practicePage' element={ 
+          <Route exact path='/practicePage' element={
             <ProtectedRoutes >
               <PracticeMyAssignment />
-            </ProtectedRoutes>  
+            </ProtectedRoutes>
           } />
         </Routes>
 
