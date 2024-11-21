@@ -10,6 +10,7 @@ function PracticeMyAssignment() {
     const [randWord, setRandWord] = useState('');
     const [hideGetWordsButton, setHideGetWordsButton] = useState('');
     const [hideResetButton, setHideResetButton] = useState('');
+    const [answer, setAnswer] = useState('')
 
 
     useEffect(() => {
@@ -52,19 +53,19 @@ function PracticeMyAssignment() {
 
     const checkCorrectWord = (e) => {
         e.preventDefault()
-        let value = e.target.value
-        if (value === randWord) {
+        if (answer === randWord) {
+            console.log('Correct you get it')
             setTimeout(() => {
                 sayTheRandomWord('Correct you get it')
-                e.target.value = ''
             }, 1000)
-
         } else {
+            console.log('Not yet, try again')
             setTimeout(() => {
                 sayTheRandomWord('Not yet, try again')
-                e.target.value = ''
             }, 1000)
         }
+
+        setAnswer('')
     }
 
 
@@ -79,37 +80,26 @@ function PracticeMyAssignment() {
     // I call sayTheRandomWord function to say 'You are ready to go' when the practice is reset and instruct to reset when the practice words are finished.
     sayTheRandomWord(randWord)
     return (
-        <div>
-            <h3 className="title">Words Practice Page</h3>
-            <p className="words">{randWord}</p>
-            <input
-                id="answer"
-                type="text"
-                placeholder="Type the word"
-                onChange={checkCorrectWord}
-                onKeyDown={(e) => {
-                    if (e.key === 'Enter') checkCorrectWord(e)
-                }}
-            />
+        <div className="mainContainer">
+            <h1 className="title">Practice Page</h1>
 
+            <div className="answerBox">
 
-            <div className="selectedWordsContainer">
-                <p className="title">Remaining Words</p>
-                {remainedWords?.map((word, index) => (
-                    <div key={index} className="words">{word}</div>
-                ))}
+                <input
+                    id="answer"
+                    type="text"
+                    placeholder="Write your Answer here"
+                    value={answer}
+                    onChange={(e) => setAnswer(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && checkCorrectWord(e)}
+                />
+                <Button color="black" label='Check' backgroundColor='' onClick={checkCorrectWord} />
             </div>
 
-            <div className="selectedWordsContainer">
-                <p className="title">Used Words</p>
-                {usedWords?.map((word, index) => (
-                    <div key={index} className="words">{word}</div>
-                ))}
-            </div>
-            <div className="buttons">
-                <Button label='Get Next Word' backgroundColor='Blue' onClick={getRandomWordAndDelete} hidden={hideGetWordsButton} />
-                <Button label='Reset' backgroundColor='Green' onClick={resetPractice} hidden={hideResetButton} />
-                <Button label='Repeat the word' backgroundColor='Red' onClick={() => sayTheRandomWord(randWord)} />
+            <div className="practicePageBtnsContainer">
+                <Button className="practicePageBtns" label='Get Next Word' backgroundColor='Blue' onClick={getRandomWordAndDelete} hidden={hideGetWordsButton} />
+                <Button className="practicePageBtns" label='Reset' backgroundColor='Green' onClick={resetPractice} hidden={hideResetButton} />
+                <Button className="practicePageBtns" label='Repeat the word' backgroundColor='Red' onClick={() => sayTheRandomWord(randWord)} />
 
             </div>
 

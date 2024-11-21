@@ -1,6 +1,30 @@
-.buttons{
+.mainContainer {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    margin-top: 20px;
+    position: fixed;
+    background-color: var(--lightgray-color);
+}
+
+.title{
+    font-size:larger;
+    font-weight: bolder;
+}
+.practicePageBtnsContainer {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-    position: fixed;
+}
+
+.practicePageBtns {
+    height: inherit;
+    border-radius: 50%;
+    font-weight: bold;
+
+}
+
+.answerBox {
+    display: flex;
+    align-items: center;
 }
