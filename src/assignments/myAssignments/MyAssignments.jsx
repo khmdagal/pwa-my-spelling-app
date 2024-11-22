@@ -11,6 +11,7 @@ function MyAssignment() {
     const [practice_id, setPractice_id] = useState('')
     const [words, setWords] = useState([])
     const [spinner, setSpinner] = useState(false)
+    const [hideLetsPracticeButton, setHideLetsPracticeButton] = useState('hidden')
     const [errorMessage, setErrorMessage] = useState('')
 
     const school_id = localStorage.getItem('school_id');
@@ -43,8 +44,15 @@ function MyAssignment() {
         // We are checking if the words are an array before setting the words state.
         // If it is not an array, we set it to an empty array.
         Array.isArray(assignment.words) ? setWords([...assignment.words]) : setWords([])
-        
+
     }, [assignment])
+
+    // This is to control the visibility of the 'Lets Practice' button
+    useEffect(() => {
+        if (words.length > 0) {
+            setHideLetsPracticeButton('')
+        }
+    }, [words])
 
     const handleGoPracticePage = () => {
         localStorage.setItem('words', JSON.stringify(words))
@@ -76,7 +84,7 @@ function MyAssignment() {
                     })}
                 </div>
 
-                <Button label='Lets Practice' backgroundColor='Blue' onClick={handleGoPracticePage} />
+                <Button label='Lets Practice' backgroundColor='Blue' onClick={handleGoPracticePage} hidden={hideLetsPracticeButton} />
             </div>
         )
 
