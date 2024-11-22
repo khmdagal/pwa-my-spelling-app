@@ -15,7 +15,7 @@ function PracticeMyAssignment() {
 
     useEffect(() => {
         if (words.length === 0) {
-            setRandWord('No words to practice, please get the assignment first');
+            sayTheRandomWord('No words found to practice, please get the assignment first');
             setHideGetWordsButton('hidden');
         }
     }, [words])
@@ -23,7 +23,7 @@ function PracticeMyAssignment() {
     //This function insures that the random word is not repeated until all the words are used
     const getRandomWordAndDelete = () => {
         if (remainedWords.length === 0) {
-            setRandWord('Reset to start again');
+            sayTheRandomWord('You have finished all the words, please reset to start again');
             setHideGetWordsButton('hidden');
             setHideResetButton('');
 
@@ -54,31 +54,37 @@ function PracticeMyAssignment() {
     const checkCorrectWord = (e) => {
         e.preventDefault()
         if (answer === randWord) {
-            console.log('Correct you get it')
+            console.log('Correct')
             setTimeout(() => {
-                sayTheRandomWord('Correct you get it')
+                sayTheRandomWord('Correct, you get it')
             }, 1000)
+
         } else {
-            console.log('Not yet, try again')
             setTimeout(() => {
                 sayTheRandomWord('Not yet, try again')
             }, 1000)
-        }
 
+        }
         setAnswer('')
+        setTimeout(() => {
+            getRandomWordAndDelete()
+        }, 2800)
+
     }
 
-
+    console.log(answer, randWord)
 
     const resetPractice = () => {
         setRemainedWords([...words]);
         setUsedWords([]);
-        setRandWord('You are ready to go');
+        sayTheRandomWord('You are ready to go');
         setHideGetWordsButton('');
     }
+    const handleCheck = (e) => { 
+        e.preventDefault()
+        setAnswer(e.target.value)
+    }
 
-    // I call sayTheRandomWord function to say 'You are ready to go' when the practice is reset and instruct to reset when the practice words are finished.
-    sayTheRandomWord(randWord)
     return (
         <div className="mainContainer">
             <h1 className="title">Practice Page</h1>
@@ -90,7 +96,7 @@ function PracticeMyAssignment() {
                     type="text"
                     placeholder="Write your Answer here"
                     value={answer}
-                    onChange={(e) => setAnswer(e.target.value)}
+                    onChange={handleCheck}
                     onKeyDown={(e) => e.key === 'Enter' && checkCorrectWord(e)}
                 />
                 <Button color="black" label='Check' backgroundColor='' onClick={checkCorrectWord} />
