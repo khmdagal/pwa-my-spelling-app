@@ -3,7 +3,7 @@ import { allOtherAxiosRequest } from '../api/axios';
 import Button from '../component/Button';
 import SetAssignment from '../assignments/setAssignments/SetAssignment';
 
-import '../css/Words.css'
+import classes from '../css/Words.module.css'
 
 function GetWords({ yearWords }) {
     const [wordsData, setWordsData] = useState([])
@@ -33,12 +33,12 @@ function GetWords({ yearWords }) {
     if (!wordsData) <p>...loading</p>
     return (
         <>
-            <Button className='showHidButton' backgroundColor='#04AA6D' label={`${showHide ? 'Hide Words' : 'Show Words'}`} onClick={() => setShowHide((prev) => !prev)} />
-            <div className="word-list" style={{ display: `${showHide ? 'grid' : 'none'}` }}>
+            <Button className={`${classes.showHidButton}`} backgroundColor='#04AA6D' label={`${showHide ? 'Hide Words' : 'Show Words'}`} onClick={() => setShowHide((prev) => !prev)} />
+            <div className={`${classes.word_list}`} style={{ display: `${showHide ? 'grid' : 'none'}` }}>
 
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                 {wordsData?.map(word => (
-                    <div className="word-container" key={word.word_id}>
+                    <div className={`${classes.word_container}`} key={word.word_id}>
                         <input
                             type="checkbox"
                             onClick={(e) => {

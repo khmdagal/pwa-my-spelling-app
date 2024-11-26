@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
+import LogIn from './pages/LogIn';
 import AdminDashboard from './pages/AdminDashboard';
 import StudentDashboard from './pages/StudentDashboard';
 import HomePage from './pages/Home';
@@ -18,7 +18,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={<HomePage />} />
           <Route exact path='/signup' element={<SignUp />} />
-          <Route exact path='/login' element={<Login />} />
+          <Route exact path='/login' element={<LogIn />} />
           <Route exact path='/admin-dashboard' element={
             <ProtectedRoutes >
               <AdminDashboard />

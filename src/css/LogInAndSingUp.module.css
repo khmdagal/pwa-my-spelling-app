@@ -1,54 +1,43 @@
 /* ====  Mobile style default =====*/
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-body {
-  height: 100%;
-  font-family: 'Montserrat', sans-serif;
-  margin: 0;
-  box-sizing: border-box;
-  background-color:#202142;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.mainContainer{
+.mainContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   align-items: center;
-  border-radius: 5px; 
+  border-radius: 5px;
   margin: 10px;
   width: 360px;
   height: 500px;
   padding: 10px;
-  background-color: #fff;
+  background-color: var(--lightgray-color);
   color: #0f103c;
 }
 
 input,
-select{
+select {
   border: none;
   height: 30px;
-  width:100%;
+  width: 100%;
   background-color: cyan;
   border-radius: 10px;
 }
 
-.inputDive{
+.inputDive {
   width: 100%;
   border: none;
   margin: 10px;
 }
 
 
-button{
-  width:100%;
+button {
+  width: 100%;
   height: 30px;
   border-radius: 10px;
   margin: 10px;

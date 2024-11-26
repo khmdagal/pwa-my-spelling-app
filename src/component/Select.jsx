@@ -1,4 +1,4 @@
-import '../pages/Login.css'
+//import '../pages/Login.css'
 function Select({ options, value }) {
     return (
         <Select>

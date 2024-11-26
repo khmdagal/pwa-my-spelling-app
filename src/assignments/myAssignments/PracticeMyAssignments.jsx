@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Button from '../../component/Button';
 import { sayTheRandomWord } from "../../helpers/Helpers";
-import '../../css/PracticePage.css'
+
+import classes from '../../css/PracticePage.module.css'
 
 function PracticeMyAssignment() {
     const words = JSON.parse(localStorage.getItem('words'));
@@ -80,16 +81,16 @@ function PracticeMyAssignment() {
         sayTheRandomWord('You are ready to go');
         setHideGetWordsButton('');
     }
-    const handleCheck = (e) => { 
+    const handleCheck = (e) => {
         e.preventDefault()
         setAnswer(e.target.value)
     }
 
     return (
-        <div className="mainContainer">
+        <div className={`${classes.mainContainer}`}>
             <h1 className="title">Practice Page</h1>
 
-            <div className="answerBox">
+            <div className={`${classes.answerBox}`}>
 
                 <input
                     id="answer"
@@ -102,10 +103,10 @@ function PracticeMyAssignment() {
                 <Button color="black" label='Check' backgroundColor='' onClick={checkCorrectWord} />
             </div>
 
-            <div className="practicePageBtnsContainer">
-                <Button className="practicePageBtns" label='Get Next Word' backgroundColor='Blue' onClick={getRandomWordAndDelete} hidden={hideGetWordsButton} />
-                <Button className="practicePageBtns" label='Reset' backgroundColor='Green' onClick={resetPractice} hidden={hideResetButton} />
-                <Button className="practicePageBtns" label='Repeat the word' backgroundColor='Red' onClick={() => sayTheRandomWord(randWord)} />
+            <div className={`${classes.practicePageBtnsContainer}`}>
+                <Button className={`${classes.practicePageBtns}`} label='Get Next Word' backgroundColor='Blue' onClick={getRandomWordAndDelete} hidden={hideGetWordsButton} />
+                <Button className={`${classes.practicePageBtns}`} label='Reset' backgroundColor='Green' onClick={resetPractice} hidden={hideResetButton} />
+                <Button className={`${classes.practicePageBtns}`} label='Repeat the word' backgroundColor='Red' onClick={() => sayTheRandomWord(randWord)} />
 
             </div>
 

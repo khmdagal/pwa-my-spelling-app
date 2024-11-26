@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {axiosForLoginAndSignUpOnly} from '../api/axios';
+import { axiosForLoginAndSignUpOnly } from '../api/axios';
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 import Button from '../component/Button';
 
-import '../css/Login.css'
+import classes from '../css/LogInAndSingUp.module.css'
 
 
-
+//
 function SignUp() {
     const [formData, setFormData] = useState({
         name: '',
@@ -69,36 +69,36 @@ function SignUp() {
     const schoolOptions = [1, 2, 3];
 
     return (
-        <div className="mainContainer">
-            <header className="pageHeader">
-                <p className="pageHeaderParagraph">Welcome Back, please long in</p>
+        <div className={`${classes.mainContainer}`}>
+            <header className={`${classes.pageHeader}`}>
+                <p className={`${classes.pageHeaderParagraph}`}>Welcome Back, please long in</p>
             </header>
 
             {errors && <p style={{ color: 'red' }}>{errors}</p>}
             <form onSubmit={handleSubmit}>
 
-                <div className="inputDive">
+                <div className={`${classes.inputDive}`}>
                     <label htmlFor="name">Name </label>
                     <input type="text" name="name" value={formData.name} onChange={handleChange} required />
                 </div>
 
-                <div className="inputDive">
+                <div className={`${classes.inputDive}`}>
                     <label htmlFor="usernameInput">Username </label>
                     <input type="text" name="username" value={formData.username} onChange={handleChange} required />
                 </div>
 
-                <div className="inputDive">
+                <div className={`${classes.inputDive}`}>
                     <label htmlFor="password">Password </label>
                     <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange} required />
                     <img src={visibilityIcon} alt='Show password icon' onClick={() => setShowPassword((previous) => !previous)} />
                 </div>
 
-                <div className="inputDive">
+                <div className={`${classes.inputDive}`}>
                     <label htmlFor="email">Email </label>
                     <input type="email" name="email" value={formData.email} onChange={handleChange} required />
                 </div>
 
-                <div className="inputDive">
+                <div className={`${classes.inputDive}`}>
                     <label htmlFor="userRole">Select your role </label>
                     <select name='role' onChange={handleChange}>
                         <option>--Select--</option>
@@ -106,7 +106,7 @@ function SignUp() {
                     </select>
                 </div>
 
-                <div className="inputDive">
+                <div className={`${classes.inputDive}`}>
                     <label htmlFor="school">Select your school </label>
                     <select name='school_id' onChange={handleChange}>
                         <option>--Select your school--</option>

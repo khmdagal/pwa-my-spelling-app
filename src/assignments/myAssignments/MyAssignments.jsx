@@ -4,7 +4,7 @@ import { allOtherAxiosRequest } from '../../api/axios'
 import Button from "../../component/Button";
 import Spinner from "../../component/Spinner";
 
-import '../../css/MyAssignment.css'
+import classes from '../../css/MyAssignment.module.css'
 
 function MyAssignment() {
     const [assignment, setAssignment] = useState({})
@@ -61,26 +61,26 @@ function MyAssignment() {
 
     if (assignment)
         return (
-            <div className="assignmentContainer">
+            <div className={`${classes.assignmentContainer}`}>
                 {spinner && <Spinner />}
-                {errorMessage && <p className="errorMessages">{errorMessage}</p>}
+                {errorMessage && <p className={`${classes.errorMessages}`}>{errorMessage}</p>}
                 <button onClick={handleGetData}>Get the Assignment</button>
                 <div>
                     <label htmlFor="practice_id">Enter your Assignment Code</label>
                     <input id="practice_id" name="practice_id" type="text" onChange={handleChange} />
                 </div>
-                <div className="assignmentIfo">
+                <div className={`${classes.assignmentIfo}`}>
                     <label className="title" htmlFor="title">Title :</label>
                     <p className="title" id="title">{assignment.name}</p>
                 </div>
-                <div className="assignmentIfo">
+                <div className={`${classes.assignmentIfo}`}>
                     <label className="description" htmlFor="description">Description :</label>
                     <p className="description" id="description">{assignment.description}</p>
                 </div>
-                <div className="selectedWordsContainer">
+                <div className={`${classes.selectedWordsContainer}`}>
 
                     {assignment.words?.map((word, index) => {
-                        return (<div key={index} className="words" name="words" >{word}</div>)
+                        return (<div key={index} className={`${classes.words}`} name="words" >{word}</div>)
                     })}
                 </div>
 

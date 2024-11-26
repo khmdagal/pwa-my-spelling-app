@@ -6,7 +6,7 @@ import Button from '../../component/Button'
 import TableData from "../../component/TableData";
 
 
-import '../../css/SetAssignment.css';
+import classes from '../../css/SetAssignment.module.css';
 
 
 
@@ -64,8 +64,8 @@ function SetAssignment({ selectedWords }) {
 
     return (
         <div>
-            <form className="assignmentForm" onSubmit={handleSubmit}>
-                {errors && <p className="errorMessage">{errors}</p>}
+            <form className={`${classes.assignmentForm}`} onSubmit={handleSubmit}>
+                {errors && <p className={`${classes.errorMessage}`}>{errors}</p>}
                 <h2>Set Up New Assignment</h2>
                 <input name="practice_id" type="text" value={formData.practice_id} disabled hidden />
                 <div>
@@ -88,7 +88,7 @@ function SetAssignment({ selectedWords }) {
 
                 <div>
                     <label htmlFor="words">Selected Words to assign to </label>
-                    <div className="selectedWordsContainer">
+                    <div className={`${classes.selectedWordsContainer}`}>
 
                         {selectedWords?.map(word => {
                             return (<div className="words" name="words" >{word}</div>)
@@ -106,7 +106,7 @@ function SetAssignment({ selectedWords }) {
                 </div>
 
                 <Button color='Golden' onClick={handleSubmit} type='submit' label='Submit' />
-                {successMessage && <p className="successMessage">{successMessage}</p>}
+                {successMessage && <p className={`${classes.successMessage}`}>{successMessage}</p>}
             </form>
 
             <TableData formData={formData} />
