@@ -73,7 +73,7 @@ function LogIn() {
         <div className={`${classes.mainContainer}`}>
             {spinner && <Spinner />}
             <header className={`${classes.pageHeader}`}>
-                <p className={`${classes.pageHeaderParagraph}`}>Welcome Back, please long in</p>
+                <p className={`${classes.pageHeaderParagraph}`}>Long in Form</p>
             </header>
 
             {errors && <p style={{ color: 'red' }}>{errors}</p>}

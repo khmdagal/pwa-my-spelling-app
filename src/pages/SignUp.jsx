@@ -71,7 +71,7 @@ function SignUp() {
     return (
         <div className={`${classes.mainContainer}`}>
             <header className={`${classes.pageHeader}`}>
-                <p className={`${classes.pageHeaderParagraph}`}>Welcome Back, please long in</p>
+                <p className={`${classes.pageHeaderParagraph}`}>Sign Up Form</p>
             </header>
 
             {errors && <p style={{ color: 'red' }}>{errors}</p>}
@@ -98,7 +98,7 @@ function SignUp() {
                     <input type="email" name="email" value={formData.email} onChange={handleChange} required />
                 </div>
 
-                <div className={`${classes.inputDive}`}>
+                <div className={`${classes.roleOptions}`}>
                     <label htmlFor="userRole">Select your role </label>
                     <select name='role' onChange={handleChange}>
                         <option>--Select--</option>
@@ -106,7 +106,7 @@ function SignUp() {
                     </select>
                 </div>
 
-                <div className={`${classes.inputDive}`}>
+                <div className={`${classes.schoolOptions}`}>
                     <label htmlFor="school">Select your school </label>
                     <select name='school_id' onChange={handleChange}>
                         <option>--Select your school--</option>
