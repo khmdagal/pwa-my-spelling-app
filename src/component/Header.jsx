@@ -5,11 +5,11 @@ import Button from '../component/Button'
 import classes from '../css/Header.module.css'
 
 function Header() {
-
+//
     const navigate = useNavigate();
 
 
-    const pages = ['Home', 'Contact', 'About-Us', `${localStorage.getItem('dashboard') ? localStorage.getItem('dashboard') : ''}`]
+    const pages = ['Home', 'Contact', 'About_us', `${localStorage.getItem('dashboard') ? localStorage.getItem('dashboard') : ''}`]
     return (
 
         <header className={`${classes.header}`}>
