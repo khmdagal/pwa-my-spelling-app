@@ -51,10 +51,10 @@ function LogIn() {
 
                 if (admin) {
                     localStorage.setItem('admin', admin);
-                    localStorage.setItem('dashboard', 'Admin-dashboard');
+                    localStorage.setItem('dashboard', 'Admin_Dashboard');
                     navigate('/admin-dashboard');
                 } else {
-                    localStorage.setItem('dashboard', 'Student-dashboard');
+                    localStorage.setItem('dashboard', 'Student_Dashboard');
                     navigate('/student-dashboard');
                 }
             } else {
