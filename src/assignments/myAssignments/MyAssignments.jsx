@@ -64,18 +64,18 @@ function MyAssignment() {
             <div className={`${classes.assignmentContainer}`}>
                 {spinner && <Spinner />}
                 {errorMessage && <p className={`${classes.errorMessages}`}>{errorMessage}</p>}
-                <button onClick={handleGetData}>Get the Assignment</button>
+                <button className={`${classes.getAssignmentBtn}`} onClick={handleGetData}>Get the Assignment</button>
                 <div>
                     <label htmlFor="practice_id">Enter your Assignment Code</label>
                     <input id="practice_id" name="practice_id" type="text" onChange={handleChange} />
                 </div>
                 <div className={`${classes.assignmentIfo}`}>
-                    <label className="title" htmlFor="title">Title :</label>
-                    <p className="title" id="title">{assignment.name}</p>
+                    <label className={`${classes.title}`} htmlFor="title">Title :</label>
+                    <p className={`${classes.title}`} id="title">{assignment.name}</p>
                 </div>
                 <div className={`${classes.assignmentIfo}`}>
-                    <label className="description" htmlFor="description">Description :</label>
-                    <p className="description" id="description">{assignment.description}</p>
+                    <label className={`${classes.description}`} htmlFor="description">Description :</label>
+                    <p className={`${classes.description}`} id="description">{assignment.description}</p>
                 </div>
                 <div className={`${classes.selectedWordsContainer}`}>
 
@@ -84,7 +84,7 @@ function MyAssignment() {
                     })}
                 </div>
 
-                <Button label='Lets Practice' backgroundColor='Blue' onClick={handleGoPracticePage} hidden={hideLetsPracticeButton} />
+                <Button className={`${classes.practiceBtn}`} label='Lets Practice' backgroundColor='Blue' onClick={handleGoPracticePage} hidden={hideLetsPracticeButton} />
             </div>
         )
 
