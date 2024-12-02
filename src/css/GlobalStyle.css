@@ -2,10 +2,19 @@
     --blue-color: #1e90ff;
     --white-color: #ffffff;
     --lightgray-color: #f9f9f9;
+
+    /* ======  Font =======*/
     --font-family: 'Arial', sans-serif;
     --font-size-mobile: 16px;
     --font-size-tablet: 18px;
     --font-size-laptop: 20px;
     --font-size-desktop: 22px;
     --font-size-large-screen: 40px;
+
+    /* ===== height and width ==== */
+    --height-mobile: 400px;
+    --height-tablet: 550px;
+    --height-laptop: 650px;
+    --height-desktop: 800px;
+    --height-large-screen: 2050px;
 }

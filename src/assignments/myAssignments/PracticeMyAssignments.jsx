@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Header from '../../component/Header'
 import Button from '../../component/Button';
 import { sayTheRandomWord } from "../../helpers/Helpers";
 
 import classes from '../../css/PracticePage.module.css'
-
+//
 function PracticeMyAssignment() {
     const words = JSON.parse(localStorage.getItem('words'));
     const [remainedWords, setRemainedWords] = useState([...words]);
@@ -87,30 +88,35 @@ function PracticeMyAssignment() {
     }
 
     return (
-        <div className={`${classes.mainContainer}`}>
-            <h1 className="title">Practice Page</h1>
+        <>
+            <Header />
+            <div className={`${classes.mainContainer}`}>
 
-            <div className={`${classes.answerBox}`}>
+                <h1 className={`${classes.title}`}>Practice Page</h1>
 
-                <input
-                    id="answer"
-                    type="text"
-                    placeholder="Write your Answer here"
-                    value={answer}
-                    onChange={handleCheck}
-                    onKeyDown={(e) => e.key === 'Enter' && checkCorrectWord(e)}
-                />
-                <Button color="black" label='Check' backgroundColor='' onClick={checkCorrectWord} />
+                <div className={`${classes.answerBox}`}>
+
+                    <input
+                        id="answer"
+                        type="text"
+                        placeholder="Write your Answer here"
+                        value={answer}
+                        onChange={handleCheck}
+                        onKeyDown={(e) => e.key === 'Enter' && checkCorrectWord(e)}
+                    />
+                    <Button color="black" label='Check' backgroundColor='' onClick={checkCorrectWord} />
+                </div>
+
+                <div className={`${classes.practicePageBtnsContainer}`}>
+                    <Button className={`${classes.practicePageBtns}`} label='Get Next Word' backgroundColor='Blue' onClick={getRandomWordAndDelete} hidden={hideGetWordsButton} />
+                    <Button className={`${classes.practicePageBtns}`} label='Reset' backgroundColor='Green' onClick={resetPractice} hidden={hideResetButton} />
+                    <Button className={`${classes.practicePageBtns}`} label='Repeat the word' backgroundColor='Red' onClick={() => sayTheRandomWord(randWord)} />
+
+                </div>
+
             </div>
+        </>
 
-            <div className={`${classes.practicePageBtnsContainer}`}>
-                <Button className={`${classes.practicePageBtns}`} label='Get Next Word' backgroundColor='Blue' onClick={getRandomWordAndDelete} hidden={hideGetWordsButton} />
-                <Button className={`${classes.practicePageBtns}`} label='Reset' backgroundColor='Green' onClick={resetPractice} hidden={hideResetButton} />
-                <Button className={`${classes.practicePageBtns}`} label='Repeat the word' backgroundColor='Red' onClick={() => sayTheRandomWord(randWord)} />
-
-            </div>
-
-        </div>
     );
 }
 
