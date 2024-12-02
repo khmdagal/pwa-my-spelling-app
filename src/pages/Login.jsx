@@ -52,10 +52,10 @@ function LogIn() {
                 if (admin) {
                     localStorage.setItem('admin', admin);
                     localStorage.setItem('dashboard', 'Admin_Dashboard');
-                    navigate('/admin-dashboard');
+                    navigate('/admin_dashboard');
                 } else {
                     localStorage.setItem('dashboard', 'Student_Dashboard');
-                    navigate('/student-dashboard');
+                    navigate('/student_dashboard');
                 }
             } else {
                 setErrors(response.data.message);
@@ -90,7 +90,6 @@ function LogIn() {
                 </div>
                 <div style={{ display: 'none' }}>
                 </div>
-                {/* <button type="submit">Login</button> */}
                 <Button backgroundColor={'#2196f3'} color={'white'} type={'submit'} label={'Login'} />
             </form>
         </div>

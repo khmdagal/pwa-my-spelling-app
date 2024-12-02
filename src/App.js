@@ -19,13 +19,13 @@ function App() {
           <Route exact path='/' element={<HomePage />} />
           <Route exact path='/signup' element={<SignUp />} />
           <Route exact path='/login' element={<LogIn />} />
-          <Route exact path='/admin-dashboard' element={
+          <Route exact path='/admin_dashboard' element={
             <ProtectedRoutes >
               <AdminDashboard />
             </ProtectedRoutes>
           }
           />
-          <Route exact path='/student-dashboard' element={
+          <Route exact path='/student_dashboard' element={
             <ProtectedRoutes >
               <StudentDashboard />
             </ProtectedRoutes>
