@@ -11,10 +11,18 @@
     --font-size-desktop: 22px;
     --font-size-large-screen: 40px;
 
-    /* ===== height and width ==== */
+    /* ===== Device height ==== */
     --height-mobile: 400px;
     --height-tablet: 550px;
     --height-laptop: 650px;
     --height-desktop: 800px;
     --height-large-screen: 2050px;
+
+    /* ===== Device width ===== */
+    --device-width-mobile: 350px;
+    --device-width-tablet: 700px;
+    --device-width-laptop: 916px;
+    --device-width-desktop: 1600px;
+    --device-width-large-screen: 4600px;
+
 }
