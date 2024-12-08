@@ -9,11 +9,12 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: scroll;
+    overflow: auto;
     height: 250px;
 }
 
 .word_container {
+    width: 100%;
     display: flex;
     flex-direction: row;
 }
@@ -58,7 +59,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.showHidButton {
+.showHideButton {
     display: inline-block;
     cursor: pointer;
     text-align: center;
@@ -83,10 +84,95 @@ button:active {
     transform: translateY(4px);
 }
 
-@media screen and (min-width: 900px) {
-    .word-list {
+
+
+
+
+/* Small Tablet design */
+@media screen and (min-width: 433px) {
+    .mainContainer {
         display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        grid-auto-rows: minmax(var(--height-tablet), auto);
+    }
+
+    .wordsContainer {
+        grid-column: 1;
+    }
+
+    .assignmentFormPosition {
+        grid-column: 2;
+    }
+
+    .tableDataPosition {
+        grid-column: 1/3;
+    }
+
+    .word_list {
+        height: var(--height-mobile);
+        font-size: var(--font-size-mobile);
+    }
+
+    .showHideButton {
+        width: 150px;
+    }
+
+}
+
+/* Large tablets design */
+@media screen and (min-width: 916px) {
+    .word_list {
+        grid-template-columns: 1fr 1fr 1fr;
+        height: 250px;
+    }
+
+    .word_container label {
+        font-size: var(--font-size-laptop);
+    }
+}
+
+/* Laptop Design */
+@media screen and (min-width: 1024px) {
+    /* .wordsContainer {
+        width: 100%;
+    } */
+
+    .word_list {
+        grid-template-columns: 1fr 1fr 1fr;
+        height: var(--height-mobile);
+        font-size: var(--font-size-mobile);
+    }
+}
+
+/* Desktops */
+@media screen and (min-width: 1920px) {
+
+    .word_list {
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: auto;
+        height: 250px;
+    }
+
+    .word_container label {
+        font-size: var(--font-size-desktop);
+    }
+}
+
+/* and Large Screens */
+@media screen and (min-width: 5119px) {
+
+    .word_list {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        height: 1000px;
+    }
+
+    .word_container label {
+        font-size: var(--font-size-large-screen);
+    }
+
+    .showHideButton {
+        width: 400px;
+        text-align: center;
+        font-size: var(--font-size-large-screen);
     }
 }

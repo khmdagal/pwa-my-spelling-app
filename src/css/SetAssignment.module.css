@@ -130,6 +130,7 @@ input[type="date"] {
 @media screen and (min-width: 5119px) {
     .assignmentForm {
         width: var(--device-width-desktop);
+        height: 1000px;
     }
 
     .assignmentForm,
