@@ -1,33 +1,44 @@
 /* General form styling */
 .assignmentForm {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+    width: var(--device-width-mobile);
+    margin: auto;
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #724fc4;
-    font-family: Arial, sans-serif;
-
+    background-color: #75e788;
+    font-family: var(--font-family);
+    font-size: var(--font-size-mobile);
 }
 
 textarea {
     background-color: cyan;
     width: 100%;
+    height: 100px;
     border-radius: 8px;
+}
+
+.dateDiv {
+    display: flex;
+    width: 360px;
+}
+
+input[type="date"] {
+    width: 130px;
+    height: 30px;
+    border-radius: 10%;
+    font-size: var(--font-size-mobile);
+    font-family: var(--font-family);
 }
 
 .selectedWordsContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    gap: 3px;
-
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
 }
 
-/* Style for words display */
 .words {
     padding: 3px;
-    background-color: #1c3752;
+    background-color: #8d81f7;
     border-radius: 4px;
 }
 
@@ -41,4 +52,105 @@ textarea {
     background-color: red;
     color: wheat;
     font-size: large;
+}
+
+/* Small Tablet Design */
+@media screen and (min-width: 433px) {
+    .assignmentForm {
+        font-size: var(--font-size-tablet);
+    }
+
+    .selectedWordsContainer {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .words {
+        font-size: var(--font-size-tablet);
+    }
+}
+
+/* Large Tablets */
+@media screen and (min-width: 916px) {
+    .assignmentForm {
+        width: 750px;
+        font-size: var(--font-size-laptop);
+    }
+
+    .dateDiv {
+        width: 100%;
+    }
+
+    input[type="date"] {
+        width: 30%;
+        height: 50px;
+        font-size: var(--font-size-laptop);
+    }
+
+    .selectedWordsContainer {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .words {
+        font-size: var(--font-size-laptop);
+    }
+}
+
+/* Laptop Design */
+@media screen and (min-width: 1024px) {
+    .assignmentForm {
+        width: 400px;
+        font-size: var(--font-size-laptop);
+    }
+
+    input[type="date"] {
+        width: 160px;
+        height: 50px;
+        font-size: var(--font-size-laptop);
+    }
+}
+
+/* Desktops */
+@media screen and (min-width: 1920px) {
+    .assignmentForm {
+        width: var(--device-width-laptop);
+        font-size: var(--font-size-desktop);
+    }
+
+    input[type="date"] {
+        width: 30%;
+        font-size: var(--font-size-desktop);
+    }
+
+    .words {
+        font-size: var(--font-size-desktop);
+    }
+}
+
+/* Large Screens */
+@media screen and (min-width: 5119px) {
+    .assignmentForm {
+        width: var(--device-width-desktop);
+    }
+
+    .assignmentForm,
+    .dateDiv,
+    input[type="date"],
+    .selectedWordsContainer,
+    .words,
+    select {
+        font-size: var(--font-size-large-screen);
+    }
+
+    input[type="date"] {
+        width: 300px;
+    }
+
+    .selectedWordsContainer {
+        gap: 12px;
+    }
+
+    .words {
+        padding: 5px;
+        border-radius: 6px;
+    }
 }
