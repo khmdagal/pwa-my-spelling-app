@@ -1,52 +1,72 @@
 /* === Mobile view === */
 
-@media screen and (max-width:873px) {
-    .styled_table {
-        border-collapse: collapse;
-        margin: 25px 0;
-        font-size: 0.9em;
-        font-family: sans-serif;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-        border: 3px solid purple;
-        width: 100%;
-    }
 
-    .styled_table thead tr {
-        background-color: #009879;
-        color: #ffffff;
-        text-align: left;
-        font-size: larger;
-    }
-
-    .styled_table th,
-    .styled_table td {
-        padding: 12px 15px;
-    }
-
-
-    .styled_table tbody tr {
-        border-bottom: 1px solid #dddddd;
-    }
-
-    .styled_table tbody tr:nth-of-type(even) {
-        background-color: #18e4b8;
-        color: black;
-    }
-
-    .styled_table tbody tr:last-of-type {
-        border-bottom: 2px solid #009879;
-    }
-
-    .styled_table tbody tr.active-row {
-        font-weight: bold;
-        color: #009879;
-    }
-
-
-    .word_container {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-    }
-
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
 }
+
+
+.table th:nth-child(1),
+.table td:nth-child(1) {
+    width: 100px;
+    word-break: break-all;
+    padding: var(--mobile-table-padding);
+}
+
+.table th:nth-child(2),
+.table td:nth-child(2) {
+    width: 150px;
+    word-break: break-all;
+    padding: var(--mobile-table-padding);
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3) {
+    width: 100px;
+    word-break: break-all;
+    padding: var(--mobile-table-padding);
+}
+
+.table th:nth-child(4),
+.table td:nth-child(4) {
+    width: 100px;
+    word-break: break-all;
+    padding: var(--mobile-table-padding);
+}
+
+/* Style the table headers */
+.table th {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.table td {
+    border: 1px solid #ddd;
+}
+
+
+.table td:nth-of-type(odd) {
+    background-color: #f7f7f7;
+}
+
+/* Small tablets and large mobiles design */
+
+@media screen and (min-width: 433px) {}
+
+/* Large tablets design */
+@media screen and (min-width: 916px) {}
+
+/* Laptop Design */
+@media screen and (min-width: 1024px) {}
+
+/* Desktops */
+@media screen and (min-width: 1920px) {}
+
+/* Large Screens */
+@media screen and (min-width: 5119px) {}

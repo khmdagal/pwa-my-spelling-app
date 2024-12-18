@@ -25,4 +25,7 @@
     --device-width-desktop: 1600px;
     --device-width-large-screen: 4600px;
 
+    /* ======  Margins and Padding =======*/
+    --mobile-table-padding: 4px;
+
 }

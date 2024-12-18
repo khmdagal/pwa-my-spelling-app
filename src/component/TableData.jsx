@@ -28,32 +28,33 @@ function TableData({ formData }) {
     }, [formData])
 
 
-    return (<table className={`${classes.styled_table}`}>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Words</th>
-                <th>Due Date</th>
-            </tr>
-        </thead>
+    return (
+        <table className={`${classes.table}`}>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Words</th>
+                    <th>Due Date</th>
+                </tr>
+            </thead>
 
-        <tbody>
-            {assignments && assignments.map((assignment, index) => {
+            <tbody>
+                {assignments && assignments.map((assignment, index) => {
 
-                return (
-                    <tr key={index}>
-                        <td>{assignment.name}</td>
-                        <td>{assignment.description}</td>
-                        <td>{assignment.words.map((word) => {
-                            return (<p className="eachWord">{word}</p>)
-                        })}</td>
-                        <td>{getDate(assignment.expires_in)}</td>
-                    </tr>
-                )
-            })}
-        </tbody>
-    </table>)
+                    return (
+                        <tr key={index}>
+                            <td className={`${classes.eachRowData}`} >{assignment.name}</td>
+                            <td className={`${classes.eachRowData}`} >{assignment.description}</td>
+                            <td >{assignment.words.map((word) => {
+                                return (<p className={`${classes.eachWord}`}>{word}</p>)
+                            })}</td>
+                            <td className={`${classes.eachRowData}`} >{getDate(assignment.expires_in)}</td>
+                        </tr>
+                    )
+                })}
+            </tbody>
+        </table>)
 }
 
 export default TableData
