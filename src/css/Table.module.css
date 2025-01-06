@@ -105,7 +105,7 @@
     }
 }
 
-/* Large tablets design */
+/* ===== Large tablets design  =====*/
 @media screen and (min-width: 916px) {
 
     .table th:nth-child(1),
@@ -148,7 +148,7 @@
     }
 }
 
-/* Laptop Design */
+/* ===== Laptop Design  =====*/
 @media screen and (min-width: 1024px) {
 
     .table th:nth-child(1),
@@ -191,7 +191,7 @@
     }
 }
 
-/* Desktops */
+/* ===== Desktops ===== */
 @media screen and (min-width: 1920px) {
 
     .table th:nth-child(1),
@@ -236,7 +236,7 @@
     }
 }
 
-/* Large Screens */
+/* ===== Large Screens =====*/
 @media screen and (min-width: 5119px) {
 
     .table th:nth-child(1),
