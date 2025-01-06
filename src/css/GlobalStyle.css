@@ -27,5 +27,6 @@
 
     /* ======  Margins and Padding =======*/
     --mobile-table-padding: 4px;
+    --tablet-table-padding: 8px;
 
 }

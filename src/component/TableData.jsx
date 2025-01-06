@@ -46,8 +46,8 @@ function TableData({ formData }) {
                         <tr key={index}>
                             <td className={`${classes.eachRowData}`} >{assignment.name}</td>
                             <td className={`${classes.eachRowData}`} >{assignment.description}</td>
-                            <td >{assignment.words.map((word) => {
-                                return (<p className={`${classes.eachWord}`}>{word}</p>)
+                            <td className={`${classes.wordsTdContainer}`} >{assignment.words.map((word) => {
+                                return (<span className={`${classes.eachWord}`}>{word}</span>)
                             })}</td>
                             <td className={`${classes.eachRowData}`} >{getDate(assignment.expires_in)}</td>
                         </tr>
