@@ -1,0 +1,264 @@
+.assignmentContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 360px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: var(--font-family);
+}
+
+.getAssignmentBtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 70%;
+    align-items: center;
+}
+
+.practiceBtn {
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 70%;
+    align-items: center;
+}
+
+button:hover {
+    background-color: #4c910b;
+    font-size: var(--font-size-mobile);
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.selectedWordsContainer {
+    margin-top: auto;
+}
+
+.selectedWordsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 15px;
+    margin-bottom: auto;
+}
+
+.words {
+    background-color: #e7f3fe;
+    color: #010c11;
+    padding: 5px;
+    border-radius: 4px;
+    margin: 5px;
+    font-size: var(--font-size-mobile);
+}
+
+.title,
+.description {
+    margin: 10px 0;
+    font-size: var(--font-size-mobile);
+    color: #1d0202;
+}
+
+.assignmentIfo {
+    display: flex;
+}
+
+.errorMessages {
+    color: red;
+    margin: 10px 0;
+    font-size: var(--font-size-mobile);
+    font-weight: bolder;
+    text-align: center;
+    animation: shake 0.6s;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(10px);
+    }
+}
+
+
+/* Tablet design */
+
+@media screen and (min-width: 433px) {
+    .assignmentContainer {
+        width: 700px;
+        font-size: var(--font-size-tablet);
+        padding: 25px;
+        border-radius: 8px;
+        height: 70vh;
+    }
+
+    .getAssignmentBtn,
+    .practiceBtn {
+        font-size: var(--font-size-tablet);
+    }
+
+    button:hover {
+        background-color: #4c910b;
+        font-size: 30px;
+    }
+
+    input[type="text"] {
+        font-size: 25px;
+    }
+
+    .selectedWordsContainer {
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 20px;
+    }
+
+    .words {
+        font-size: var(--font-size-tablet);
+    }
+
+    .title,
+    .description {
+        font-size: var(--font-size-tablet);
+    }
+
+    .assignmentIfo {
+        display: flex;
+    }
+
+    .errorMessages {
+        font-size: var(--font-size-tablet);
+    }
+
+}
+
+/* Laptop design */
+
+@media screen and (min-width: 916px) {
+    .assignmentContainer {
+        width: 916px;
+        font-size: var(--font-size-laptop);
+    }
+
+    .getAssignmentBtn,
+    .practiceBtn {
+        font-size: var(--font-size-laptop);
+        width: 50%;
+    }
+
+    button:hover {
+        background-color: #4c910b;
+        font-size: 25px;
+    }
+
+    input[type="text"] {
+        font-size: var(--font-size-laptop);
+    }
+
+    .selectedWordsContainer {
+        grid-template-columns: repeat(5, 1fr);
+        column-gap: 25px;
+    }
+
+    .words {
+        font-size: var(--font-size-laptop);
+    }
+
+    .title,
+    .description {
+        font-size: var(--font-size-laptop);
+    }
+
+    .assignmentIfo {
+        display: flex;
+    }
+
+    .errorMessages {
+        font-size: var(--font-size-laptop);
+    }
+}
+
+/* Desktops */
+@media screen and (min-width: 1680px) {
+    .assignmentContainer {
+        width: 1600px;
+        font-size: var(--font-size-desktop);
+    }
+
+    .getAssignmentBtn,
+    .practiceBtn {
+        font-size: var(--font-size-desktop);
+        width: 40%;
+        padding: 20px;
+    }
+
+    button:hover {
+        background-color: #4c910b;
+        font-size: 25px;
+    }
+
+    input[type="text"] {
+        font-size: var(--font-size-desktop);
+    }
+}
+
+/* and Large Screens */
+@media screen and (min-width: 5119px) {
+    .assignmentContainer {
+        width: 4600px;
+        font-size: var(--font-size-large-screen);
+    }
+
+    .getAssignmentBtn,
+    .practiceBtn {
+        font-size: var(--font-size-large-screen);
+        width: 40%;
+        padding: 20px;
+    }
+
+    button:hover {
+        background-color: #4c910b;
+        font-size: 45px;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 30px;
+        font-size: var(--font-size-large-screen);
+    }
+ .title,
+ .description {
+     font-size: var(--font-size-large-screen);
+ }
+    .words {
+        font-size: var(--font-size-large-screen);
+    }
+}

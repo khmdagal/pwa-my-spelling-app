@@ -5,7 +5,7 @@ import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 import Button from '../component/Button';
 import Spinner from '../component/Spinner';
 
-import '../css/Login.css'
+import classes from '../css/LogInAndSingUp.module.css'
 
 function LogIn() {
     const [formData, setFormData] = useState({
@@ -51,15 +51,15 @@ function LogIn() {
 
                 if (admin) {
                     localStorage.setItem('admin', admin);
-                    localStorage.setItem('dashboard', 'Admin-dashboard');
-                    navigate('/admin-dashboard');
+                    localStorage.setItem('dashboard', 'Admin_Dashboard');
+                    navigate('/admin_dashboard');
                 } else {
-                    localStorage.setItem('dashboard', 'Student-dashboard');
-                    navigate('/student-dashboard');
+                    localStorage.setItem('dashboard', 'Student_Dashboard');
+                    navigate('/student_dashboard');
                 }
             } else {
                 setErrors(response.data.message);
-                navigate('/login');
+                navigate('/logIn');
             }
 
         } catch (error) {
@@ -67,35 +67,34 @@ function LogIn() {
         }
 
     };
-   
-    
-        return (
-            <div className="mainContainer">
-                {spinner && <Spinner />}
-                <header className="pageHeader">
-                    <p className="pageHeaderParagraph">Welcome Back, please long in</p>
-                </header>
 
-                {errors && <p style={{ color: 'red' }}>{errors}</p>}
-                <form onSubmit={handleSubmit}>
 
-                    <div className="inputDive">
-                        <label htmlFor="usernameInput">Username </label>
-                        <input type="text" name="username" value={formData.username} onChange={handleChange} required />
-                    </div>
-                    <div className="inputDive">
-                        <label htmlFor="password">Password </label>
-                        <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange} required />
-                        <img src={visibilityIcon} alt='Show password icon' onClick={() => setShowPassword((previous) => !previous)} />
-                    </div>
-                    <div style={{ display: 'none' }}>
-                    </div>
-                    {/* <button type="submit">Login</button> */}
-                    <Button backgroundColor={'#2196f3'} color={'white'} type={'submit'} label={'Login'} />
-                </form>
-            </div>
-        );
-    
+    return (
+        <div className={`${classes.mainContainer}`}>
+            {spinner && <Spinner />}
+            <header className={`${classes.pageHeader}`}>
+                <p className={`${classes.pageHeaderParagraph}`}>Long in Form</p>
+            </header>
+
+            {errors && <p style={{ color: 'red' }}>{errors}</p>}
+            <form onSubmit={handleSubmit}>
+
+                <div className={`${classes.inputDive}`}>
+                    <label htmlFor="usernameInput">Username </label>
+                    <input type="text" name="username" value={formData.username} onChange={handleChange} required />
+                </div>
+                <div className={`${classes.inputDive}`}>
+                    <label htmlFor="password">Password </label>
+                    <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange} required />
+                    <img src={visibilityIcon} alt='Show password icon' onClick={() => setShowPassword((previous) => !previous)} />
+                </div>
+                <div style={{ display: 'none' }}>
+                </div>
+                <Button backgroundColor={'#2196f3'} color={'white'} type={'submit'} label={'Login'} />
+            </form>
+        </div>
+    );
+
 
 }
 

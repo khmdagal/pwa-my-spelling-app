@@ -1,0 +1,280 @@
+/* === Mobile view === */
+
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    border: none;
+}
+
+.table th:nth-child(1),
+.table td:nth-child(1) {
+    width: 100px;
+    word-break: break-all;
+    padding: var(--mobile-table-padding);
+    border-right: 1px solid #d7acac;
+}
+
+.table th:nth-child(2),
+.table td:nth-child(2) {
+    width: 150px;
+    word-break: break-all;
+    padding: var(--mobile-table-padding);
+    border-right: 1px solid #d7acac;
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3) {
+    width: 100px;
+    word-break: break-all;
+    padding: var(--mobile-table-padding);
+
+}
+
+.table th:nth-child(4),
+.table td:nth-child(4) {
+    width: 100px;
+    word-break: break-all;
+    padding: var(--mobile-table-padding);
+    border-left: 1px solid #d7acac;
+}
+
+/* Style the table headers */
+.table th {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.table tr {
+    background-origin: padding-box;
+    border: 1px solid #d7acac;
+}
+
+.table tr:nth-of-type(odd) {
+    background-color: #f7f7f7;
+}
+
+/* =====  Small tablets and large mobiles design ==== */
+
+@media screen and (min-width: 433px) {
+
+    .table th:nth-child(1),
+    .table td:nth-child(1) {
+        width: 100px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-tablet);
+    }
+
+    .table th:nth-child(2),
+    .table td:nth-child(2) {
+        width: 200px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-tablet);
+    }
+
+    .table th:nth-child(3),
+    .table td:nth-child(3) {
+        width: 150px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        gap: 2px;
+        font-size: var(--font-size-tablet);
+
+    }
+
+    .wordsTdContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-self: center;
+        font-size: var(--font-size-tablet);
+    }
+
+    .table th:nth-child(4),
+    .table td:nth-child(4) {
+        width: 60px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-tablet);
+    }
+}
+
+/* ===== Large tablets design  =====*/
+@media screen and (min-width: 916px) {
+
+    .table th:nth-child(1),
+    .table td:nth-child(1) {
+        width: 100px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-tablet);
+    }
+
+    .table th:nth-child(2),
+    .table td:nth-child(2) {
+        width: 220px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-tablet);
+    }
+
+    .table th:nth-child(3),
+    .table td:nth-child(3) {
+        width: 150px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-tablet);
+    }
+
+    .wordsTdContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-self: center;
+        font-size: var(--font-size-tablet);
+    }
+
+    .table th:nth-child(4),
+    .table td:nth-child(4) {
+        width: 50px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-tablet);
+    }
+}
+
+/* ===== Laptop Design  =====*/
+@media screen and (min-width: 1024px) {
+
+    .table th:nth-child(1),
+    .table td:nth-child(1) {
+        width: 100px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-laptop);
+    }
+
+    .table th:nth-child(2),
+    .table td:nth-child(2) {
+        width: 250px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-laptop);
+    }
+
+    .table th:nth-child(3),
+    .table td:nth-child(3) {
+        width: 250px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-laptop);
+    }
+
+    .wordsTdContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-self: center;
+        font-size: var(--font-size-laptop);
+    }
+
+    .table th:nth-child(4),
+    .table td:nth-child(4) {
+        width: 60px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-laptop);
+    }
+}
+
+/* ===== Desktops ===== */
+@media screen and (min-width: 1920px) {
+
+    .table th:nth-child(1),
+    .table td:nth-child(1) {
+        width: 100px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-desktop);
+    }
+
+    .table th:nth-child(2),
+    .table td:nth-child(2) {
+        width: 250px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-desktop);
+
+    }
+
+    .table th:nth-child(3),
+    .table td:nth-child(3) {
+        width: 350px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-desktop);
+
+    }
+
+    .wordsTdContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-self: center;
+        font-size: var(--font-size-desktop);
+    }
+
+    .table th:nth-child(4),
+    .table td:nth-child(4) {
+        width: 60px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+        font-size: var(--font-size-desktop);
+    }
+}
+
+/* ===== Large Screens =====*/
+@media screen and (min-width: 5119px) {
+
+    .table th:nth-child(1),
+    .table td:nth-child(1) {
+        width: 100px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+    }
+
+    .table th:nth-child(2),
+    .table td:nth-child(2) {
+        width: 250px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+
+    }
+
+    .table th:nth-child(3),
+    .table td:nth-child(3) {
+        width: 500px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+
+
+    }
+
+    .wordsTdContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        align-self: center;
+        font-size: var(--font-size-large-screen);
+        gap: 20px;
+    }
+
+    .table th:nth-child(4),
+    .table td:nth-child(4) {
+        width: 60px;
+        word-break: break-all;
+        padding: var(--tablet-table-padding);
+    }
+}

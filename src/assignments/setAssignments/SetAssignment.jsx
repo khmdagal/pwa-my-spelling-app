@@ -6,7 +6,7 @@ import Button from '../../component/Button'
 import TableData from "../../component/TableData";
 
 
-import '../../css/SetAssignment.css';
+import classes from '../../css/SetAssignment.module.css';
 
 
 
@@ -38,7 +38,7 @@ function SetAssignment({ selectedWords }) {
             class_name: 'year4'
         },
     ]
-
+    //
 
     async function handleChange(e) {
         e.preventDefault()
@@ -64,8 +64,8 @@ function SetAssignment({ selectedWords }) {
 
     return (
         <div>
-            <form className="assignmentForm" onSubmit={handleSubmit}>
-                {errors && <p className="errorMessage">{errors}</p>}
+            <form className={`${classes.assignmentForm}`} onSubmit={handleSubmit}>
+                {errors && <p className={`${classes.errorMessage}`}>{errors}</p>}
                 <h2>Set Up New Assignment</h2>
                 <input name="practice_id" type="text" value={formData.practice_id} disabled hidden />
                 <div>
@@ -88,28 +88,32 @@ function SetAssignment({ selectedWords }) {
 
                 <div>
                     <label htmlFor="words">Selected Words to assign to </label>
-                    <div className="selectedWordsContainer">
+                    <div className={`${classes.selectedWordsContainer}`}>
 
                         {selectedWords?.map(word => {
-                            return (<div className="words" name="words" >{word}</div>)
+                            return (<div className={`${classes.words}`} name="words" >{word}</div>)
                         })}
                     </div>
 
                 </div>
-                <div>
-                    <label>Today</label>
-                    <input name="created_at" type="date" value={formData.created_at} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Due Date</label>
-                    <input name="expires_in" type="date" value={formData.expires_in} onChange={handleChange} />
+                <div className={`${classes.dateDiv}`}>
+                    <div>
+                        <label>Today</label>
+                        <input className={`${classes.dateInput}`} name="created_at" type="date" value={formData.created_at} onChange={handleChange} />
+                    </div>
+                    <div>
+                        <label>Due Date</label>
+                        <input className={`${classes.dateInput}`} name="expires_in" type="date" value={formData.expires_in} onChange={handleChange} />
+                    </div>
                 </div>
 
                 <Button color='Golden' onClick={handleSubmit} type='submit' label='Submit' />
-                {successMessage && <p className="successMessage">{successMessage}</p>}
+                {successMessage && <p className={`${classes.successMessage}`}>{successMessage}</p>}
             </form>
+            <div hidden>
+                <TableData formData={formData} />
+            </div>
 
-            <TableData formData={formData} />
         </div>
     )
 

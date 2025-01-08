@@ -1,0 +1,80 @@
+/* ===== Default design is mobile version up to 421px ==== */
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 412px;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #f7f7f7;
+  box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.pageHeader {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.pageHeaderParagraph {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.inputDive {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.inputDive,
+.schoolOptions,
+.roleOptions label {
+  font-size: 18px;
+  color: black;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.inputDive input {
+  width: 95%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2196f3;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+select {
+  width: 95%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+button:disabled {
+  background-color: #b0bec5;
+}
+
+.inputDive_password {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import '../css/Time.css'
+import classes from '../css/Time.module.css'
 
 const Time = () => {
 
@@ -29,11 +29,11 @@ const Time = () => {
     }, []);
 
     return (
-        <div className="clock-container">
-            <div className="date">
+        <div className={`${classes.clock_container}`}>
+            <div className={`${classes.date}`}>
                 {day}, {date} {month} {year}
             </div>
-            <div className="time">
+            <div className={`${classes.time}`}>
                 {hours}:{minutes}:{seconds}
             </div>
         </div>

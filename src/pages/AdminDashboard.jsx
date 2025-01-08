@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Time from '../component/Time';
 import GetWords from '../component/Words';
 import Header from '../component/Header';
-import '../css/Dashboard.css'
+import '../css/Dashboard.module.css'
 
 function Dashboard() {
     const [yearWords, setYearWords] = useState('year3and4words')
