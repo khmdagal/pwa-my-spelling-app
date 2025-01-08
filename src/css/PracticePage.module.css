@@ -1,0 +1,88 @@
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    justify-items: center;
+    height: var(--height-mobile);
+    width: 360px;
+    margin: auto;
+    background-color: var(--lightgray-color);
+}
+
+.title {
+    font-size: var(--font-size-mobile);
+    font-weight: bolder;
+    text-align: center;
+}
+
+.practicePageBtnsContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.practicePageBtns {
+    height: inherit;
+    border-radius: 20%;
+    font-weight: bold;
+
+}
+
+.answerBox {
+    display: flex;
+    align-items: center;
+}
+
+/* Tablet design */
+
+@media screen and (min-width: 433px) {
+    .mainContainer {
+        width: 815px;
+        height: var(--height-tablet);
+
+    }
+
+    .title {
+        font-size: var(--font-size-tablet);
+    }
+}
+
+/* Laptop design */
+
+@media screen and (min-width: 916px) {
+    .mainContainer {
+        min-width: 915px;
+        max-width: 1679px;
+        height: var(--height-laptop);
+    }
+
+    .title {
+        font-size: var(--font-size-laptop);
+    }
+}
+
+/* Desktops */
+@media screen and (min-width: 1680px) {
+    .mainContainer {
+        min-width: 1680px;
+        max-width: 5118px;
+        height: var(--height-desktop);
+
+    }
+
+    .title {
+        font-size: var(--font-size-desktop);
+    }
+}
+
+/* and Large Screens */
+@media screen and (min-width: 5119px) {
+    .mainContainer {
+        min-width: 5119px;
+        height: var(--height-large-screen);
+    }
+
+    .title {
+        font-size: var(--font-size-large-screen);
+    }
+}

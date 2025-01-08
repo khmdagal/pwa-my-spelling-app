@@ -2,29 +2,27 @@ import React from "react";
 import { useNavigate } from 'react-router-dom';
 import Button from '../component/Button'
 
-import '../css/Header.css'
-
+import classes from '../css/Header.module.css'
 
 function Header() {
-    
     const navigate = useNavigate();
 
 
-    const pages = ['Home', 'Contact', 'About-Us', `${localStorage.getItem('dashboard') ? localStorage.getItem('dashboard') : ''}`]
+    const pages = ['Home', 'Contact', 'About_us', `${localStorage.getItem('dashboard') ? localStorage.getItem('dashboard') : ''}`]
     return (
 
-        <header className="header">
-            <nav className="nav container">
-                <ul className="navList">
+        <header className={`${classes.header}`}>
+            <nav className={`${classes.nav} ${classes.container}`}>
+                <ul className={`${classes.navList}`}>
                     {pages.map(page => {
                         return (
-                            <li key={page} className="navItem" onClick={() => {
+                            <li key={page} className={`${classes.navItem}`} onClick={() => {
                                 if (page === 'Home') {
                                     navigate('/')
                                 } else {
-                                    navigate(`/${page}`) 
+                                    navigate(`/${page}`)
                                 }
-                                
+
                             }}>
                                 {page}
                             </li>
@@ -37,9 +35,9 @@ function Header() {
             </nav>
             <div className="buttonsContainer">
                 <Button backgroundColor={'green'} color={'white'} label={'Login'} onClick={() => navigate('/login')} />
-                <Button backgroundColor={'blue'} color={'white'} label={'Sign up'} onClick={() => navigate('/signup')} />
+                <Button backgroundColor={'blue'} color={'white'} label={'Sign up'} onClick={() => navigate('/signUp')} />
             </div>
-            
+
         </header>
     )
 

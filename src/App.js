@@ -17,15 +17,15 @@ function App() {
         <header className="App-header">Spelling Practice App</header>
         <Routes>
           <Route exact path='/' element={<HomePage />} />
-          <Route exact path='/signup' element={<SignUp />} />
+          <Route exact path='/signUp' element={<SignUp />} />
           <Route exact path='/login' element={<Login />} />
-          <Route exact path='/admin-dashboard' element={
+          <Route exact path='/admin_dashboard' element={
             <ProtectedRoutes >
               <AdminDashboard />
             </ProtectedRoutes>
           }
           />
-          <Route exact path='/student-dashboard' element={
+          <Route exact path='/student_dashboard' element={
             <ProtectedRoutes >
               <StudentDashboard />
             </ProtectedRoutes>

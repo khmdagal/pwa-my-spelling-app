@@ -1,4 +1,3 @@
-import '../pages/Login.css'
 function Select({ options, value }) {
     return (
         <Select>
