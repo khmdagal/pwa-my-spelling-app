@@ -55,7 +55,7 @@ function SignUp() {
             }
 
             //if there is no error then navigate to use login page
-            navigate('/logIn')
+            navigate('/login')
 
         } catch (error) {
             setErrors(error.response.data.message)

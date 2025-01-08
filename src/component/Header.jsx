@@ -5,7 +5,6 @@ import Button from '../component/Button'
 import classes from '../css/Header.module.css'
 
 function Header() {
-//
     const navigate = useNavigate();
 
 
@@ -35,7 +34,7 @@ function Header() {
 
             </nav>
             <div className="buttonsContainer">
-                <Button backgroundColor={'green'} color={'white'} label={'Login'} onClick={() => navigate('/logIn')} />
+                <Button backgroundColor={'green'} color={'white'} label={'Login'} onClick={() => navigate('/login')} />
                 <Button backgroundColor={'blue'} color={'white'} label={'Sign up'} onClick={() => navigate('/signUp')} />
             </div>
 
