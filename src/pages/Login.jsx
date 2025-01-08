@@ -59,7 +59,7 @@ function LogIn() {
                 }
             } else {
                 setErrors(response.data.message);
-                navigate('/login');
+                navigate('/logIn');
             }
 
         } catch (error) {

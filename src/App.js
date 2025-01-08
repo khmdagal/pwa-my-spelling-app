@@ -17,8 +17,8 @@ function App() {
         <header className="App-header">Spelling Practice App</header>
         <Routes>
           <Route exact path='/' element={<HomePage />} />
-          <Route exact path='/signup' element={<SignUp />} />
-          <Route exact path='/login' element={<LogIn />} />
+          <Route exact path='/signUp' element={<SignUp />} />
+          <Route exact path='/logIn' element={<LogIn />} />
           <Route exact path='/admin_dashboard' element={
             <ProtectedRoutes >
               <AdminDashboard />
