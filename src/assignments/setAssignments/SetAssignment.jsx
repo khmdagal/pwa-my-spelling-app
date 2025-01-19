@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 import { allOtherAxiosRequest } from '../../api/axios'
@@ -11,7 +11,7 @@ import classes from '../../css/SetAssignment.module.css';
 
 
 function SetAssignment({ selectedWords }) {
-
+    const [words, setWords] = useState()
     const [formData, setFormData] = useState({ name: '', assignedYear: '', school_id: localStorage.getItem('school_id'), practice_id: uuidv4(), description: '', words: [], expires_in: '' })
     const [successMessage, setSuccessMessage] = useState('');
     const [errors, setErrors] = useState('');
@@ -38,7 +38,15 @@ function SetAssignment({ selectedWords }) {
             class_name: 'year4'
         },
     ]
-    //
+    
+
+    useEffect(() => {
+        setWords(selectedWords)
+    }, [selectedWords])
+
+    useEffect(() => {
+        formData.words = words
+    }, [words, formData])
 
     async function handleChange(e) {
         e.preventDefault()
