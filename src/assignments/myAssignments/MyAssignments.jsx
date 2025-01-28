@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { allOtherAxiosRequest } from '../../api/axios'
 import Button from "../../component/Button";
 import Spinner from "../../component/Spinner";
+import { sanitizeInput } from "../../helpers/Helpers"
 
 import classes from '../../css/MyAssignment.module.css'
 
@@ -24,18 +25,42 @@ function MyAssignment() {
 
     }
 
+    // useEffect(() => {
+    //     if (sanitizeInput(practice_id)) {
+    //         setErrorMessage('Invalid input 💪💪')
+    //         localStorage.clear()
+    //         setTimeout(() => {
+    //             navigate('/login')
+    //         }, 3000)
+
+    //     } else {
+    //         return
+    //     }
+
+    // }, [practice_id, navigate])
+
 
     const handleGetData = async () => {
         try {
-            setSpinner(true)
-            const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
-            if (response.status === 200)
-                setSpinner(false)
-            setAssignment(response.data.myAssignment[0])
+
+            if (sanitizeInput([practice_id, school_id])) {
+                setErrorMessage('Invalid input 💪💪')
+                localStorage.clear()
+                setTimeout(() => {
+                    navigate('/login')
+                }, 3000)
+
+            } else {
+                setSpinner(true)
+                const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
+                if (response.status === 200)
+                    setSpinner(false)
+                setAssignment(response.data.myAssignment[0])
+
+            }
 
         } catch (err) {
             console.log(err)
-            console.log('==>> error', err.message);
             setErrorMessage(err.response.data.message)
             setSpinner(false)
         }

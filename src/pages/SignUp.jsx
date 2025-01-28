@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { axiosForLoginAndSignUpOnly } from '../api/axios';
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 import Button from '../component/Button';
+import { sanitizeInput } from '../helpers/Helpers'
 
 import classes from '../css/LogInAndSingUp.module.css'
 
 
-//
 function SignUp() {
     const [formData, setFormData] = useState({
         name: '',
@@ -33,29 +33,40 @@ function SignUp() {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErrors('');
         try {
-            const response = await axiosForLoginAndSignUpOnly.post('/api/v1/spelling/users/signUp', formData);
-            // Handle success, maybe clear the form or show a success message
+            if (sanitizeInput(formData)) {
+                setErrors('Invalid input 💪💪')
+                localStorage.clear()
+                
+                setTimeout(() => {
+                    setFormData('')
+                    navigate('/signUp')
+                }, 3000)
+            } else {
+                setErrors('');
+                e.preventDefault();
+                const response = await axiosForLoginAndSignUpOnly.post('/api/v1/spelling/users/signUp', formData);
+                // Handle success, maybe clear the form or show a success message
 
-            setFormData({
-                name: '',
-                username: '',
-                password: '',
-                role: '',
-                school_id: 0,
-                email: '',
-                approved: false
-            });
+                setFormData({
+                    name: '',
+                    username: '',
+                    password: '',
+                    role: '',
+                    school_id: 0,
+                    email: '',
+                    approved: false
+                });
 
 
-            if (!response.status === 201) {
-                return setErrors(response.data.message)
+                if (!response.status === 201) {
+                    return setErrors(response.data.message)
+                }
+
+                //if there is no error then navigate to use login page
+                navigate('/login')
+
             }
-
-            //if there is no error then navigate to use login page
-            navigate('/login')
 
         } catch (error) {
             setErrors(error.response.data.message)
@@ -116,6 +127,7 @@ function SignUp() {
 
 
                 <Button backgroundColor={'#7CB342'} color={'white'} type={'submit'} label={'Sign Up'} />
+                <Button backgroundColor={'green'} color={'white'} label={'Login'} onClick={() => navigate('/login')} />
 
             </form>
         </div>
