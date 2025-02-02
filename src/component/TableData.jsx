@@ -14,8 +14,6 @@ function TableData({ formData }) {
             try {
                 const response = await allOtherAxiosRequest.get('/api/v1/spelling/words/weeklypractice/all');
 
-                //const assignmentData = Object.entries(response.data.result).map(el => el[1]);
-
                 setAssignments(response.data.assignments.reverse())
 
             } catch (err) {
