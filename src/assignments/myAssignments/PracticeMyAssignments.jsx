@@ -74,8 +74,6 @@ function PracticeMyAssignment() {
 
     }
 
-    console.log(answer, randWord)
-
     const resetPractice = () => {
         setRemainedWords([...words]);
         setUsedWords([]);
