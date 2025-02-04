@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import { allOtherAxiosRequest } from '../../api/axios'
 import Button from '../../component/Button'
 import TableData from "../../component/TableData";
+import {sanitizeInput} from '../../helpers/Helpers'
 
 
 import classes from '../../css/SetAssignment.module.css';
 
-
-
 function SetAssignment({ selectedWords }) {
+    const navigate = useNavigate()
+
     const [words, setWords] = useState()
     const [formData, setFormData] = useState({ name: '', assignedYear: '', school_id: localStorage.getItem('school_id'), practice_id: uuidv4(), description: '', words: [], expires_in: '' })
     const [successMessage, setSuccessMessage] = useState('');
     const [errors, setErrors] = useState('');
-
-
-
 
     // reading exiting classes for current school
     const schoolClasses = [
@@ -53,6 +52,21 @@ function SetAssignment({ selectedWords }) {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
+   useEffect(() => {
+           if (sanitizeInput(formData)) {
+               setErrors('Invalid input 💪💪')
+               localStorage.clear()
+               setTimeout(() => {
+                   navigate('/login')
+               }, 3000)
+   
+           } else {
+               return
+           }
+   
+       }, [formData, navigate])
+   
+
 
     async function handleSubmit(e) {
         try {
@@ -63,8 +77,7 @@ function SetAssignment({ selectedWords }) {
                 setFormData({ name: '', class_id: '', practice_id: uuidv4(), description: '', words: [], created_at: '', expires_in: '' })
             }
         } catch (error) {
-            console.log(error)
-            setErrors(error.message)
+            setErrors(error.response.data.message)
         }
 
     }

@@ -4,6 +4,7 @@ import { axiosForLoginAndSignUpOnly } from '../api/axios';
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 import Button from '../component/Button';
 import Spinner from '../component/Spinner';
+import { sanitizeInput } from '../helpers/Helpers'
 
 import classes from '../css/LogInAndSingUp.module.css'
 
@@ -25,49 +26,59 @@ function LogIn() {
         });
     };
 
-    const handleSubmit = async (e) => {
-        setSpinner(true)
-        e.preventDefault();
-        setErrors('');
+    async function handleSubmit(e) {
         try {
-            const response = await axiosForLoginAndSignUpOnly.post('/api/v1/spelling/users/login', formData);
-            if (response.status === 200) setSpinner(false)
 
-            setFormData({
-                username: '',
-                password: ''
-            });
-            const { token, approved: admin, school_id } = response.data;
-
-
-            if (!token) {
-                setErrors(response.data.message);
-                return;
-            }
-
-            if (token) {
-                localStorage.setItem('token', token);
-                localStorage.setItem('school_id', school_id);
-
-                if (admin) {
-                    localStorage.setItem('admin', admin);
-                    localStorage.setItem('dashboard', 'Admin_Dashboard');
-                    navigate('/admin_dashboard');
-                } else {
-                    localStorage.setItem('dashboard', 'Student_Dashboard');
-                    navigate('/student_dashboard');
-                }
+            if (sanitizeInput(formData)) {
+                setErrors('Invalid input 💪💪')
+                localStorage.clear()
+                setTimeout(() => {
+                    navigate('/login')
+                }, 3000)
             } else {
-                setErrors(response.data.message);
-                navigate('/logIn');
+
+                setSpinner(true)
+                e.preventDefault();
+                setErrors('');
+
+                const response = await axiosForLoginAndSignUpOnly.post('/api/v1/spelling/users/login', formData);
+                if (response.status === 200) setSpinner(false)
+
+                setFormData({
+                    username: '',
+                    password: ''
+                });
+                const { token, approved: admin, school_id } = response.data;
+
+
+                if (!token) {
+                    setErrors(response.data.message);
+                    return;
+                }
+
+                if (token) {
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('school_id', school_id);
+
+                    if (admin) {
+                        localStorage.setItem('admin', admin);
+                        localStorage.setItem('dashboard', 'Admin_Dashboard');
+                        navigate('/admin_dashboard');
+                    } else {
+                        localStorage.setItem('dashboard', 'Student_Dashboard');
+                        navigate('/student_dashboard');
+                    }
+                } else {
+                    setErrors(response.data.message);
+                    navigate('/logIn');
+                }
+
             }
 
         } catch (error) {
             setErrors(error?.response?.data?.message || 'An unexpected error occurred');
         }
-
     };
-
 
     return (
         <div className={`${classes.mainContainer}`}>
@@ -91,11 +102,10 @@ function LogIn() {
                 <div style={{ display: 'none' }}>
                 </div>
                 <Button backgroundColor={'#2196f3'} color={'white'} type={'submit'} label={'Login'} />
+                <Button backgroundColor={'blue'} color={'white'} label={'Sign up'} onClick={() => navigate('/signUp')} />
             </form>
         </div>
     );
-
-
 }
 
 export default LogIn;
