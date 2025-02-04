@@ -25,21 +25,6 @@ function MyAssignment() {
 
     }
 
-    // useEffect(() => {
-    //     if (sanitizeInput(practice_id)) {
-    //         setErrorMessage('Invalid input 💪💪')
-    //         localStorage.clear()
-    //         setTimeout(() => {
-    //             navigate('/login')
-    //         }, 3000)
-
-    //     } else {
-    //         return
-    //     }
-
-    // }, [practice_id, navigate])
-
-
     const handleGetData = async () => {
         try {
 
