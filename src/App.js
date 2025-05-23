@@ -10,6 +10,7 @@ import Header from './component/Header';
 
 import ProtectedRoutes from './pages/ProtocedRoutes';
 import './css/GlobalStyle.css'
+import classes from './css/LogInAndSingUp.module.css'
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
       
       <Router>
         <Header />
-        <div className="App">
+        <div className={`${classes.app}`}>
           <Routes>
             <Route exact path='/' element={<HomePage />} />
             <Route exact path='/signUp' element={<SignUp />} />
