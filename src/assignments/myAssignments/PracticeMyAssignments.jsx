@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from '../../component/Header'
 import Button from '../../component/Button';
 import { sayTheRandomWord } from "../../helpers/Helpers";
 
@@ -87,7 +86,6 @@ function PracticeMyAssignment() {
 
     return (
         <>
-            <Header />
             <div className={`${classes.mainContainer}`}>
 
                 <h1 className={`${classes.title}`}>Practice Page</h1>

@@ -1,0 +1,83 @@
+/* General Reset and Fonts */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9fb;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Header Styles */
+h1 {
+    font-size: 2.5rem;
+    color: #2a5d9f;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Paragraph Styles */
+p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #444;
+}
+
+/* Section Headings */
+span,
+strong {
+    display: block;
+    font-size: 1.4rem;
+    color: #1c3d72;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+/* List Styles */
+ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+li {
+    margin-bottom: 0.75rem;
+    font-size: 1.05rem;
+    color: #555;
+}
+
+/* Buttons (Generic if needed) */
+button {
+    background-color: #2a5d9f;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #204a82;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    p,
+    li {
+        font-size: 1rem;
+    }
+}
