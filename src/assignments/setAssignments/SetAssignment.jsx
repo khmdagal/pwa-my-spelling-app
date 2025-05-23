@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { allOtherAxiosRequest } from '../../api/axios'
 import Button from '../../component/Button'
 import TableData from "../../component/TableData";
-import {sanitizeInput} from '../../helpers/Helpers'
+import { sanitizeInput } from '../../helpers/Helpers'
 
 
 import classes from '../../css/SetAssignment.module.css';
@@ -16,6 +16,7 @@ function SetAssignment({ selectedWords }) {
     const [words, setWords] = useState()
     const [formData, setFormData] = useState({ name: '', assignedYear: '', school_id: localStorage.getItem('school_id'), practice_id: uuidv4(), description: '', words: [], expires_in: '' })
     const [successMessage, setSuccessMessage] = useState('');
+    const [assignmentId, setAssignmentId] = useState('')
     const [errors, setErrors] = useState('');
 
     // reading exiting classes for current school
@@ -37,7 +38,7 @@ function SetAssignment({ selectedWords }) {
             class_name: 'year4'
         },
     ]
-    
+
 
     useEffect(() => {
         setWords(selectedWords)
@@ -52,27 +53,28 @@ function SetAssignment({ selectedWords }) {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-   useEffect(() => {
-           if (sanitizeInput(formData)) {
-               setErrors('Invalid input 💪💪')
-               localStorage.clear()
-               setTimeout(() => {
-                   navigate('/login')
-               }, 3000)
-   
-           } else {
-               return
-           }
-   
-       }, [formData, navigate])
-   
+    useEffect(() => {
+        if (sanitizeInput(formData)) {
+            setErrors('Invalid input 💪💪')
+            localStorage.clear()
+            setTimeout(() => {
+                navigate('/login')
+            }, 3000)
 
+        } else {
+            return
+        }
+
+    }, [formData, navigate])
+
+    console.log(assignmentId)
 
     async function handleSubmit(e) {
         try {
             e.preventDefault()
             const response = await allOtherAxiosRequest.post('/api/v1/spelling/words/weeklypractice', formData)
             if (response.status === 201) {
+                setAssignmentId(formData.practice_id)
                 setSuccessMessage('Assignment has successfully created ✔')
                 setFormData({ name: '', class_id: '', practice_id: uuidv4(), description: '', words: [], created_at: '', expires_in: '' })
             }
@@ -88,6 +90,10 @@ function SetAssignment({ selectedWords }) {
             <form className={`${classes.assignmentForm}`} onSubmit={handleSubmit}>
                 {errors && <p className={`${classes.errorMessage}`}>{errors}</p>}
                 <h2>Set Up New Assignment</h2>
+                {assignmentId && <div className={`${classes.successMessage}`}>
+                    <p>This is the practice id, please copy and send to the class</p>
+                    <p>ID:{assignmentId}</p>
+                </div>}
                 <input name="practice_id" type="text" value={formData.practice_id} disabled hidden />
                 <div>
                     <label>Title</label>
