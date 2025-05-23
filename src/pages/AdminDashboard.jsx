@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 
 import Time from '../component/Time';
 import GetWords from '../component/Words';
-import Header from '../component/Header';
 import '../css/Dashboard.module.css';
 import { sanitizeInput } from '../helpers/Helpers'
 
@@ -31,7 +30,6 @@ function Dashboard() {
     }
     return (
         <div>
-            <Header />
             <Time />
             <h1>Dashboard</h1>
             <select onChange={handleYearWords}>
