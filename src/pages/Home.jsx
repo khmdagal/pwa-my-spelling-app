@@ -1,27 +1,23 @@
-
-import Header from '../component/Header';
+import clasess from '../css/HomePage.module.css'
 
 const HomePage = () => {
 
 
     return (
-        <div>
-            <Header />
-            <h1>Introduction to the Spelling Practice Web Application</h1>
-            <p>Welcome to our Spelling Practice Web Application, a dynamic and engaging platform designed to support children in mastering their statutory spelling lists. This tool aims to make spelling practice both effective and enjoyable, helping pupils develop their skills in a fun, competitive environment. </p>
-            <p>For Teachers:This application offers great flexibility for educators to set up customized spelling sessions, tailored to the needs of their students. Teachers can create repeated practice sessions that allow students to work towards specific point targets, set by the school admin. The competitive element encourages students to stay engaged and motivated, while the structured practice helps reinforce correct spelling habits.</p>
-            <p>For Students: Our web app provides an interactive platform where students can practice their spelling within a set timeframe, allowing them to track their progress over time. This not only builds their confidence but also fosters a sense of accomplishment as they work towards achieving their goals. By repeatedly engaging with the spelling lists, students absorb correct spellings both consciously and subconsciously, improving their overall spelling accuracy.</p>
-            <p></p>
-            <span>Key Features</span>
+        <div className={clasess.container}>
+            <h1>Spelling Practice Web Application</h1>
+            <p>Welcome to our Spelling Practice Web Application – an interactive platform designed to help children confidently master their statutory spelling lists. This tool makes spelling practice both effective and enjoyable, encouraging skill development in a fun, engaging setting.</p>
+            <p><strong>For Teachers:</strong> The application provides flexibility for educators to create tailored spelling sessions suited to their pupils' needs. Teachers can set up repeated practice with specific point targets assigned by school administrators. The built-in competitive element helps keep pupils motivated while reinforcing accurate spelling through structured repetition.</p>
+            <p><strong>For Pupils:</strong> Pupils can practise spellings within set timeframes, track their progress, and work towards clearly defined goals. This consistent practice builds confidence, promotes a sense of achievement, and helps embed correct spellings through both conscious effort and regular exposure.</p>
+            <span><strong>Key Features</strong></span>
+
             <ul>
-                <li>Customized Spelling Sessions: Teachers can tailor sessions to fit the specific needs of their class or individual students, selecting words from the statutory lists and beyond.
-                </li>
-                <li>Progress Tracking: Students can monitor their improvement, making the learning process transparent and rewarding.</li>
-                <li>Competitive Element: Pupils can compete to reach point targets, making spelling practice lively and engaging.</li>
-                <li>Flexible Learning: The app allows for flexible practice schedules, enabling students to practice anytime within the given timeframe.</li>
+                <li><strong>Tailored Practice:</strong> Teachers can customise sessions using words from statutory lists and beyond, adapting to class.</li>
+                <li><strong>Progress Monitoring:</strong> Pupils can see their development, making learning more transparent, rewarding and fun.</li>
+                <li><strong>Motivational Challenges:</strong> Competitive point-based goals add excitement to practice sessions.</li>
+                <li><strong>Flexible Scheduling:</strong> Pupils can practise anytime within the allowed timeframe, fitting around their routine.</li>
             </ul>
-            <p>Our Spelling Practice Web Application is the perfect tool to enhance spelling proficiency in an interactive, supportive, and fun way, bridging the gap between learning and engagement. Let’s make spelling practice a thrilling journey for every pupil!
-            </p>
+            <p>This web application bridges the gap between learning and enjoyment, making spelling practice a positive and productive experience. Let’s make spelling exciting for every pupil!</p>
         </div>
     )
 }
