@@ -1,6 +1,6 @@
-import React from "react";
 import { useNavigate } from 'react-router-dom';
 import Button from '../component/Button';
+import UserProfile from "../pages/UserProfile";
 
 import classes from '../css/Header.module.css';
 
@@ -17,6 +17,7 @@ function Header() {
 
     return (
         <header className={`${classes.header}`}>
+            <UserProfile />
             <nav className={`${classes.nav} ${classes.container}`}>
                 <ul className={`${classes.navList}`}>
                     {pages.map(page => (
