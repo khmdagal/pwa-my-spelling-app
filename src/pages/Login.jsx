@@ -59,6 +59,7 @@ function LogIn() {
                 if (token) {
                     localStorage.setItem('token', token);
                     localStorage.setItem('school_id', school_id);
+                    localStorage.setItem('name', response.data.name);
 
                     if (admin) {
                         localStorage.setItem('admin', admin);
