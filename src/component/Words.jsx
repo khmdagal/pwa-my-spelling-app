@@ -32,6 +32,7 @@ function GetWords({ yearWords }) {
     }, [yearWords])
 
     if (!wordsData) <p>...loading</p>
+console.log('wordsData====>>', wordsData)
     return (
 
         <div className={`${classes.mainContainer}`}>
@@ -59,7 +60,7 @@ function GetWords({ yearWords }) {
                                 value={word[yearWords]}
                             />
                             <label htmlFor={word.word_id}>
-                                {word.word_id}: {word[yearWords]}
+                                {word.word_id}: {word.word}
                             </label>
                         </div>
                     ))}
