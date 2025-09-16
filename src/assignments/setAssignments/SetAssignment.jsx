@@ -14,7 +14,7 @@ function SetAssignment({ selectedWords }) {
     const navigate = useNavigate()
 
     const [words, setWords] = useState()
-    const [formData, setFormData] = useState({ name: '', assignedYear: '', school_id: localStorage.getItem('school_id'), practice_id: uuidv4(), description: '', words: [], expires_in: '' })
+    const [formData, setFormData] = useState({ title: '', assignedYear: '', school_id: localStorage.getItem('school_id'), practice_id: uuidv4(), description: '', words: [], expires_in: '' })
     const [successMessage, setSuccessMessage] = useState('');
     const [assignmentId, setAssignmentId] = useState('')
     const [errors, setErrors] = useState('');
@@ -76,7 +76,7 @@ function SetAssignment({ selectedWords }) {
             if (response.status === 201) {
                 setAssignmentId(formData.practice_id)
                 setSuccessMessage('Assignment has successfully created ✔')
-                setFormData({ name: '', class_id: '', practice_id: uuidv4(), description: '', words: [], created_at: '', expires_in: '' })
+                setFormData({ title: '', class_id: '', practice_id: uuidv4(), description: '', words: [], created_at: '', expires_in: '' })
             }
         } catch (error) {
             setErrors(error.response.data.message)
@@ -97,7 +97,7 @@ function SetAssignment({ selectedWords }) {
                 <input name="practice_id" type="text" value={formData.practice_id} disabled hidden />
                 <div>
                     <label>Title</label>
-                    <input name="name" type="text" value={formData.name} onChange={handleChange} />
+                    <input name="title" type="text" value={formData.title} onChange={handleChange} />
                 </div>
                 <select name="class_id" onChange={handleChange}>
                     <option value=''> == Select the class to assign ==</option>
