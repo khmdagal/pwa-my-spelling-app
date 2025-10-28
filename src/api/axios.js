@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = 'https://spellingapi.glitch.me'
+const baseURL =  'http://localhost:3500'//'https://spellingapi.glitch.me'
 
 const axiosForLoginAndSignUpOnly = axios.create({
     baseURL: baseURL
