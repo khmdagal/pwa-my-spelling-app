@@ -10,7 +10,7 @@ function UserProfile() {
   }, [user]);
   return (
     <div className="user-profile">
-      <h2>User: {user} </h2>
+      <h2> {user} </h2>
 
     </div>
   );

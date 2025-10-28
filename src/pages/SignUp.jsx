@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { axiosForLoginAndSignUpOnly } from '../api/axios';
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
@@ -18,7 +18,7 @@ function SignUp() {
         email: '',
         approved: false
     });
-
+    const [schools, setSchools] = useState([])
     const [errors, setErrors] = useState('')
     const [showPassword, setShowPassword] = useState(false)
 
@@ -37,7 +37,7 @@ function SignUp() {
             if (sanitizeInput(formData)) {
                 setErrors('Invalid input 💪💪')
                 localStorage.clear()
-                
+
                 setTimeout(() => {
                     setFormData('')
                     navigate('/signUp')
@@ -75,9 +75,21 @@ function SignUp() {
 
     };
 
-
     const roleOptions = ['student', 'teacher', 'parent', 'public'];
-    const schoolOptions = [1, 2, 3];
+
+    useEffect(() => {
+        async function fetchSchools() {
+            try {
+                const response = await axiosForLoginAndSignUpOnly.get('/api/v1/spelling/schools');
+                response.data.schools && setSchools(response.data.schools)
+            } catch (error) {
+                console.error('Error fetching schools:', error);
+            }
+        }
+        
+        fetchSchools()
+
+    }, [])
 
     return (
         <div className={`${classes.mainContainer}`}>
@@ -121,7 +133,8 @@ function SignUp() {
                     <label htmlFor="school">Select your school </label>
                     <select name='school_id' onChange={handleChange}>
                         <option>--Select your school--</option>
-                        {schoolOptions.map(el => <option key={el} value={el}>{el}</option>)}
+                        {schools.map(el => <option key={el.school_id} value={el.school_id}>{el.school_name
+                        }</option>)}
                     </select>
                 </div>
 

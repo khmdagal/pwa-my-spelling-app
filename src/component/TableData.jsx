@@ -6,53 +6,62 @@ import classes from '../css/Table.module.css'
 
 
 function TableData({ formData }) {
-    const [assignments, setAssignments] = useState([])
-
+    const [tableData, setTableData] = useState([])
 
     useEffect(() => {
-        const getData = async () => {
+        async function fetchWords() {
             try {
-                const response = await allOtherAxiosRequest.get('/api/v1/spelling/words/weeklypractice/all');
+                const response = await allOtherAxiosRequest.get('/api/v1/spelling/words/weeklypractice/all')
 
-                setAssignments(response.data.assignments.reverse())
+                setTableData(response.data.assignments.reverse())
 
-            } catch (err) {
-                console.log('==>> error', err);
+            } catch (error) {
+                console.log(error)
             }
-        };
 
-        getData()
+        }
+
+        fetchWords()
 
     }, [formData])
 
 
     return (
-        <table className={`${classes.table}`}>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Words</th>
-                    <th>Due Date</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {assignments && assignments.map((assignment, index) => {
-
-                    return (
-                        <tr key={index}>
-                            <td className={`${classes.eachRowData}`} >{assignment.name}</td>
-                            <td className={`${classes.eachRowData}`} >{assignment.description}</td>
-                            <td className={`${classes.wordsTdContainer}`} >{assignment.words.map((word) => {
-                                return (<span className={`${classes.eachWord}`}>{word}</span>)
-                            })}</td>
-                            <td className={`${classes.eachRowData}`} >{getDate(assignment.expires_in)}</td>
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </table>)
+        <div className={`${classes.tableContainer}`}>
+            <table className={`${classes.table}`}>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Words</th>
+                        <th>Due Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                       {tableData && tableData.map((item)=>{ 
+                        return (
+                            <tr key={item.practice_id}>
+                                <td className={`${classes.eachRowData}`} > {item.assignment.title}</td>
+                                <td className={`${classes.eachRowData}`}> {item.assignment.description}</td>
+                                <td className={`${classes.wordsTdContainer}`}> {item.assignment.words?.map((word)=>{
+                                    return (
+                                        <div className={`${classes.eachWord}`} key={word.word_id}>
+                                            <strong>{word.word}</strong>
+                                            <p>{word.example.example1}</p>
+                                             <p>{word.example.example1}</p>
+                                        </div>
+                                    )
+                                })}</td>
+                                <td className={`${classes.eachRowData}`} >{getDate(item.assignment.expires_in)}</td>
+                            </tr>
+                        )
+                       })}
+                    
+                </tbody>
+            </table>
+        </div>
+    )
 }
 
 export default TableData
