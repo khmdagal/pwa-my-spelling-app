@@ -3,7 +3,7 @@ import Button from '../../component/Button';
 import { sayTheRandomWord } from "../../helpers/Helpers";
 
 import classes from '../../css/PracticePage.module.css'
-//
+
 function PracticeMyAssignment() {
     const words = JSON.parse(localStorage.getItem('words'));
     const [remainedWords, setRemainedWords] = useState([...words]);
@@ -33,7 +33,7 @@ function PracticeMyAssignment() {
 
         const randomIndex = Math.floor(Math.random() * remainedWords.length);
         const randomWord = remainedWords[randomIndex];
-        setRandWord(randomWord);
+        setRandWord(randomWord.toLowerCase());
 
 
         if (!usedWords.includes(randomWord)) {
@@ -51,7 +51,6 @@ function PracticeMyAssignment() {
 
     };
 
-
     const checkCorrectWord = (e) => {
         e.preventDefault()
         if (answer === randWord) {
@@ -67,9 +66,10 @@ function PracticeMyAssignment() {
 
         }
         setAnswer('')
+        
         setTimeout(() => {
             getRandomWordAndDelete()
-        }, 2800)
+        }, 1500)
 
     }
 
@@ -81,7 +81,9 @@ function PracticeMyAssignment() {
     }
     const handleCheck = (e) => {
         e.preventDefault()
-        setAnswer(e.target.value)
+        let value = e.target.value;
+        value = value.toLowerCase();
+        setAnswer(value)
     }
 
     return (
@@ -106,7 +108,7 @@ function PracticeMyAssignment() {
                 <div className={`${classes.practicePageBtnsContainer}`}>
                     <Button className={`${classes.practicePageBtns}`} label='Get Next Word' backgroundColor='Blue' onClick={getRandomWordAndDelete} hidden={hideGetWordsButton} />
                     <Button className={`${classes.practicePageBtns}`} label='Reset' backgroundColor='Green' onClick={resetPractice} hidden={hideResetButton} />
-                    <Button className={`${classes.practicePageBtns}`} label='Repeat the word' backgroundColor='Red' onClick={() => sayTheRandomWord(randWord)} />
+                    <Button className={`${classes.practicePageBtns}`} label='Repeat the word' backgroundColor='Red' onClick={() => sayTheRandomWord(randWord)} hidden={hideGetWordsButton}/>
 
                 </div>
 
