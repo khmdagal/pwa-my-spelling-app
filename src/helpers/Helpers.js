@@ -1,5 +1,5 @@
 
-exports.getDate = (str) =>{
+exports.getDate = (str) => {
     return String(str).split('T')[0].split('-').reverse().join("-")
 }
 
@@ -9,18 +9,20 @@ exports.getWords = (words) => {
 }
 
 exports.sayTheRandomWord = (word) => {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(word);
+    const voices = synth.getVoices();
+   
+    const preferredVoice =
+        voices.find(v => v.name.includes("Google UK English")) ||
+        voices.find(v => v.lang === "en-US");
 
-    if (speechSynthesis.speaking) {
-        speechSynthesis.cancel()
-    }
-
-    let utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "en-GB";
-    utterance.pitch = "1";
-    utterance.rate = 0.8;
+    if (preferredVoice) utterance.voice = preferredVoice;
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
     utterance.volume = 1;
 
-    speechSynthesis.speak(utterance);
+    synth.speak(utterance);
 }
 
 exports.sanitizeInput = (input) => {
