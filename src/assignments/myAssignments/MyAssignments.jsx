@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { FaVolumeDown } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { allOtherAxiosRequest } from '../../api/axios'
 import Button from "../../component/Button";
 import Spinner from "../../component/Spinner";
-import { sanitizeInput } from "../../helpers/Helpers"
+import { sanitizeInput, sayTheRandomWord } from "../../helpers/Helpers"
 
 import classes from '../../css/MyAssignment.module.css'
 
 function MyAssignment() {
-    const [assignment, setAssignment] = useState({})
+    const [assignment, setAssignment] = useState(undefined)
     const [practice_id, setPractice_id] = useState('')
     const [words, setWords] = useState([])
     const [spinner, setSpinner] = useState(false)
@@ -40,7 +41,7 @@ function MyAssignment() {
                 const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
                 if (response.status === 200)
                     setSpinner(false)
-                setAssignment(response.data.myAssignment[0])
+                setAssignment(response.data.myAssignment[0].assignment)
 
             }
 
@@ -50,26 +51,30 @@ function MyAssignment() {
             setSpinner(false)
         }
     };
+    const listOfWords = assignment?.words?.map(wordObj => wordObj.word)
+    console.log('List of words ===>>>', listOfWords)
     useEffect(() => {
         // We are checking if the words are an array before setting the words state.
         // If it is not an array, we set it to an empty array.
-        Array.isArray(assignment.words) ? setWords([...assignment.words]) : setWords([])
+        Array.isArray(assignment?.words) ? setWords([...assignment.words]) : setWords([])
 
     }, [assignment])
 
     // This is to control the visibility of the 'Lets Practice' button
     useEffect(() => {
-        if (words.length > 0) {
+        if (words?.length > 0) {
             setHideLetsPracticeButton('')
         }
     }, [words])
 
     const handleGoPracticePage = () => {
-        localStorage.setItem('words', JSON.stringify(words))
+        localStorage.setItem('words', JSON.stringify(listOfWords))
         navigate('/practicePage')
     }
 
-    if (assignment)
+    console.log('====>>>', assignment)
+
+  
         return (
             <div className={`${classes.assignmentContainer}`}>
                 {spinner && <Spinner />}
@@ -79,19 +84,45 @@ function MyAssignment() {
                     <label htmlFor="practice_id">Enter your Assignment Code</label>
                     <input id="practice_id" name="practice_id" type="text" onChange={handleChange} />
                 </div>
-                <div className={`${classes.assignmentIfo}`}>
-                    <label className={`${classes.title}`} htmlFor="title">Title :</label>
-                    <p className={`${classes.title}`} id="title">{assignment.name}</p>
+              {assignment && (
+                 <div className={`${classes.assignmentInfo}`}>
+                    <p className={`${classes.assignmentTitle}`}>
+                        <strong>Assignment Title:</strong> {assignment.title}
+                    </p>
+                    <p className={`${classes.assignmentDescription}`}>
+                        <strong>Description:</strong> {assignment.description}
+                    </p>
+                    {assignment.expires_in &&  (
+                        <p className={`${classes.assignmentDueDate}`}>
+                           <strong>Due Date:</strong> {new Date(assignment.expires_in).toLocaleDateString()}
+                        </p>
+                    )}
                 </div>
-                <div className={`${classes.assignmentIfo}`}>
-                    <label className={`${classes.description}`} htmlFor="description">Description :</label>
-                    <p className={`${classes.description}`} id="description">{assignment.description}</p>
-                </div>
-                <div className={`${classes.selectedWordsContainer}`}>
+            )}
 
-                    {assignment.words?.map((word, index) => {
-                        return (<div key={index} className={`${classes.words}`} name="words" >{word}</div>)
-                    })}
+             
+
+                <label className={`${classes.wordsLabel}`}>Words :</label>
+                <div className={`${classes.selectedWordsContainer}`}>
+                    {assignment?.words?.map((el, index) => (
+                        <div key={index} className={`${classes.words}`} name="words" >
+                            {el.word && (
+                                <div>
+                                    <strong className={`${classes.word}`}>Word: {el.word}</strong>
+                                </div>
+                            )}
+                            {Object.entries(el.example || {}).map(([key, exampleValue], exampleIndex) => (
+                                <div key={exampleIndex}>
+                                    <span className={`${classes.example}`}> Example {exampleIndex + 1}: {exampleValue} </span>
+                                    <Button className={`${classes.practicePageBtns}`}
+                                        label={<FaVolumeDown />}
+                                        backgroundColor='Blue'
+                                        onClick={() => sayTheRandomWord(exampleValue)}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    ))}
                 </div>
 
                 <Button className={`${classes.practiceBtn}`} label='Lets Practice' backgroundColor='Blue' onClick={handleGoPracticePage} hidden={hideLetsPracticeButton} />

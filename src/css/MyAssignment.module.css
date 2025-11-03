@@ -4,6 +4,7 @@
     justify-content: space-evenly;
     align-items: center;
     width: 360px;
+    height: fit-content;
     margin: auto;
     padding: 20px;
     border-radius: 8px;
@@ -73,7 +74,13 @@ input[type="text"]:focus {
     padding: 5px;
     border-radius: 4px;
     margin: 5px;
+    border: 1px solid #4CAF50;
     font-size: var(--font-size-mobile);
+}
+.word{
+    font-weight: bold;
+    color: #4CAF50;
+    font-style: oblique;
 }
 
 .title,
@@ -83,8 +90,12 @@ input[type="text"]:focus {
     color: #1d0202;
 }
 
-.assignmentIfo {
-    display: flex;
+.assignmentInfo {
+    width: 100%;
+    height: auto;
+    border: 1px solid #2b0202;
+    border-radius: 5px;
+   
 }
 
 .errorMessages {
