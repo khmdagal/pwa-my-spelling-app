@@ -16,7 +16,9 @@ function MyAssignment() {
     const [hideLetsPracticeButton, setHideLetsPracticeButton] = useState('hidden')
     const [errorMessage, setErrorMessage] = useState('')
 
-    const school_id = localStorage.getItem('school_id');
+    const user = localStorage.getItem('user');
+    const school_id = JSON.parse(user)?.school_id;
+
 
     const navigate = useNavigate()
 
@@ -51,11 +53,8 @@ function MyAssignment() {
             setSpinner(false)
         }
     };
-    const listOfWords = assignment?.words?.map(wordObj => wordObj.word)
-    console.log('List of words ===>>>', listOfWords)
+    const listOfWords = assignment?.words?.map(wordObj => wordObj.word) || [];
     useEffect(() => {
-        // We are checking if the words are an array before setting the words state.
-        // If it is not an array, we set it to an empty array.
         Array.isArray(assignment?.words) ? setWords([...assignment.words]) : setWords([])
 
     }, [assignment])
@@ -71,10 +70,6 @@ function MyAssignment() {
         localStorage.setItem('words', JSON.stringify(listOfWords))
         navigate('/practicePage')
     }
-
-    console.log('====>>>', assignment)
-
-  
         return (
             <div className={`${classes.assignmentContainer}`}>
                 {spinner && <Spinner />}
@@ -99,9 +94,6 @@ function MyAssignment() {
                     )}
                 </div>
             )}
-
-             
-
                 <label className={`${classes.wordsLabel}`}>Words :</label>
                 <div className={`${classes.selectedWordsContainer}`}>
                     {assignment?.words?.map((el, index) => (
