@@ -41,43 +41,33 @@ function LogIn() {
                 e.preventDefault();
                 setErrors('');
 
-                const response = await axiosForLoginAndSignUpOnly.post('/api/v1/spelling/users/login', formData);
+                const response = await axiosForLoginAndSignUpOnly.post('/api/v1/spelling/users/login', formData, { withCredentials: true });
+                
                 if (response.status === 200) setSpinner(false)
 
                 setFormData({
                     username: '',
                     password: ''
                 });
-                const { token, approved: admin, school_id } = response.data;
+           
+                localStorage.setItem('user', JSON.stringify({
+                    name: response.data.name,
+                    school_id: response.data.school_id,
+                    approved: response.data.approved
+                }));
 
-
-                if (!token) {
-                    setErrors(response.data.message);
-                    return;
-                }
-
-                if (token) {
-                    localStorage.setItem('token', token);
-                    localStorage.setItem('school_id', school_id);
-                    localStorage.setItem('name', response.data.name);
-
-                    if (admin) {
-                        localStorage.setItem('admin', admin);
-                        localStorage.setItem('dashboard', 'Admin_Dashboard');
-                        navigate('/admin_dashboard');
-                    } else {
-                        localStorage.setItem('dashboard', 'Student_Dashboard');
-                        navigate('/student_dashboard');
-                    }
+                // Redirect based on role or user type
+                if (response.data.approved === 'true') {
+                    navigate('/admin_dashboard');
                 } else {
-                    setErrors(response.data.message);
-                    navigate('/logIn');
+                    navigate('/student_dashboard');
                 }
 
             }
 
         } catch (error) {
             setErrors(error?.response?.data?.message || 'An unexpected error occurred');
+            navigate('/logIn');
         }
     };
 
