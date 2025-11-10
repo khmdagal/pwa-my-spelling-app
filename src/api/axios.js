@@ -1,22 +1,14 @@
 import axios from "axios";
-const baseURL =  'http://localhost:3500'//'https://spellingapi.glitch.me'
+const baseURL =  'https://spellingapi.glitch.me'
 
 const axiosForLoginAndSignUpOnly = axios.create({
-    baseURL: baseURL
+    baseURL: baseURL,
+    withCredentials: true,
 })
 
 const allOtherAxiosRequest = axios.create({
     baseURL: baseURL,
-})
-
-
-// intercepting to get the most recent token
-allOtherAxiosRequest.interceptors.request.use(config => {
-    const currentToken = localStorage.getItem('token');
-    if (currentToken) {
-        config.headers['Authorization'] = `Bearer ${currentToken}`
-    }
-    return config
+    withCredentials: true,
 })
 
 export { allOtherAxiosRequest, axiosForLoginAndSignUpOnly }

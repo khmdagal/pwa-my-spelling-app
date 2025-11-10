@@ -1,20 +1,27 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../component/Button';
 import UserProfile from "../pages/UserProfile";
+import { axiosForLoginAndSignUpOnly } from '../api/axios';
 
 import classes from '../css/Header.module.css';
 
 function Header() {
     const navigate = useNavigate();
 
-    const isLoggedIn = localStorage.getItem('dashboard'); // or use another key like 'user'
+    const isLoggedIn = localStorage.getItem('user'); // or use another key like 'user'
     const pages = ['Home', isLoggedIn ? localStorage.getItem('dashboard') : ''].filter(Boolean);
 
-    const handleLogout = () => {
-        localStorage.clear();
-        navigate('/');
-    };
-
+    const handleLogout = async () => {
+    try {
+      await axiosForLoginAndSignUpOnly.get('/api/v1/spelling/users/logout', {
+        withCredentials: true,
+      });
+      localStorage.removeItem('user');
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
     return (
         <header className={`${classes.header}`}>
             <UserProfile />
