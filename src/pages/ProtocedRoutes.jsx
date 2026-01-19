@@ -3,9 +3,11 @@ import { Navigate } from 'react-router-dom'
 import { axiosForLoginAndSignUpOnly } from '../api/axios';
 
 function ProtectedRoutes({ children }) {
-  const [authState, setAuthState] = useState({ loading: true, isAuthenticated: false, approved: null });
-  const location = window.location;
+   const location = window.location;
+  const [authState, setAuthState] = useState({ loading: true, isAuthenticated: false, admin: null });
+
   useEffect(() => {
+     
     const checkAuth = async () => {
       try {
         const res = await axiosForLoginAndSignUpOnly.get(
@@ -14,12 +16,12 @@ function ProtectedRoutes({ children }) {
         );
 
         if (res.data.status === 'authenticated' || res.data.status === 'success') {
-          setAuthState({ loading: false, isAuthenticated: true, approved: res.data.approved });
+          setAuthState({ loading: false, isAuthenticated: true, admin: res.data.admin });
         } else {
-          setAuthState({ loading: false, isAuthenticated: false, approved: null });
+          setAuthState({ loading: false, isAuthenticated: false, admin: null });
         }
       } catch {
-        setAuthState({ loading: false, isAuthenticated: false, approved: null });
+        setAuthState({ loading: false, isAuthenticated: false, admin: null });
       }
     };
 
@@ -31,7 +33,7 @@ function ProtectedRoutes({ children }) {
 
 
 
- if (authState.approved) {
+ if (authState.admin) {
   if (location.pathname !== "/admin_dashboard") {
     return <Navigate to="/admin_dashboard" replace />;
   }
@@ -40,7 +42,6 @@ function ProtectedRoutes({ children }) {
     return <Navigate to="/student_dashboard" replace />;
   }
 }
-
 
   return <>{children}</>;
 }
