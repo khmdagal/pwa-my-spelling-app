@@ -1,0 +1,110 @@
+
+.teachersDashboard {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Header Section */
+.dashboardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #4CAF50; 
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboardHeader h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.dashboardHeader .time {
+    font-size: 1.1rem;
+    font-weight: normal;
+}
+
+/* Body section with sidebar and main content */
+.dashboardBody {
+    display: flex;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar button:hover {
+    background-color: #45a049;
+}
+
+.sidebar button:focus {
+    outline: none;
+    background-color: #45a049;
+}
+
+/* Main Content Section */
+.mainContent {
+    flex-grow: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.mainContent p {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+}
+
+/* Responsive Design: Adjust layout for smaller screens */
+@media (max-width: 768px) {
+    .dashboardBody {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sidebar {
+        width: 100%;
+        position: relative;
+        padding: 15px;
+    }
+
+    .mainContent {
+        margin-left: 0;
+        padding: 15px;
+    }
+}
+
+
+
+
