@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { allOtherAxiosRequest } from '../../api/axios'
@@ -9,31 +9,50 @@ import Words from "../../component/Words";
 
 import classes from '../../css/SetAssignment.module.css';
 
-const schoolClasses = [
-    { class_id: 1, class_name: 'year1' },
-    { class_id: 2, class_name: 'year2' },
-    { class_id: 3, class_name: 'year3' },
-    { class_id: 4, class_name: 'year4' },
-];
+const user = localStorage.getItem('user');
+const schoolId = JSON.parse(user)?.school_id;
+
 
 const initialForm = {
     title: '',
     targetgroup: '',
-    school_id: localStorage.getItem('school_id'),
+    school_id: schoolId,
     practice_id: uuidv4(),
     description: '',
     words: [],
     created_at: '',
     expires_in: ''
 }
+
+
 function SetAssignment() {
     const navigate = useNavigate()
     const [formData, setFormData] = useState(initialForm)
+    const [schoolClasses, setSchoolClasses] = useState([])
     const [selectedWords, setSelectedWords] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
     const [assignmentId, setAssignmentId] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [errors, setErrors] = useState('');
+
+    useEffect(() => {
+        const getAllClass = async () => {
+            try {
+                const response = await allOtherAxiosRequest.get(`/api/v1/spelling/classes/getAllClassBySchool/${schoolId}`);
+                if (response.status === 200) {
+                     setSchoolClasses(response.data.allClasses)
+                }
+
+            } catch (error) {
+                console.log(error)
+                console.log(error.response.data.message || "Classes not found.")
+
+            }
+        }
+
+        getAllClass()
+    }, [])
+
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -43,7 +62,7 @@ function SetAssignment() {
     const handleSelectedWordsChange = useCallback((words) => {
         setSelectedWords(words)
         setFormData((prev) => ({ ...prev, words }))
-    },[]);
+    }, []);
 
     const handleDropdownChange = (e) => {
         setSelectedOption(e.target.value);
@@ -52,20 +71,22 @@ function SetAssignment() {
     const rejectEmptyFormSubmission = (formData) => {
         if (Object.values(formData).some((value) => value === '' || (Array.isArray(value) && value.length === 0))) {
             setErrors('Please fill in all fields and select at least one word to assign.')
+            return true
         }
+        return false
     }
 
     async function handleSubmit(e) {
         e.preventDefault()
 
-        rejectEmptyFormSubmission(formData)
+        if (rejectEmptyFormSubmission(formData)) return
 
 
         if (sanitizeInput(formData)) {
             setErrors('Invalid input 💪💪')
             localStorage.clear()
             setTimeout(() => { navigate('/login') }, 3000)
-         } 
+        }
 
         try {
             const payload = {
@@ -74,7 +95,7 @@ function SetAssignment() {
             }
 
             const response = await allOtherAxiosRequest.post('/api/v1/spelling/words/weeklypractice', payload)
-         
+
             if (response.status === 201) {
                 setAssignmentId(formData.practice_id)
                 setSuccessMessage('Assignment has successfully created ✔')
@@ -83,7 +104,7 @@ function SetAssignment() {
 
             }
         } catch (error) {
-            setErrors(error.response.data.message)
+            setErrors(error.response.data.message || "Something went wrong.")
         }
 
     }

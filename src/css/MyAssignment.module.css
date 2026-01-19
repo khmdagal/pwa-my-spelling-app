@@ -32,6 +32,20 @@
     align-items: center;
 }
 
+.assignmentInfo {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    text-align: left;
+    box-shadow: var(--box-shadow2);
+
+}
+
 button:hover {
     background-color: #4c910b;
     font-size: var(--font-size-mobile);
@@ -57,30 +71,62 @@ input[type="text"]:focus {
     outline: none;
 }
 
-.selectedWordsContainer {
+/* .selectedWordsContainer {
     margin-top: auto;
-}
+} */
 
 .selectedWordsContainer {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 15px;
-    margin-bottom: auto;
+    /* display: flex;
+    background: #f8f9fa;
+    text-align: left;
+    font-weight: 100;
+    height: fit-content; */
+
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    gap: 1.5rem;
+    padding: 2rem;
+
+    /* subtle gradient background behind glass
+    background: linear-gradient(
+        135deg,
+        rgba(220, 230, 255, 0.6),
+        rgba(240, 220, 255, 0.6)
+    ); */
+
+}
+
+.example {
+    font-size: smaller;
+
 }
 
 .words {
-    background-color: #e7f3fe;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+
+
+    background: rgba(255, 255, 255, 0.8);
+    padding: clamp(1rem, 5vw, 3rem);
+    border-radius: 24px;
     color: #010c11;
-    padding: 5px;
-    border-radius: 4px;
-    margin: 5px;
-    border: 1px solid #4CAF50;
     font-size: var(--font-size-mobile);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    border: solid rgb(172, 148, 191) 0.1px;
+    height: fit-content;
 }
-.word{
+
+.word {
     font-weight: bold;
     color: #4CAF50;
     font-style: oblique;
+    text-align: center;
+    background: rgba(207, 204, 215, 0.35);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
 }
 
 .title,
@@ -95,7 +141,7 @@ input[type="text"]:focus {
     height: auto;
     border: 1px solid #2b0202;
     border-radius: 5px;
-   
+
 }
 
 .errorMessages {
@@ -265,10 +311,12 @@ input[type="text"]:focus {
         padding: 30px;
         font-size: var(--font-size-large-screen);
     }
- .title,
- .description {
-     font-size: var(--font-size-large-screen);
- }
+
+    .title,
+    .description {
+        font-size: var(--font-size-large-screen);
+    }
+
     .words {
         font-size: var(--font-size-large-screen);
     }

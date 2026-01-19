@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { FaVolumeDown } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { allOtherAxiosRequest } from '../../api/axios'
@@ -13,7 +13,6 @@ function MyAssignment() {
     const [practice_id, setPractice_id] = useState('')
     const [words, setWords] = useState([])
     const [spinner, setSpinner] = useState(false)
-    const [hideLetsPracticeButton, setHideLetsPracticeButton] = useState('hidden')
     const [errorMessage, setErrorMessage] = useState('')
 
     const user = localStorage.getItem('user');
@@ -28,75 +27,80 @@ function MyAssignment() {
 
     }
 
-    const handleGetData = async () => {
-        try {
+       const handleGetData = async (practice_id) => {
+            try {
 
-            if (sanitizeInput([practice_id, school_id])) {
-                setErrorMessage('Invalid input 💪💪')
-                localStorage.clear()
-                setTimeout(() => {
-                    navigate('/login')
-                }, 3000)
+                if (sanitizeInput([practice_id, school_id])) {
+                    setErrorMessage('Invalid input 💪💪')
+                    localStorage.clear()
+                    setTimeout(() => {
+                        navigate('/login')
+                    }, 3000)
 
-            } else {
-                setSpinner(true)
-                const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
-                if (response.status === 200)
-                    setSpinner(false)
-                setAssignment(response.data.myAssignment[0].assignment)
+                } else {
+                    setSpinner(true)
+                    const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
+                    if (response.status === 200)
+                        setSpinner(false)
+                    setAssignment(response.data.myAssignment[0].assignment)
 
+                }
+
+            } catch (err) {
+                console.log(err)
+                setErrorMessage(err.response.data.message)
+                setSpinner(false)
             }
+        };
+       
 
-        } catch (err) {
-            console.log(err)
-            setErrorMessage(err.response.data.message)
-            setSpinner(false)
-        }
-    };
-    const listOfWords = assignment?.words?.map(wordObj => wordObj.word) || [];
-    useEffect(() => {
-        Array.isArray(assignment?.words) ? setWords([...assignment.words]) : setWords([])
 
-    }, [assignment])
+        const listOfWords = assignment?.words?.map(wordObj => wordObj.word) || [];
 
-    // This is to control the visibility of the 'Lets Practice' button
-    useEffect(() => {
-        if (words?.length > 0) {
-            setHideLetsPracticeButton('')
-        }
-    }, [words])
 
-    const handleGoPracticePage = () => {
-        localStorage.setItem('words', JSON.stringify(listOfWords))
-        navigate('/practicePage')
-    }
+        useEffect(() => {
+            Array.isArray(assignment?.words) ? setWords([...assignment.words]) : setWords([])
+        }, [assignment])
+
+
+      const wordAssignment = useMemo(()=>{
+        return words
+      },[words])
+
+
+
+            localStorage.setItem('words', JSON.stringify(listOfWords))
+            localStorage.setItem('wordsAndExamples', JSON.stringify(words))
+            localStorage.setItem('practice_id', JSON.stringify(practice_id))
+        
+
         return (
             <div className={`${classes.assignmentContainer}`}>
                 {spinner && <Spinner />}
                 {errorMessage && <p className={`${classes.errorMessages}`}>{errorMessage}</p>}
-                <button className={`${classes.getAssignmentBtn}`} onClick={handleGetData}>Get the Assignment</button>
+                <button className={`${classes.getAssignmentBtn}`} onClick={()=> handleGetData(practice_id)}>Get the Assignment</button>
                 <div>
                     <label htmlFor="practice_id">Enter your Assignment Code</label>
                     <input id="practice_id" name="practice_id" type="text" onChange={handleChange} />
                 </div>
-              {assignment && (
-                 <div className={`${classes.assignmentInfo}`}>
-                    <p className={`${classes.assignmentTitle}`}>
-                        <strong>Assignment Title:</strong> {assignment.title}
-                    </p>
-                    <p className={`${classes.assignmentDescription}`}>
-                        <strong>Description:</strong> {assignment.description}
-                    </p>
-                    {assignment.expires_in &&  (
-                        <p className={`${classes.assignmentDueDate}`}>
-                           <strong>Due Date:</strong> {new Date(assignment.expires_in).toLocaleDateString()}
+                {assignment && (
+                    <div className={`${classes.assignmentInfo}`}>
+                        <p className={`${classes.assignmentTitle}`}>
+                            <strong>Assignment Title:</strong> {assignment.title}
                         </p>
-                    )}
-                </div>
-            )}
+                        <p className={`${classes.assignmentDescription}`}>
+                            <strong>Description:</strong> {assignment.description}
+                        </p>
+                        {assignment.expires_in && (
+                            <p className={`${classes.assignmentDueDate}`}>
+                                <strong>Due Date:</strong> {new Date(assignment.expires_in).toLocaleDateString()}
+                            </p>
+                        )}
+                    </div>
+                )}
                 <label className={`${classes.wordsLabel}`}>Words :</label>
                 <div className={`${classes.selectedWordsContainer}`}>
-                    {assignment?.words?.map((el, index) => (
+                    {wordAssignment?.map((el, index) => (
                         <div key={index} className={`${classes.words}`} name="words" >
                             {el.word && (
                                 <div>
@@ -117,10 +121,9 @@ function MyAssignment() {
                     ))}
                 </div>
 
-                <Button className={`${classes.practiceBtn}`} label='Lets Practice' backgroundColor='Blue' onClick={handleGoPracticePage} hidden={hideLetsPracticeButton} />
             </div>
         )
 
-}
+    }
 
 export default MyAssignment;
