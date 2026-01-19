@@ -8,7 +8,7 @@ import classes from '../css/Header.module.css';
 function Header() {
     const navigate = useNavigate();
 
-    const isLoggedIn = localStorage.getItem('user'); // or use another key like 'user'
+    const isLoggedIn = localStorage.getItem('user'); 
     const pages = ['Home', isLoggedIn ? localStorage.getItem('dashboard') : ''].filter(Boolean);
 
     const handleLogout = async () => {
@@ -17,11 +17,16 @@ function Header() {
         withCredentials: true,
       });
       localStorage.removeItem('user');
+      localStorage.removeItem('words');
+      localStorage.removeItem('wordsAndExamples');
+      localStorage.removeItem('profile');
+      localStorage.removeItem('practice_id');       
       navigate('/login');
     } catch (error) {
       console.error('Logout failed:', error);
     }
   };
+
     return (
         <header className={`${classes.header}`}>
             <UserProfile />
