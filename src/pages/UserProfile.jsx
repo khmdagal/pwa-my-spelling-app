@@ -1,19 +1,37 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react";
+import Avatars from "../component/Avatars";
+import { allOtherAxiosRequest } from "../api/axios";
+
 
 function UserProfile() {
-  const [user, setUser] = useState('');
-
+  const [profile, setProfile] = useState();
+  const user = localStorage.getItem('user')
 
   useEffect(() => {
-    setUser(localStorage.getItem('name'))
 
+    const getMyprofile = async () => {
+      try {
+        const response = await allOtherAxiosRequest.get(`/api/v1/spelling/profile/getProfile`);
+       
+        if (response.status === 200) {
+         localStorage.setItem('profile', JSON.stringify(response.data.profile[0]))
+          setProfile(response.data.profile[0])
+        }
+      } catch (error) {
+        console.log(error)
+      }
+
+    };
+
+    getMyprofile()
   }, [user]);
-  return (
-    <div className="user-profile">
-      <h2> {user} </h2>
 
-    </div>
-  );
+  if (profile)
+    return (
+      <div >
+        <Avatars avatarName={profile?.avatar_name} />
+      </div>
+    );
 
 }
 

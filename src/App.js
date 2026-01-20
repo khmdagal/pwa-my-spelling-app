@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';
-import StudentDashboard from './pages/StudentDashboard';
+import StudentsDashboard from './pages/StudentsDashboard';
 import HomePage from './pages/Home';
 import SignUp from './pages/SignUp';
 import PracticeMyAssignment from './assignments/myAssignments/PracticeMyAssignments';
@@ -27,7 +27,7 @@ function App() {
           />
           <Route exact path='/student_dashboard' element={
             <ProtectedRoutes >
-              <StudentDashboard />
+              <StudentsDashboard />
             </ProtectedRoutes>
           }
           />

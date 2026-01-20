@@ -46,9 +46,9 @@ function SignUp() {
                 setErrors('');
                 e.preventDefault();
                 const response = await axiosForLoginAndSignUpOnly.post('/api/v1/spelling/users/signUp', formData);
-                // Handle success, maybe clear the form or show a success message
 
-                setFormData({
+                if (response.status === 201) {
+                    setFormData({
                     name: '',
                     username: '',
                     password: '',
@@ -57,10 +57,6 @@ function SignUp() {
                     email: '',
                     approved: false
                 });
-
-
-                if (!response.status === 201) {
-                    return setErrors(response.data.message)
                 }
 
                 //if there is no error then navigate to use login page
@@ -70,6 +66,7 @@ function SignUp() {
 
         } catch (error) {
             setErrors(error.response.data.message)
+            console.log(error)
         }
 
 

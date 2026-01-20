@@ -1,88 +1,108 @@
-.mainContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    justify-items: center;
-    height: var(--height-mobile);
-    width: 360px;
-    margin: auto;
-    background-color: var(--lightgray-color);
+
+ .mainContainer {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: clamp(1rem, 5vw, 3rem); 
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px); 
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(175, 160, 160, 0.05);
+  text-align: center;
+}
+
+.wordsBox{
+display: flex;
+flex-direction:row;
+justify-content: space-between;
 }
 
 .title {
-    font-size: var(--font-size-mobile);
-    font-weight: bolder;
-    text-align: center;
+  font-size: clamp(1.5rem, 8vw, 2.5rem);
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+  font-weight: 800;
+} 
+
+/* Answer Box - Responsive Layout */
+ .answerBox {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 2rem;
+} 
+
+/* Horizontal on screens wider than 480px */
+@media (min-width: 480px) {
+  .answerBox {
+    flex-direction: row;
+  }
+} 
+
+.answerBox input {
+  flex: 1;
+  padding: 14px 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
 }
 
+.answerBox input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+} 
+
+/* Example Box styling */
+.examplesBox {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  text-align: left;
+} 
+
+.examplesBox p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #444;
+  padding: 10px 0;
+  border-bottom: 1px dashed #ddd;
+} 
+
+.examplesBox p:last-child {
+  border-bottom: none;
+}
+
+/* Buttons Container - Wraps automatically */
 .practicePageBtnsContainer {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+} 
+
+/* Make buttons responsive on small screens */
+ .practicePageBtnsContainer button {
+  flex: 1 1 150px; 
+  padding: 12px 24px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s active;
 }
 
-.practicePageBtns {
-    height: inherit;
-    border-radius: 20%;
-    font-weight: bold;
+ .practicePageBtnsContainer button:active {
+  transform: scale(0.60);
+} 
 
-}
-
-.answerBox {
-    display: flex;
-    align-items: center;
-}
-
-/* Tablet design */
-
-@media screen and (min-width: 433px) {
-    .mainContainer {
-        width: 815px;
-        height: var(--height-tablet);
-
-    }
-
-    .title {
-        font-size: var(--font-size-tablet);
-    }
-}
-
-/* Laptop design */
-
-@media screen and (min-width: 916px) {
-    .mainContainer {
-        min-width: 915px;
-        max-width: 1679px;
-        height: var(--height-laptop);
-    }
-
-    .title {
-        font-size: var(--font-size-laptop);
-    }
-}
-
-/* Desktops */
-@media screen and (min-width: 1680px) {
-    .mainContainer {
-        min-width: 1680px;
-        max-width: 5118px;
-        height: var(--height-desktop);
-
-    }
-
-    .title {
-        font-size: var(--font-size-desktop);
-    }
-}
-
-/* and Large Screens */
-@media screen and (min-width: 5119px) {
-    .mainContainer {
-        min-width: 5119px;
-        height: var(--height-large-screen);
-    }
-
-    .title {
-        font-size: var(--font-size-large-screen);
-    }
-}
+/* Error Message */
+ .errMessage {
+  color: #dc3545;
+  background: #ffe6e6;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+} 
