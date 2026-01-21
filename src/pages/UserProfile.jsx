@@ -5,7 +5,7 @@ import { allOtherAxiosRequest } from "../api/axios";
 
 function UserProfile() {
   const [profile, setProfile] = useState();
-  const user = localStorage.getItem('user')
+
 
   useEffect(() => {
 
@@ -24,7 +24,7 @@ function UserProfile() {
     };
 
     getMyprofile()
-  }, [user]);
+  }, []);
 
   if (profile)
     return (
