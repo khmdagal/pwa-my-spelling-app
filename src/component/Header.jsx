@@ -29,7 +29,7 @@ function Header() {
 
     return (
         <header className={`${classes.header}`}>
-            <UserProfile />
+            {isLoggedIn && <UserProfile />}
             <nav className={`${classes.nav} ${classes.container}`}>
                 <ul className={`${classes.navList}`}>
                     {pages.map(page => (
