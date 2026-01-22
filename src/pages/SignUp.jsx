@@ -20,7 +20,8 @@ function SignUp() {
     });
     const [schools, setSchools] = useState([])
     const [errors, setErrors] = useState('')
-    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
+    const [debugResponse, setDebugResponse] = useState({})
 
 
     const navigate = useNavigate()
@@ -78,8 +79,10 @@ function SignUp() {
         async function fetchSchools() {
             try {
                 const response = await axiosForLoginAndSignUpOnly.get('/api/v1/spelling/schools');
-                response.data.schools && setSchools(response.data.schools);
                 console.log('Debug ',{response})
+                setDebugResponse(response)
+                response.data.schools && setSchools(response.data.schools);
+                
             } catch (error) {
                 console.error('Error fetching schools:', error);
             }
@@ -88,6 +91,9 @@ function SignUp() {
         fetchSchools()
 
     }, [])
+
+
+console.log({debugResponse})
 
     return (
         <div className={`${classes.mainContainer}`}>
