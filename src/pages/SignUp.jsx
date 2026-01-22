@@ -21,9 +21,7 @@ function SignUp() {
     const [schools, setSchools] = useState([])
     const [errors, setErrors] = useState('')
     const [showPassword, setShowPassword] = useState(false);
-    const [debugResponse, setDebugResponse] = useState({})
-
-
+   
     const navigate = useNavigate()
     const handleChange = (e) => {
         const { name, value } = e.target;
