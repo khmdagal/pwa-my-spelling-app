@@ -21,9 +21,7 @@ function SignUp() {
     const [schools, setSchools] = useState([])
     const [errors, setErrors] = useState('')
     const [showPassword, setShowPassword] = useState(false);
-    const [debugResponse, setDebugResponse] = useState({})
-
-
+   
     const navigate = useNavigate()
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -79,8 +77,6 @@ function SignUp() {
         async function fetchSchools() {
             try {
                 const response = await axiosForLoginAndSignUpOnly.get('/api/v1/spelling/schools');
-                console.log('Debug ',{response})
-                setDebugResponse(response)
                 response.data.schools && setSchools(response.data.schools);
                 
             } catch (error) {
@@ -91,9 +87,6 @@ function SignUp() {
         fetchSchools()
 
     }, [])
-
-
-console.log({debugResponse})
 
     return (
         <div className={`${classes.mainContainer}`}>
