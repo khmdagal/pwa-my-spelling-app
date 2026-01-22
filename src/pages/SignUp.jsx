@@ -78,7 +78,8 @@ function SignUp() {
         async function fetchSchools() {
             try {
                 const response = await axiosForLoginAndSignUpOnly.get('/api/v1/spelling/schools');
-                response.data.schools && setSchools(response.data.schools)
+                response.data.schools && setSchools(response.data.schools);
+                console.log('Debug ',{response})
             } catch (error) {
                 console.error('Error fetching schools:', error);
             }
