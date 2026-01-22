@@ -79,8 +79,6 @@ function SignUp() {
         async function fetchSchools() {
             try {
                 const response = await axiosForLoginAndSignUpOnly.get('/api/v1/spelling/schools');
-                console.log('Debug ',{response})
-                setDebugResponse(response)
                 response.data.schools && setSchools(response.data.schools);
                 
             } catch (error) {
@@ -91,9 +89,6 @@ function SignUp() {
         fetchSchools()
 
     }, [])
-
-
-console.log({debugResponse})
 
     return (
         <div className={`${classes.mainContainer}`}>
