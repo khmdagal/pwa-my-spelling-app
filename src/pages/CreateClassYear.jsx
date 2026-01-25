@@ -59,10 +59,11 @@ function CreateClassYear() {
 
         try {
 
-            const response = await allOtherAxiosRequest.post(`/api/v1/spelling/classes/createClass${schoolId}`, formData);
+            const response = await allOtherAxiosRequest.post(`/api/v1/spelling/classes/createClass/${schoolId}`, formData);
+            
 
             if (response.status === 201) {
-                setSuccessMessage('The new class or group has been successfully created ✔')
+                setSuccessMessage(response.data.message+' ✔')
                 setFormData({ ...initialForm })
             }
 
@@ -78,8 +79,8 @@ function CreateClassYear() {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                {errors && <p>{errors}</p>}
-                {successMessage && <p>{successMessage}</p>}
+                {errors && <p style={{'backgroundColor':'red', 'color':'white'}}>{errors}</p>}
+                {successMessage && <p style={{'backgroundColor':'#4CAF50', 'color':'white'}}>{successMessage}</p>}
                 <h3>Create a new Class or Spelling Group </h3>
                 <div>
                     <label>Class/Group name</label>
