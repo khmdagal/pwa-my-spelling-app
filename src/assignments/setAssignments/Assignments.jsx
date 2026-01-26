@@ -1,25 +1,30 @@
 import { useState, useEffect } from 'react'
 import { allOtherAxiosRequest } from '../../api/axios'
-import TableData from '../../component/TableData'
+import TableData from '../../component/TableData';
+
+const user = localStorage.getItem('user')
+
+const school_id = JSON.parse(user).school_id
+
 
 function Assignments() {
     const [assignmentsData, setAssignmentsData] = useState([])
 
-  
-
     useEffect(() => {
-  const getAllAssignmentsData = async () => {
-        const response = await allOtherAxiosRequest.get('/api/v1/spelling/words/weeklypractice/all')
-        setAssignmentsData(response.data.assignments)
-
-    }
-    getAllAssignmentsData()
-     
+        const getAllAssignmentsData = async () => {
+            const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/weeklypractice/all/${school_id}`);
+            if (response.status === 200) {
+                setAssignmentsData(response.data.assignments)
+            } else {
+                setAssignmentsData([])
+            }
+        }
+        getAllAssignmentsData()
     }, [])
 
     return (
         <div >
-            <TableData formData={assignmentsData}/>
+            <TableData formData={assignmentsData} />
         </div>
     )
 }
