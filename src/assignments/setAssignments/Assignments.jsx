@@ -4,12 +4,12 @@ import TableData from '../../component/TableData';
 
 const user = localStorage.getItem('user')
 
-const school_id = JSON.parse(user).school_id
+
 
 
 function Assignments() {
     const [assignmentsData, setAssignmentsData] = useState([])
-
+    const school_id = JSON.parse(user)?.school_id
     useEffect(() => {
         const getAllAssignmentsData = async () => {
             const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/weeklypractice/all/${school_id}`);
