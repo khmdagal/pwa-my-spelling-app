@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Time from '../component/Time';
-import classes from '../css/TeachersDashboard.module.css';
 import SetAssignment from '../assignments/setAssignments/SetAssignment';
 import StudentsRecord from '../assignments/setAssignments/StudentsRecord';
 import Assignments from '../assignments/setAssignments/Assignments';
 import CreateClassYear from '../pages/CreateClassYear';
 import Leaderboard from '../pages/LeaderBoard';
+
+import classes from '../css/Dashboard.module.css';
 
 function Dashboard() {
     const [activeView, setActiveView] =  useState('setAssignment')

@@ -5,7 +5,7 @@ import Leaderboard from "./LeaderBoard";
 
 
 
-import classes from '../css/StudentsDashboard.module.css'
+import classes from '../css/Dashboard.module.css'
 
 function StudentsDashboard() {
     const [activeView, setActiveView] =  useState('myAssignment')
