@@ -1,0 +1,267 @@
+.teacherDashboard,
+.studentDashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f7f7f7;
+  font-family: 'Arial', sans-serif;
+  width: 100%;
+}
+
+/* Header Section */
+.dashboardHeader {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 20px;
+  background-color: #2196F3;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dashboardHeader h1 {
+  font-size: 2em;
+  margin: 0;
+}
+
+/* Body section with sidebar and main content */
+.dashboardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-grow: 1;
+  padding: 10px;
+}
+
+
+
+/* Main Content Section */
+.mainContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-left: 20px;
+  flex-grow: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  gap: 5px;
+}
+
+.sidebar button {
+  background-color: #2196F3;
+  width: fit-content;
+  color: white;
+  border-radius: 5px;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar button:hover {
+  background-color: #1976D2;
+}
+
+.sidebar button:focus {
+  outline: auto;
+  background-color: #55755e;
+}
+
+
+/* ==== Admin dashboard  */
+
+.newClassForm,
+.assignmentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 12px;
+}
+
+.newClassForm h2,
+.assignmentForm h2 {
+  font-size: 1.4rem;
+  text-align: center;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.newClassForm label,
+.assignmentForm label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+  color: #555;
+}
+
+.newClassForm input,
+.assignmentForm input,
+.assignmentForm select,
+.assignmentForm textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  background: #fafafa;
+  transition: border 0.2s ease;
+}
+
+.newClassForm input:focus,
+.assignmentForm input:focus,
+.assignmentForm select:focus,
+.assignmentForm textarea:focus {
+  outline: auto;
+}
+
+.assignmentForm textarea {
+  min-height: 100px;
+  resize: none;
+}
+
+.errorMessage {
+  background: #ffe6e6;
+  color: #b00020;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.successMessage {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+  border-left: var(--nice-left-border);
+}
+
+
+.successMessage p:nth-child(2) {
+  box-shadow: var(--box-shadow2);
+  text-align: center;
+  padding: 10px;
+  font-weight: 700;
+}
+
+/* Selected words list */
+.selectedWordsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.words {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 12px;
+  border-left: var(--nice-left-border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.words p:first-child {
+  font-weight: 700;
+  color: #222;
+}
+
+.words p,
+div {
+  font-size: 0.70rem;
+  color: #555;
+  margin: 2px 0;
+}
+
+.dateDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* == my assignment component  */
+
+.assignmentInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px 20px;
+  max-width: 500px;
+  border: 1px solid #e5e7eb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.assignmentInfo label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.assignmentInfo p {
+  margin: 0;
+  font-size: 15px;
+  color: #111827;
+  line-height: 1.5;
+}
+
+
+/* ============ */
+
+/* == Tables and larger screens ==== */
+@media (min-width: 431px) {
+  .dashboardBody {
+    display: flex;
+    flex-direction: row;
+    gap: 1px;
+  }
+
+  /* Sidebar Styling */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 1.5em;
+  }
+
+  .sidebar button {
+    background-color: #2196F3;
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2em;
+
+  }
+
+  .dateDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  .assignmentInfo {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+}
