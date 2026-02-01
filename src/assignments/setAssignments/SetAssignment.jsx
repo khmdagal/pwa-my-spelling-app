@@ -7,7 +7,7 @@ import { sanitizeInput } from '../../helpers/Helpers'
 import Words from "../../component/Words";
 
 
-import classes from '../../css/SetAssignment.module.css';
+import classes from '../../css/Dashboard.module.css';
 
 const user = localStorage.getItem('user');
 const schoolId = JSON.parse(user)?.school_id;
@@ -40,7 +40,7 @@ function SetAssignment() {
             try {
                 const response = await allOtherAxiosRequest.get(`/api/v1/spelling/classes/getAllClassBySchool/${schoolId}`);
                 if (response.status === 200) {
-                     setSchoolClasses(response.data.allClasses)
+                    setSchoolClasses(response.data.allClasses)
                 }
 
             } catch (error) {
@@ -118,22 +118,27 @@ function SetAssignment() {
                 <h2>Set Up New Assignment</h2>
                 {assignmentId && <div className={`${classes.successMessage}`}>
                     <p>This is the practice id, please copy and send to the class</p>
-                    <p>ID:{assignmentId}</p>
+                    <p>{assignmentId}</p>
                 </div>}
                 <input name="practice_id" type="text" value={formData.practice_id} disabled hidden />
                 <div>
                     <label>Title</label>
                     <input name="title" type="text" value={formData.title} onChange={handleChange} required />
                 </div>
-                <select name="targetgroup" onChange={handleChange} required>
-                    <option value=''> == Select the class to assign ==</option>
-                    {schoolClasses?.map((assignedYear) => {
+                <div>
+                    <label>Select the class to assign</label>
+                    <select name="targetgroup" onChange={handleChange} required>
+                        <option value=''> Select</option>
+                        {schoolClasses?.map((assignedYear) => {
 
-                        return (
-                            <option key={assignedYear.class_id} value={assignedYear.class_id}> {assignedYear.class_name} </option>
-                        )
-                    })}
-                </select>
+                            return (
+                                <option key={assignedYear.class_id} value={assignedYear.class_id}> {assignedYear.class_name} </option>
+                            )
+                        })}
+                    </select>
+                </div>
+
+
                 <div>
                     <label>Description</label>
                     <textarea name="description" value={formData.description} onChange={handleChange} required />
@@ -152,7 +157,7 @@ function SetAssignment() {
 
                         {selectedWords?.map(word => {
                             return (<div key={word.word_id} className={`${classes.words}`} name="words" >
-                                <p>{word.word}</p>
+                                <p>{word.word.toUpperCase()}</p>
                                 <p>{word.example.example1}</p>
                                 <p>{word.example.example2}</p>
                             </div>)
