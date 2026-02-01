@@ -1,15 +1,11 @@
 .header {
-    margin-top: 5px;
-    display: grid;
-    grid-template-columns: 3fr 1.5fr;
+    display: flex;
     width: 100%;
-    align-items: center;
     background: linear-gradient(to bottom, black 50%, transparent 50%),
         linear-gradient(225deg, black 50%, transparent 50%),
         linear-gradient(to right, transparent 80%, #a3cf00 80%),
         linear-gradient(to right, #616553, rgb(228, 228, 8));
 }
-
 
 .navList {
     display: flex;
@@ -18,11 +14,13 @@
     justify-content: space-evenly;
     text-decoration-line: none;
     gap: 10px;
+    width: 100%;
 }
 
 .header button {
     margin: 10px;
-    width: 100px;
+    width: fit-content;
+    font-size: 1em;
 }
 
 .navItem {
@@ -31,98 +29,4 @@
     color: rgb(255, 255, 255);
     margin: 0 10px;
     font-size: 20px;
-}
-
-
-/* Tablet design */
-
-@media screen and (min-width: 433px) {
-    .header {
-        background:
-            linear-gradient(to bottom, black 70%, transparent 50%),
-            linear-gradient(225deg, black 50%, transparent 50%),
-            linear-gradient(to right, transparent 80%, #82a309 80%),
-            linear-gradient(to right, #a3cf00, yellow);
-    }
-
-    .navList {
-        flex-direction: row;
-        font-size: 35px;
-    }
-
-    .buttonsContainer {
-        display: flex;
-        flex-direction: row;
-
-    }
-
-    .navItem {
-        margin: 0 10px;
-        font-size: 25px;
-    }
-
-    button {
-        margin: 10px;
-        width: 100px;
-    }
-}
-
-/* Laptop design */
-
-@media screen and (min-width: 916px) {
-    .header {
-        background:
-            linear-gradient(to bottom, black 70%, transparent 50%),
-            linear-gradient(225deg, black 50%, transparent 50%),
-            linear-gradient(to right, transparent 80%, #82a309 80%),
-            linear-gradient(to right, #a3cf00, yellow);
-    }
-
-    .navList {
-        flex-direction: row;
-        align-items: left;
-        justify-content: space-evenly;
-        text-decoration-line: none;
-    }
-
-    .buttonsContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        justify-items: center;
-        align-items: center;
-
-    }
-
-    .navItem {
-        margin: 0 10px;
-    }
-}
-
-/* Desktops */
-@media screen and (min-width: 1680px) {
-    .navItem {
-        font-size: 40px;
-    }
-
-}
-
-/* and Large Screens */
-@media screen and (min-width: 5119px) {
-    .navItem {
-        font-size: 100px;
-    }
-
-    .navList {
-        flex-direction: row;
-        font-size: 50px;
-    }
-
-    button {
-        margin: 10px;
-        width: 400px;
-        height: 150px;
-        font-size: 80px;
-    }
-
 }
