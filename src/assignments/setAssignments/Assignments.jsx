@@ -20,7 +20,7 @@ function Assignments() {
             }
         }
         getAllAssignmentsData()
-    }, [])
+    }, [school_id])
 
     return (
         <div >
