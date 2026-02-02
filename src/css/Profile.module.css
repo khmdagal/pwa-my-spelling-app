@@ -1,5 +1,9 @@
-.avatats{
-    border-radius: 5%;
-    box-shadow: var(--box-shadow3);
-    background: gray;
+.profileAvatarAndName{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 1em;
+}
+.profileName{
+    color: white;
+    font-size: 1.5em;
 }
