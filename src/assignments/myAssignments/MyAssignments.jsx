@@ -6,7 +6,7 @@ import Button from "../../component/Button";
 import Spinner from "../../component/Spinner";
 import { sanitizeInput, sayTheRandomWord } from "../../helpers/Helpers"
 
-import classes from '../../css/MyAssignment.module.css'
+import classes from '../../css/Dashboard.module.css'
 
 function MyAssignment() {
     const [assignment, setAssignment] = useState(undefined)
@@ -75,7 +75,7 @@ function MyAssignment() {
         
 
         return (
-            <div className={`${classes.assignmentContainer}`}>
+            <div className={`${classes.assignmentForm}`}>
                 {spinner && <Spinner />}
                 {errorMessage && <p className={`${classes.errorMessages}`}>{errorMessage}</p>}
                 <button className={`${classes.getAssignmentBtn}`} onClick={()=> handleGetData(practice_id)}>Get the Assignment</button>
@@ -85,17 +85,21 @@ function MyAssignment() {
                 </div>
                 {assignment && (
                     <div className={`${classes.assignmentInfo}`}>
-                        <p className={`${classes.assignmentTitle}`}>
-                            <strong>Assignment Title:</strong> {assignment.title}
-                        </p>
-                        <p className={`${classes.assignmentDescription}`}>
-                            <strong>Description:</strong> {assignment.description}
-                        </p>
-                        {assignment.expires_in && (
-                            <p className={`${classes.assignmentDueDate}`}>
-                                <strong>Due Date:</strong> {new Date(assignment.expires_in).toLocaleDateString()}
-                            </p>
-                        )}
+                        <div> 
+                            <label>Title</label>
+                             <p>{assignment.title}</p>
+                        </div>
+                       
+                        <div> 
+                            <label>Description</label>
+                            <p>{assignment.description}</p>
+                        </div>
+                        
+                        <div> 
+                            <label>Due Date</label>
+                            <p>{assignment.expires_in && (new Date(assignment.expires_in).toLocaleDateString())}</p>
+                        </div>
+                        
                     </div>
                 )}
                 <label className={`${classes.wordsLabel}`}>Words :</label>
@@ -104,12 +108,12 @@ function MyAssignment() {
                         <div key={index} className={`${classes.words}`} name="words" >
                             {el.word && (
                                 <div>
-                                    <strong className={`${classes.word}`}>Word: {el.word}</strong>
+                                    <strong className={`${classes.word}`}>{el.word}</strong>
                                 </div>
                             )}
                             {Object.entries(el.example || {}).map(([key, exampleValue], exampleIndex) => (
                                 <div key={exampleIndex}>
-                                    <span className={`${classes.example}`}> Example {exampleIndex + 1}: {exampleValue} </span>
+                                    <p className={`${classes.example}`}> {exampleValue} </p>
                                     <Button className={`${classes.practicePageBtns}`}
                                         label={<FaVolumeDown />}
                                         backgroundColor='Blue'

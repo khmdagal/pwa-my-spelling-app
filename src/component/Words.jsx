@@ -79,6 +79,8 @@ function Words({ onSelectedWordsChange}) {
             <div className={`${classes.wordsContainer}`}>
                 <select onChange={handleYearWords}>
                     {errorMessage && <p>{errorMessage}</p>}
+                    <option value='yr1words'>Year 1 spelling words</option>
+                    <option value='yr2words'>Year 2 spelling words</option>
                     <option value='y3and4words'>Year 3 and 4 spelling words</option>
                     <option value='y5and6words'>Year 5 and 6 spelling words</option>
                 </select>

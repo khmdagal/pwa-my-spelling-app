@@ -1,15 +1,11 @@
 .clock_container {
-  font-family: Arial, sans-serif;
   text-align: center;
-  margin-top: 20px;
+  border-left: var(--nice-left-border);
+  padding: 0.5em;
 }
 
-.date {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-}
-
+.date,
 .time {
-  font-size: 2em;
-  font-weight: bold;
+  font-size: 1.5em;
+  color: white;
 }

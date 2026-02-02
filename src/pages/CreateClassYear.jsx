@@ -4,6 +4,8 @@ import { sanitizeInput } from "../helpers/Helpers";
 import { allOtherAxiosRequest, axiosForLoginAndSignUpOnly } from '../api/axios';
 import Button from "../component/Button";
 
+import classes from '../css/Dashboard.module.css'
+
 const user = localStorage.getItem('user');
 const schoolId = JSON.parse(user)?.school_id;
 
@@ -59,10 +61,11 @@ function CreateClassYear() {
 
         try {
 
-            const response = await allOtherAxiosRequest.post(`/api/v1/spelling/classes/createClass${schoolId}`, formData);
+            const response = await allOtherAxiosRequest.post(`/api/v1/spelling/classes/createClass/${schoolId}`, formData);
+            
 
             if (response.status === 201) {
-                setSuccessMessage('The new class or group has been successfully created ✔')
+                setSuccessMessage(response.data.message+' ✔')
                 setFormData({ ...initialForm })
             }
 
@@ -77,10 +80,10 @@ function CreateClassYear() {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                {errors && <p>{errors}</p>}
-                {successMessage && <p>{successMessage}</p>}
-                <h3>Create a new Class or Spelling Group </h3>
+            <form className={`${classes.newClassForm}`} onSubmit={handleSubmit}>
+                {errors && <p style={{'backgroundColor':'red', 'color':'white'}}>{errors}</p>}
+                {successMessage && <p style={{'backgroundColor':'#4CAF50', 'color':'white'}}>{successMessage}</p>}
+                <h2>Create a new Class or Spelling Group </h2>
                 <div>
                     <label>Class/Group name</label>
                     <input
