@@ -38,9 +38,9 @@ function SetAssignment() {
     useEffect(() => {
         const getAllClass = async () => {
             try {
-                const response = await allOtherAxiosRequest.get(`/api/v1/spelling/classes/getAllClassBySchool/${schoolId}`);
+                const response = await allOtherAxiosRequest.get(`/api/v1/spelling/years/getAllYearsBySchool/${schoolId}`);
                 if (response.status === 200) {
-                    setSchoolClasses(response.data.allClasses)
+                    setSchoolClasses(response.data.allYears)
                 }
 
             } catch (error) {
@@ -132,7 +132,7 @@ function SetAssignment() {
                         {schoolClasses?.map((assignedYear) => {
 
                             return (
-                                <option key={assignedYear.class_id} value={assignedYear.class_id}> {assignedYear.class_name} </option>
+                                <option key={assignedYear.year_id} value={assignedYear.year_id}> {assignedYear.year_name} </option>
                             )
                         })}
                     </select>
