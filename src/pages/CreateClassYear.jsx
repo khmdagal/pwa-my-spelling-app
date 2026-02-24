@@ -10,9 +10,8 @@ const user = localStorage.getItem('user');
 const schoolId = JSON.parse(user)?.school_id;
 
 const initialForm = {
-    class_name: '',
+    year_name: '',
     school_id: schoolId,
-    enrolled_students: ''
 }
 
 function CreateClassYear() {
@@ -61,7 +60,7 @@ function CreateClassYear() {
 
         try {
 
-            const response = await allOtherAxiosRequest.post(`/api/v1/spelling/classes/createClass/${schoolId}`, formData);
+            const response = await allOtherAxiosRequest.post(`/api/v1/spelling/years/createYear/${schoolId}`, formData);
             
 
             if (response.status === 201) {
@@ -87,19 +86,11 @@ function CreateClassYear() {
                 <div>
                     <label>Class/Group name</label>
                     <input
-                        name="class_name"
+                        name="year_name"
                         type="text"
-                        value={formData.class_name}
+                        value={formData.year_name}
                         onChange={handleChange}
                         required />
-                    <div>
-                        <label>Number of Enrolled Students</label>
-                        <input name="enrolled_students"
-                            type="number"
-                            value={formData.enrolled_students}
-                            onChange={handleChange}
-                            required />
-                    </div>
                 </div>
                 <Button color='Golden' type='submit' label='Submit' />
             </form>
