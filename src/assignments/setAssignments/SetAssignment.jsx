@@ -28,7 +28,7 @@ const initialForm = {
 function SetAssignment() {
     const navigate = useNavigate()
     const [formData, setFormData] = useState(initialForm)
-    const [schoolClasses, setSchoolClasses] = useState([])
+    const [schoolYears, setSchoolYears] = useState([])
     const [selectedWords, setSelectedWords] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
     const [assignmentId, setAssignmentId] = useState('');
@@ -40,7 +40,7 @@ function SetAssignment() {
             try {
                 const response = await allOtherAxiosRequest.get(`/api/v1/spelling/years/getAllYearsBySchool/${schoolId}`);
                 if (response.status === 200) {
-                    setSchoolClasses(response.data.allYears)
+                    setSchoolYears(response.data.allYears)
                 }
 
             } catch (error) {
@@ -51,7 +51,7 @@ function SetAssignment() {
         }
 
         getAllClass()
-    }, [])
+    }, [schoolYears])
 
 
     const handleChange = (e) => {
@@ -129,7 +129,7 @@ function SetAssignment() {
                     <label>Select the class to assign</label>
                     <select name="targetgroup" onChange={handleChange} required>
                         <option value=''> Select</option>
-                        {schoolClasses?.map((assignedYear) => {
+                        {schoolYears?.map((assignedYear) => {
 
                             return (
                                 <option key={assignedYear.year_id} value={assignedYear.year_id}> {assignedYear.year_name} </option>
