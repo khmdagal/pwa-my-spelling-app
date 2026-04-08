@@ -14,7 +14,7 @@ const initialForm = {
     school_id: schoolId,
 }
 
-function CreateClassYear() {
+function CreateYear() {
 
     const [formData, setFormData] = useState(initialForm);
     const [errors, setErrors] = useState('');
@@ -44,7 +44,7 @@ function CreateClassYear() {
             localStorage.removeItem('user');
             navigate('/login');
         } catch (error) {
-            console.error('Logout failed:', error);
+            console.log('Logout failed');
         }
     };
 
@@ -69,7 +69,6 @@ function CreateClassYear() {
             }
 
         } catch (error) {
-            console.log(error)
             setErrors(error.response.data.message || "Something went wrong.")
 
         }
@@ -82,7 +81,7 @@ function CreateClassYear() {
             <form className={`${classes.newClassForm}`} onSubmit={handleSubmit}>
                 {errors && <p style={{'backgroundColor':'red', 'color':'white'}}>{errors}</p>}
                 {successMessage && <p style={{'backgroundColor':'#4CAF50', 'color':'white'}}>{successMessage}</p>}
-                <h2>Create a new Class or Spelling Group </h2>
+                <h2>Create a new year or Spelling Group </h2>
                 <div>
                     <label>Class/Group name</label>
                     <input
@@ -99,4 +98,4 @@ function CreateClassYear() {
 
 }
 
-export default CreateClassYear
+export default CreateYear
