@@ -5,18 +5,13 @@ import { allOtherAxiosRequest } from '../../api/axios'
 import Button from '../../component/Button'
 import { sanitizeInput } from '../../helpers/Helpers'
 import Words from "../../component/Words";
-
-
 import classes from '../../css/Dashboard.module.css';
-
-const user = localStorage.getItem('user');
-const schoolId = JSON.parse(user)?.school_id;
-
 
 const initialForm = {
     title: '',
+    targetyear: '',
     targetgroup: '',
-    school_id: schoolId,
+    school_id: '',
     practice_id: uuidv4(),
     description: '',
     words: [],
@@ -24,39 +19,62 @@ const initialForm = {
     expires_in: ''
 }
 
-
 function SetAssignment() {
+    const user = localStorage.getItem('user');
+    const schoolId = JSON.parse(user)?.school_id;
+
     const navigate = useNavigate()
-    const [formData, setFormData] = useState(initialForm)
-    const [schoolYears, setSchoolYears] = useState([])
-    const [selectedWords, setSelectedWords] = useState([]);
+    const [formData, setFormData] = useState({...initialForm, school_id: schoolId });
+    const [allYears, setAllYears] = useState([]);
+    const [year_id, setYearId] = useState('');
+    const [spellingGroup, setspellingGroup] = useState([])
+    const [selectedWords, setSelectedWords] = useState([]); 
     const [selectedOption, setSelectedOption] = useState('');
     const [assignmentId, setAssignmentId] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [errors, setErrors] = useState('');
 
     useEffect(() => {
-        const getAllClass = async () => {
+        const getAllAllYears = async () => {
             try {
                 const response = await allOtherAxiosRequest.get(`/api/v1/spelling/years/getAllYearsBySchool/${schoolId}`);
                 if (response.status === 200) {
-                    setSchoolYears(response.data.allYears)
+                    setAllYears(response.data.allYears)
                 }
-
             } catch (error) {
-                console.log(error)
-                console.log(error.response.data.message || "Classes not found.")
-
+                console.log(error.response.data.message || "Years not found.")
             }
         }
 
-        getAllClass()
-    }, [schoolYears])
+        getAllAllYears()
+    }, [schoolId])
 
+
+    useEffect(() => {
+        const getAllSpellingGroups = async () => {
+            try {
+                const response = await allOtherAxiosRequest.get(`/api/v1/spelling/years/getSpellingGroupsByYear/${year_id}`);
+                if (response.status === 200) {
+                    setspellingGroup(response.data.allGroups)
+                }
+            } catch (error) {
+                console.log(error.response.data.message || "Spelling groups not found.")
+            }
+        }
+
+        if (year_id) {
+            getAllSpellingGroups();
+        }
+
+    }, [year_id])
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        setFormData((prev) => ({ ...prev, [name]: value }))
+        setFormData((prev) => ({ ...prev, [name]: value }));
+
+        if (name === 'targetyear') {
+            setYearId(value)
+        };
     }
 
     const handleSelectedWordsChange = useCallback((words) => {
@@ -109,8 +127,6 @@ function SetAssignment() {
 
     }
 
-
-
     return (
         <div>
             <form className={`${classes.assignmentForm}`} onSubmit={handleSubmit}>
@@ -126,13 +142,25 @@ function SetAssignment() {
                     <input name="title" type="text" value={formData.title} onChange={handleChange} required />
                 </div>
                 <div>
-                    <label>Select the class to assign</label>
-                    <select name="targetgroup" onChange={handleChange} required>
+                    <label>Select the year to assign</label>
+                    <select name="targetyear" onChange={handleChange} required>
                         <option value=''> Select</option>
-                        {schoolYears?.map((assignedYear) => {
+                        {allYears?.map((assignedYear) => {
 
                             return (
                                 <option key={assignedYear.year_id} value={assignedYear.year_id}> {assignedYear.year_name} </option>
+                            )
+                        })}
+                    </select>
+                </div>
+
+                    <div>
+                    <label>Specify the spelling group to assign</label>
+                    <select name="targetgroup" onChange={handleChange} required>
+                        <option value=''> Select</option>
+                        {spellingGroup?.map((assignedGroup) => {
+                            return (
+                                <option key={assignedGroup.group_id} value={assignedGroup.group_id}> {assignedGroup.group_name} </option>
                             )
                         })}
                     </select>
