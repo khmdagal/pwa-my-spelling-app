@@ -1,16 +1,18 @@
 import React, { useEffect, useState, useMemo } from "react";
 import Avatars from "../component/Avatars";
 import { allOtherAxiosRequest } from "../api/axios";
-import { sanitizeInput } from "../helpers/Helpers"
+import { sanitizeInput } from "../helpers/Helpers";
+
 
 import classes from '../css/Profile.module.css'
 
 
-function UserProfile() {
+function UserProfile({ years }) {
   const [profile, setProfile] = useState();
   const [errorMessage, setErrorMessage] = useState();
   const [newAvatarName, setNewAvatarName] = useState('');
   const [avatarName, setAvatarName] = useState('Adventurer');
+  const [year, setYear] = useState({ year_id: '', year_name: '' });
   const [avatarsList, setAvatarsList] = useState([]);
   const [hide, setHide] = useState(false);
   const [showCreateButton, setShowCreateButton] = useState(false)
@@ -31,7 +33,7 @@ function UserProfile() {
           setAvatarsList(avatars.data.avatarNames)
         }
       } catch (error) {
-        console.log(error.message)
+
         setErrorMessage(error.message)
       }
     };
@@ -42,18 +44,17 @@ function UserProfile() {
   useEffect(() => {
     const getMyprofile = async () => {
       try {
-      
         const myProfile = await allOtherAxiosRequest.get(`/api/v1/spelling/profile/getProfile`);
 
         if (myProfile.status === 200) {
-          setProfile(myProfile.data.profile)
+          setProfile(myProfile.data.profile);
+          localStorage.setItem('userProfile', JSON.stringify(myProfile.data.profile));
           setAvatarName(myProfile.data.profile.avatar_name)
           setShowCreateButton(true)
 
         }
       } catch (error) {
-        console.log(error.message)
-        setErrorMessage(error.message)
+        setErrorMessage('An error occurred')
       }
     };
 
@@ -68,16 +69,14 @@ function UserProfile() {
         return
       };
 
-      const response = await allOtherAxiosRequest.post(`/api/v1/spelling/profile/createProfile`, { newAvatarName });
+      const response = await allOtherAxiosRequest.post(`/api/v1/spelling/profile/createProfile`, { newAvatarName, year_id: year.year_id });
 
-     
       if (response.status === 201) {
         setAvatarName(newAvatarName)
         setErrorMessage('')
         setShowCreateButton(true)
       }
     } catch (error) {
-      console.log(error)
       setErrorMessage(error.message)
     }
   };
@@ -95,10 +94,10 @@ function UserProfile() {
       if (response.status === 204) {
         setAvatarName(newAvatarName)
         setHide(false)
-         setErrorMessage('')
+        setErrorMessage('')
       }
     } catch (error) {
-      console.log(error.message)
+
       setErrorMessage(error.message)
     }
   };
@@ -111,31 +110,55 @@ function UserProfile() {
 
   }
 
- 
+  const handleYears = (e) => {
+    e.preventDefault()
+    const value = e.target.value
+    const selectedText = e.target.selectedOptions[0].text;
+    setYear({ year_id: value, year_name: selectedText })
+  }
 
   return (
     <div className={`${classes.profile}`}>
       {errorMessage && <p>{errorMessage}</p>}
       <div className={`${classes.profileAvatarAndName}`}>
         <p className={`${classes.profileName}`}>{userName}</p>
-        <div className={`${classes.profileAvatar}`} onClick={()=> setHide((prev)=> !prev)}>
+        <p>{profile?.year_name}</p>
+        <div className={`${classes.profileAvatar}`} onClick={() => setHide((prev) => !prev)}>
           <Avatars avatarName={avatarName} />
         </div>
 
       </div>
       {hide && (
-          <div className={`${classes.profileAvatarUpdate}`}>
-        <select onChange={handleAvatarName}>
-          <option value=''>== Select ==</option>
-          {
-            avatarsList?.map(el => {
-              return (<option key={el.avatar_name} value={el.avatar_name}>{el.avatar_name}</option>)
-            })
-          }
-        </select>
-        {showCreateButton ?  <button onClick={updateMyprofile}>Update Avatar</button>:<button onClick={createMyprofile} >Create profile</button>}
-       
-      </div>
+        <div className={`${classes.profileAvatarUpdate}`}>
+          <div>
+            <label htmlFor="avatarName">Select avatar: </label>
+            <select onChange={handleAvatarName}>
+              <option value=''>== Select ==</option>
+              {
+                avatarsList?.map(el => {
+                  return (<option key={el.avatar_name} value={el.avatar_name}>{el.avatar_name}</option>)
+                })
+              }
+            </select>
+          </div>
+
+          {!profile && <div>
+            <label htmlFor="years">Select year: </label>
+            <select onChange={handleYears} >
+              <option value=''>== Select year ==</option>
+              {
+                years?.map(el => {
+                  return (<option key={el.year_id} value={el.year_id}>{el.year_name}</option>)
+                })
+              }
+            </select>
+          </div>}
+
+
+
+          {showCreateButton ? <button onClick={updateMyprofile}>Update Avatar</button> : <button onClick={createMyprofile} >Create profile</button>}
+
+        </div>
       )}
 
     </div>
