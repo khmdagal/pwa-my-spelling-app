@@ -3,7 +3,8 @@ import Time from '../component/Time';
 import SetAssignment from '../assignments/setAssignments/SetAssignment';
 import StudentsRecord from '../assignments/setAssignments/StudentsRecord';
 import Assignments from '../assignments/setAssignments/Assignments';
-import CreateClassYear from '../pages/CreateClassYear';
+import CreateYear from '../pages/CreateYear';
+import CreateYearGroup from '../pages/CreateYearGroup';
 import Leaderboard from '../pages/LeaderBoard';
 
 import classes from '../css/Dashboard.module.css';
@@ -20,8 +21,11 @@ function Dashboard() {
     const displayAssignments =()=>{
         setActiveView('assignments')
     }
-    const displayCreateClassYear =()=>{
-        setActiveView('createClassYear')
+    const displayCreateYear =()=>{
+        setActiveView('createYear')
+    }
+    const displayCreateYearGroup =()=>{
+        setActiveView('createYearGroup')
     }
     const displayLeaderBoard =()=>{
         setActiveView('leaderBoard')
@@ -34,8 +38,10 @@ function Dashboard() {
             return <StudentsRecord />
         } else if( activeView === 'assignments'){
             return <Assignments />
-        }else if( activeView === 'createClassYear'){
-            return <CreateClassYear />
+        }else if( activeView === 'createYear'){
+            return <CreateYear />
+        }else if( activeView === 'createYearGroup'){
+            return <CreateYearGroup />
         }else if( activeView === 'leaderBoard'){
             return <Leaderboard />
         }
@@ -56,7 +62,8 @@ function Dashboard() {
                     <button onClick={displayStudentsRecord}>Students Acticities</button>
                     <button onClick={displayAssignments}>Assignments</button>
                     <button onClick={displayLeaderBoard}>Leaderboard</button>
-                    <button onClick={displayCreateClassYear}>Add New Class</button>
+                    <button onClick={displayCreateYear}>Create a Year</button>
+                    <button onClick={displayCreateYearGroup}>Create a Group</button>
                 </aside>
                 <main className={`${classes.mainContent}`}>
                     {dispayMainContent()}
