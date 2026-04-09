@@ -16,7 +16,7 @@ function SignUp() {
         role: '',
         school_id: 0,
         email: '',
-        approved: false
+        admin: false
     });
     const [schools, setSchools] = useState([])
     const [errors, setErrors] = useState('')
@@ -54,7 +54,7 @@ function SignUp() {
                     role: '',
                     school_id: 0,
                     email: '',
-                    approved: false
+                    admin: false
                 });
                 }
 
@@ -64,7 +64,13 @@ function SignUp() {
             }
 
         } catch (error) {
-            setErrors(error.response.data.message)
+
+            if (error.response && error.response.data && error.response.data.message) {
+                setErrors(`${error.response.data.message[0].message} in ${error.response.data.message[0].field} field`);
+            } else {
+                setErrors('An error occurred during sign up. Please try again.');
+            }
+            //setErrors(error.response.data?.message || 'An error occurred during sign up. Please try again.');
             console.log(error)
         }
 
@@ -99,7 +105,7 @@ function SignUp() {
 
                 <div className={`${classes.inputDive}`}>
                     <label htmlFor="name">Name </label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} required minLength={6}/>
                 </div>
 
                 <div className={`${classes.inputDive}`}>

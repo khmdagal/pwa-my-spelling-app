@@ -1,15 +1,20 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { allOtherAxiosRequest } from '../../api/axios'
 import TableData from '../../component/TableData';
 
-const user = localStorage.getItem('user')
-
-
-
 
 function Assignments() {
-    const [assignmentsData, setAssignmentsData] = useState([])
-    const school_id = JSON.parse(user)?.school_id
+    const [assignmentsData, setAssignmentsData] = useState([]);
+    const user = localStorage.getItem('user');
+
+    const school_id = useMemo(() => {
+        if (user) {
+            const parsedUser = JSON.parse(user);
+            return parsedUser.school_id;
+        }
+        return null;
+    }, [user]);
+
     useEffect(() => {
         const getAllAssignmentsData = async () => {
             const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/weeklypractice/all/${school_id}`);

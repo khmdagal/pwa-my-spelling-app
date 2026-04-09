@@ -4,7 +4,7 @@ import { axiosForLoginAndSignUpOnly } from '../api/axios';
 
 function ProtectedRoutes({ children }) {
    const location = window.location;
-  const [authState, setAuthState] = useState({ loading: true, isAuthenticated: false, admin: null });
+  const [authState, setAuthState] = useState({ loading: true, isAuthenticated: false, admin: null, superadmin: null });
 
   useEffect(() => {
      
@@ -16,12 +16,12 @@ function ProtectedRoutes({ children }) {
         );
 
         if (res.data.status === 'authenticated' || res.data.status === 'success') {
-          setAuthState({ loading: false, isAuthenticated: true, admin: res.data.admin });
+          setAuthState({ loading: false, isAuthenticated: true, admin: res.data.admin, superadmin: res.data.superadmin });
         } else {
-          setAuthState({ loading: false, isAuthenticated: false, admin: null });
+          setAuthState({ loading: false, isAuthenticated: false, admin: null, superadmin: null });
         }
-      } catch {
-        setAuthState({ loading: false, isAuthenticated: false, admin: null });
+      } catch (err) {
+        setAuthState({ loading: false, isAuthenticated: false, admin: null, superadmin: null });
       }
     };
 
@@ -33,7 +33,7 @@ function ProtectedRoutes({ children }) {
 
 
 
- if (authState.admin) {
+ if (authState.admin || authState.superadmin) {
   if (location.pathname !== "/admin_dashboard") {
     return <Navigate to="/admin_dashboard" replace />;
   }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { v4 as uuid4 } from 'uuid';
-//import { FaVolumeDown } from 'react-icons/fa';
 import { MdCheckCircleOutline } from "react-icons/md";
 import Button from '../../component/Button';
 import { sayTheRandomWord, practiceSessionCalculations, extractwordFromExamples, sanitizeInput } from "../../helpers/Helpers";
@@ -12,9 +11,8 @@ import classes from '../../css/PracticePage.module.css'
 
 
 function PracticeMyAssignment() {
-
     const words = useMemo(() => {
-        const myWords = localStorage.getItem('words') 
+        const myWords = localStorage.getItem('words')
         return myWords ? JSON.parse(myWords) : [];
     }, [])
 
@@ -22,12 +20,16 @@ function PracticeMyAssignment() {
         const examples = localStorage.getItem('wordsAndExamples')
         return examples ? JSON.parse(examples) : [];
     }, [])
+    
     const user = useMemo(() => {
         return JSON.parse(localStorage.getItem('user'))
     }, [])
 
     const practice_id = useMemo(() => {
-        return JSON.parse(localStorage.getItem('practice_id'))
+        const practiceId = localStorage.getItem('practice_id');
+
+        if (!practiceId || practiceId === 'undefined') return '';
+        return JSON.parse(practiceId);
     }, [])
 
     const [remainedWords, setRemainedWords] = useState([...words]);
@@ -65,7 +67,6 @@ function PracticeMyAssignment() {
         }
     }, [words, remainedWords])
 
-
     const getRandomWordAndDelete = () => {
         if (remainedWords.length === 0) {
             sayTheRandomWord('You have finished all the words, please reset to start again');
@@ -85,7 +86,6 @@ function PracticeMyAssignment() {
         setRemainedWords(updatedRemainingWords);
         sayTheRandomWord(randomWord)
     };
-
 
     const formatedExamples = useMemo(() => {
         return extractwordFromExamples(randWord, wordsAndExamples)
@@ -151,17 +151,17 @@ function PracticeMyAssignment() {
         value = value.toLowerCase();
         setAnswer(value)
 
-        if(sanitizeInput(value)){
+        if (sanitizeInput(value)) {
             setErrMessage('Invalid Input')
-            
-        }else{
+
+        } else {
             setAnswer(value)
             setErrMessage('')
         }
     }
 
-   useEffect(()=>{
-     if (practiceSession.length === usedWords.length && remainedWords.length === 0) {
+    useEffect(() => {
+        if (practiceSession.length === usedWords.length && remainedWords.length === 0) {
             setIsInputDisabled(true)
             setRestart(false)
             setAllSessions(((prev) => [...prev, practiceSession]))
@@ -169,8 +169,7 @@ function PracticeMyAssignment() {
             setIsInputDisabled(false)
 
         }
-   },[practiceSession, usedWords, remainedWords])
-
+    }, [practiceSession, usedWords, remainedWords])
 
     const calculatedData = useMemo(() => {
         return practiceSessionCalculations(allSessions)
@@ -196,11 +195,11 @@ function PracticeMyAssignment() {
     }, [calculatedData, score, myScore, user, practice_id])
 
     const handleSubmint = async () => {
-        if(sanitizeInput(formData)){
+        if (sanitizeInput(formData)) {
             setErrMessage('Invalid Input')
             return
         }
-        
+
         const response = await allOtherAxiosRequest.post(`/api/v1/spelling/practicesSessions/createSession`, formData)
 
         if (response.status === 201) {
@@ -210,7 +209,6 @@ function PracticeMyAssignment() {
             setPracticeSession([])
             setFormData({ session_id: '', practice_id: '', school_id: '', sessionData: {}, sessionScore: 0 })
         }
-        
     }
 
     return (

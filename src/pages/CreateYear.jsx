@@ -10,12 +10,11 @@ const user = localStorage.getItem('user');
 const schoolId = JSON.parse(user)?.school_id;
 
 const initialForm = {
-    class_name: '',
+    year_name: '',
     school_id: schoolId,
-    enrolled_students: ''
 }
 
-function CreateClassYear() {
+function CreateYear() {
 
     const [formData, setFormData] = useState(initialForm);
     const [errors, setErrors] = useState('');
@@ -45,7 +44,7 @@ function CreateClassYear() {
             localStorage.removeItem('user');
             navigate('/login');
         } catch (error) {
-            console.error('Logout failed:', error);
+            console.log('Logout failed');
         }
     };
 
@@ -61,7 +60,7 @@ function CreateClassYear() {
 
         try {
 
-            const response = await allOtherAxiosRequest.post(`/api/v1/spelling/classes/createClass/${schoolId}`, formData);
+            const response = await allOtherAxiosRequest.post(`/api/v1/spelling/years/createYear/${schoolId}`, formData);
             
 
             if (response.status === 201) {
@@ -70,7 +69,6 @@ function CreateClassYear() {
             }
 
         } catch (error) {
-            console.log(error)
             setErrors(error.response.data.message || "Something went wrong.")
 
         }
@@ -83,23 +81,15 @@ function CreateClassYear() {
             <form className={`${classes.newClassForm}`} onSubmit={handleSubmit}>
                 {errors && <p style={{'backgroundColor':'red', 'color':'white'}}>{errors}</p>}
                 {successMessage && <p style={{'backgroundColor':'#4CAF50', 'color':'white'}}>{successMessage}</p>}
-                <h2>Create a new Class or Spelling Group </h2>
+                <h2>Create a new year or Spelling Group </h2>
                 <div>
                     <label>Class/Group name</label>
                     <input
-                        name="class_name"
+                        name="year_name"
                         type="text"
-                        value={formData.class_name}
+                        value={formData.year_name}
                         onChange={handleChange}
                         required />
-                    <div>
-                        <label>Number of Enrolled Students</label>
-                        <input name="enrolled_students"
-                            type="number"
-                            value={formData.enrolled_students}
-                            onChange={handleChange}
-                            required />
-                    </div>
                 </div>
                 <Button color='Golden' type='submit' label='Submit' />
             </form>
@@ -108,4 +98,4 @@ function CreateClassYear() {
 
 }
 
-export default CreateClassYear
+export default CreateYear
