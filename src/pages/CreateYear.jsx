@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from 'react-router-dom';
 import { sanitizeInput } from "../helpers/Helpers";
 import { allOtherAxiosRequest, axiosForLoginAndSignUpOnly } from '../api/axios';
@@ -6,17 +6,18 @@ import Button from "../component/Button";
 
 import classes from '../css/Dashboard.module.css'
 
-const user = localStorage.getItem('user');
-const schoolId = JSON.parse(user)?.school_id;
-
-const initialForm = {
-    year_name: '',
-    school_id: schoolId,
-}
-
 function CreateYear() {
 
-    const [formData, setFormData] = useState(initialForm);
+    const schoolId = useMemo(() => {
+        const user = localStorage.getItem('user');
+        return JSON.parse(user)?.school_id;
+    }, []);
+
+
+    const [formData, setFormData] = useState({
+        year_name: '',
+        school_id: schoolId,
+    });
     const [errors, setErrors] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
@@ -61,11 +62,15 @@ function CreateYear() {
         try {
 
             const response = await allOtherAxiosRequest.post(`/api/v1/spelling/years/createYear/${schoolId}`, formData);
-            
+
 
             if (response.status === 201) {
-                setSuccessMessage(response.data.message+' ✔')
-                setFormData({ ...initialForm })
+                setSuccessMessage(response.data.message + ' ✔')
+                setFormData({
+                    year_name: '',
+                    school_id: schoolId,
+                });
+                setErrors('');
             }
 
         } catch (error) {
@@ -79,8 +84,8 @@ function CreateYear() {
     return (
         <div>
             <form className={`${classes.newClassForm}`} onSubmit={handleSubmit}>
-                {errors && <p style={{'backgroundColor':'red', 'color':'white'}}>{errors}</p>}
-                {successMessage && <p style={{'backgroundColor':'#4CAF50', 'color':'white'}}>{successMessage}</p>}
+                {errors && <p style={{ 'backgroundColor': 'red', 'color': 'white' }}>{errors}</p>}
+                {successMessage && <p style={{ 'backgroundColor': '#4CAF50', 'color': 'white' }}>{successMessage}</p>}
                 <h2>Create a new year or Spelling Group </h2>
                 <div>
                     <label>Class/Group name</label>
