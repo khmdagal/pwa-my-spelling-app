@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../component/Button';
 import UserProfile from "../pages/UserProfile";
@@ -9,15 +9,21 @@ import classes from '../css/Header.module.css';
 function Header() {
     const [years, setYears] = useState([]);
     const [errors, setErrors] = useState('');
-    const schoolId = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).school_id : null;
 
-    const navigate = useNavigate();
+    const user = localStorage.getItem('user');
+
+    const schoolId = useMemo(() => {
+        return user ? JSON.parse(user).school_id : null;
+    }, [user]);
+
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         const getAllYearsBySchool = async () => {
             try {
                 const response = await allOtherAxiosRequest.get(`/api/v1/spelling/years/getAllYearsBySchool/${schoolId}`);
                 setYears(response.data.allYears);
+                localStorage.setItem('years', JSON.stringify(response.data.allYears))
             } catch (err) {
                 setErrors(err.response.data.message || 'Failed to fetch years.');
             }
@@ -27,7 +33,6 @@ function Header() {
             getAllYearsBySchool();
         }
     }, [schoolId]);
-
 
     const isLoggedIn = localStorage.getItem('user');
     const pages = ['Home', isLoggedIn ? localStorage.getItem('dashboard') : ''].filter(Boolean);
@@ -50,6 +55,8 @@ function Header() {
         }
     };
 
+
+   
     return (
         <header className={`${classes.header}`}>
             {errors && <p style={{ color: 'red' }}>{errors}</p>}
