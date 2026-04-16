@@ -58,7 +58,7 @@ function StudentsRecord() {
     return (
         <div className={classes.container}>
             {errorMessage && <p className={`${classes.errorMessages}`}>{errorMessage}</p>}
-            <h1 className={classes.title}>Students Record</h1>
+            <h1 className={classes.title}>Student Records</h1>
             <div className={`${classes.filtersContainer}`}>
                 <div className={`${classes.filterGroup}`}>
                     <label className={`${classes.filterLabel}`}>Filter by Practice Title:</label>
