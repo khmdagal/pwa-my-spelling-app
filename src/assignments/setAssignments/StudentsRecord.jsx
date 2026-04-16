@@ -8,7 +8,7 @@ function StudentsRecord() {
 
     const [studentsRecord, setStudentsRecord] = useState([]);
     const [allowedInCorrectPercentage, setAllowedInCorrectPercentage] = useState(5);
-    const [practiceTitleOptions, setpracticeTitleOptions] = useState([]);
+    const [practiceTitleOptions, setpracticeTitleOptions] = useState("");
     const [practiceTitles, setPracticeTitles] = useState([]);
     const [filtered, setFiltered] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -16,7 +16,7 @@ function StudentsRecord() {
     useEffect(() => {
         const fetchStudentsRecord = async () => {
             try {
-                // Replace with your actual API endpoint
+                
                 const response = await allOtherAxiosRequest.get(`/api/v1/spelling/practicesSessions/activities`);
                 if (response.status === 200) {
                     setStudentsRecord(response.data.activityData);
