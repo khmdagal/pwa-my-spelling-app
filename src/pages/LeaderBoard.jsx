@@ -53,7 +53,10 @@ const Leaderboard = () => {
 
   const SortedAndfilterdDaa = leaderboardData
     .sort((a, b) => b.total_score - a.total_score)
-    .filter(el => el.total_score !== "0")
+    .filter(el => el.total_score !== "0");
+
+  const restOfStudents = SortedAndfilterdDaa.slice(3);
+
 
 
   const organisePodium = (el, index) => {
@@ -106,16 +109,12 @@ const Leaderboard = () => {
           <span >{el.name}</span>
         </div>
       </div>
-    } else {
-      return (<div key={index} className={style.restOfStudents}>
-        <span >{el.name}</span>
-        <span >{el.total_score}</span>
-      </div>)
     }
   }
 
   return (
     <div className={`${style.leaderBoard}`}>
+      <h1>Leaderboard</h1>
       {practiceIds.length > 0 && (
         <div className={style.dropdownContainer}>
           <label htmlFor="practice-select">Select Practice: </label>
@@ -129,13 +128,42 @@ const Leaderboard = () => {
         </div>
       )}
 
-      {SortedAndfilterdDaa.map((el, indx) => {
 
-        return organisePodium(el, indx)
+      <div className={style.podiumStudentsContainer}>
+        <h2>Top 3 Students</h2>
+        <div className={style.podiumContainer}>
+          {SortedAndfilterdDaa.map((el, indx) => {
+            return organisePodium(el, indx)
+          })}
 
-      })}
+        </div>
+      </div>
+
+      <table className={style.leaderBoardTable}>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Total Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {restOfStudents.map((el, index) => (
+            <tr key={index}>
+              <td className={style.rank}>{index + 4}th</td>
+              <td>{el.name}</td>
+              <td>{el.total_score}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
+
+/*
+<span >{el.total_score}</span>
+<span >{el.name}</span>
+*/
 
 export default Leaderboard;

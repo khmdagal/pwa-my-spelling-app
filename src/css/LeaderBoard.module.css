@@ -63,6 +63,76 @@
   transform: rotateY(240deg) translateZ(27px);
 }
 
+.restOfStudents {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: rgb(255, 255, 255);
+  box-shadow: var(--box-shadow3);
+  border-radius: 40%;
+}
+
+.podiumStudentsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.podiumContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: var(--box-shadow-glow);
+  border-radius: 50%;
+}
+
+.podiumStudentsContainer h2 {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  text-decoration: underline;
+  text-decoration-color: #2222ff;
+  text-decoration-thickness: 2px;
+  width: 100%;
+  box-shadow: var(--box-shadow1);
+
+}
+
+.leaderBoardTable {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: var(--box-shadow2);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.leaderBoardTable th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  box-shadow: var(--box-shadow1);
+}
+
+.leaderBoardTable th,
+.leaderBoardTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.leaderBoardTable .rank {
+  font-weight: bold;
+  color: #2222ff;
+  box-shadow: var(--box-shadow-glass);
+  transform: rotate(-10deg);
+  font-size: 1.2em;
+  animation: rotateRank 5s linear infinite;
+}
 
 @keyframes rotateCube {
   0% {
@@ -82,13 +152,16 @@
   }
 }
 
-.restOfStudents {
-  width: 100px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  background: rgb(255, 255, 255);
-  box-shadow: var(--box-shadow3);
-  border-radius: 40%;
+@keyframes rotateRank {
+  0% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+    transform: rotate(-10deg);
+  }
 }
