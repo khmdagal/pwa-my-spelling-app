@@ -1,0 +1,118 @@
+/* Main container styles */
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.filtersContainer {
+  display: grid;
+  grid-template-columns: 2fr 1fr; 
+  gap: 20px; 
+  width: 100%;
+  align-items: center;
+  box-shadow: var(--box-shadow-layered);
+  padding: 10px;
+}
+
+.filterGroup {
+  display: flex;
+  justify-content:center; 
+  flex-direction: column; 
+  margin-right: 0; 
+}
+
+.SelectDropdown {
+  width: 100%; 
+  text-align: left; 
+}
+
+.filterLabel {
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+
+}
+
+.practiceDetails {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-layered);
+}
+
+.practiceSummary {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+.studentsTitle {
+  font-size: 1.1em;
+  margin-top: 15px;
+  color: #333;
+}
+
+.studentDetails summary {
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+}
+
+.studentDetails summary:hover {
+  color: #007bff;
+}
+
+.activityTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.activityTable th,
+.activityTable td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.activityTable th {
+  background-color: #f2f2f2;
+}
+
+.activityTable td {
+  color: #555;
+}
+
+.activityTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+details {
+  margin-top: 10px;
+}
+
+details[open] {
+  background-color:aquamarine;
+  box-shadow: var(--box-shadow-glass);
+  padding: 10px;
+  border-radius: 8px;
+
+}
+
+details summary:hover {
+  color: #007bff;
+}
+
+.studentsList {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.studentsList li {
+  margin-top: 10px;
+}

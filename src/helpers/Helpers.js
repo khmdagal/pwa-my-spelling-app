@@ -105,3 +105,50 @@ exports.extractwordFromExamples = (word, assignment) => {
         originalExample
     }
 }
+
+const wordToFocusOn = (allowedInCorrectPercentage, data) => {
+    const acceptedInCorrectPercentage = allowedInCorrectPercentage;
+
+    let worstWord = '';
+    let highestPercentage = 0;
+
+    const arrayObj = Object.entries(data);
+
+    for (let i = 0; i < arrayObj.length; i++) {
+
+        for (let j = 0; j < arrayObj[i].length; j++) {
+            const word = arrayObj[i];
+            const { attempts, inCorrect } = word[j];
+            const inCorrectPercentage = Math.round((inCorrect / attempts) * 100);
+
+            if (inCorrectPercentage >= acceptedInCorrectPercentage && inCorrectPercentage > highestPercentage) {
+                highestPercentage = inCorrectPercentage;
+                worstWord = word[0];
+            };
+        };
+
+    };
+
+    return worstWord;
+};
+
+exports.organiseStudentPracticeRecord = (allowedInCorrectPercentage, data) => {
+
+    const organisedData = {};
+    for (let i = 0; i < data.length; i++) {
+
+        const current = data[i];
+        const titleAndID = current?.practice_id.concat('*',current?.title)
+        if (!organisedData[titleAndID]) {
+            organisedData[titleAndID] = {
+            };
+        }
+
+        organisedData[titleAndID][current?.name] = {
+            name: current?.name,
+            activity: current?.practiceactivities,
+            focusWord: wordToFocusOn(allowedInCorrectPercentage, current?.practiceactivities)
+        };
+    }
+    return organisedData;
+};
