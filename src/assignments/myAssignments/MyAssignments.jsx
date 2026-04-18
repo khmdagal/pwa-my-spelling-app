@@ -35,7 +35,6 @@ function MyAssignment() {
     const handleChange = e => {
         e.preventDefault();
         setPractice_id(e.target.value)
-
     }
 
     const getSingleAssignment = async () => {
@@ -48,7 +47,9 @@ function MyAssignment() {
                     navigate('/login')
                 }, 3000)
 
+                return
             }
+
             setSpinner(true)
             if (!practice_id.trim()) {
                 setErrorMessage('Please enter the assignment code 💪💪')
@@ -65,6 +66,7 @@ function MyAssignment() {
 
         } catch (err) {
             setErrorMessage(err?.response?.data?.message || 'Something went wrong');
+            setPractice_id('')
             setSpinner(false)
         }
     };
@@ -86,7 +88,6 @@ function MyAssignment() {
                         setSpinner(false);
                         setPractice_id(response?.data?.myGroupAssignments[0]?.practice_id ?? "")
                         setAssignment(response?.data?.myGroupAssignments[0]?.assignment ?? "")
-                        
                     }
 
 
@@ -128,11 +129,17 @@ function MyAssignment() {
     return (
         <div className={`${classes.assignmentForm}`}>
             {spinner && <Spinner />}
-            {errorMessage && <p className={`${classes.errorMessages}`}>{errorMessage}</p>}
+            {errorMessage && <p className={`${classes.errorMessage}`}>{errorMessage}</p>}
             <button className={`${classes.getAssignmentBtn}`} onClick={() => getSingleAssignment(practice_id)}>Get the Assignment</button>
             <div>
                 <label htmlFor="practice_id">Enter your Assignment Code</label>
-                <input id="practice_id" name="practice_id" type="text" onChange={handleChange} />
+                <input 
+                id="practice_id" 
+                name="practice_id" 
+                type="text"
+                value={practice_id}
+                onChange={handleChange} 
+                />
             </div>
             {assignment && (
                 <div className={`${classes.assignmentInfo}`}>
