@@ -9,7 +9,7 @@ import { sanitizeInput, sayTheRandomWord } from "../../helpers/Helpers"
 import classes from '../../css/Dashboard.module.css'
 
 function MyAssignment() {
-    const [assignment, setAssignment] = useState(undefined)
+    const [assignment, setAssignment] = useState('')
     const [practice_id, setPractice_id] = useState('')
     const [words, setWords] = useState([])
     const [spinner, setSpinner] = useState(false)
@@ -58,7 +58,9 @@ function MyAssignment() {
             const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/myweeklypractice/${practice_id}/${school_id}`);
             if (response.status === 200) {
                 setSpinner(false)
-                setAssignment(response?.data?.myAssignment[0]?.assignment)
+
+                setAssignment(response?.data?.myAssignment[0]?.assignment ?? "")
+                setPractice_id(response?.data?.myAssignment[0]?.practice_id ?? "")
             }
 
         } catch (err) {
@@ -82,8 +84,9 @@ function MyAssignment() {
                     const response = await allOtherAxiosRequest.get(`/api/v1/spelling/words/weeklypractice/group/${school_id}/${year_id}/${group_id}`);
                     if (response.status === 200) {
                         setSpinner(false);
-                        setPractice_id(response?.data?.myGroupAssignments[0]?.practice_id)
-                        setAssignment(response?.data?.myGroupAssignments[0]?.assignment)
+                        setPractice_id(response?.data?.myGroupAssignments[0]?.practice_id ?? "")
+                        setAssignment(response?.data?.myGroupAssignments[0]?.assignment ?? "")
+                        
                     }
 
 
