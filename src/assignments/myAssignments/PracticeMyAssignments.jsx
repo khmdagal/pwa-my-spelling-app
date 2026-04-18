@@ -164,7 +164,7 @@ function PracticeMyAssignment() {
         setUsedWords([]);
         setDisplayExamples([]);
 
-        //setRestart(true) // This is important, it stops flickering submit button
+        setRestart(true) // This is important, it stops flickering submit button
 
         await sayTheRandomWord('You are ready to go');
         setDisplayExamples([]);
