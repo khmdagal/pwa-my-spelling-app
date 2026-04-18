@@ -2,13 +2,10 @@ import React, { useEffect, useState, useMemo } from "react";
 import { v4 as uuid4 } from 'uuid';
 import { MdCheckCircleOutline } from "react-icons/md";
 import Button from '../../component/Button';
-import { sayTheRandomWord, practiceSessionCalculations, extractwordFromExamples, sanitizeInput } from "../../helpers/Helpers";
-import { allOtherAxiosRequest } from '../../api/axios'
+import { sayTheRandomWord, practiceSessionCalculations, extractwordFromExamples, sanitizeInput, gentleEncouragement } from "../../helpers/Helpers";
+import { allOtherAxiosRequest } from '../../api/axios';
 
 import classes from '../../css/PracticePage.module.css'
-
-
-
 
 function PracticeMyAssignment() {
     const words = useMemo(() => {
@@ -20,9 +17,13 @@ function PracticeMyAssignment() {
         const examples = localStorage.getItem('wordsAndExamples')
         return examples ? JSON.parse(examples) : [];
     }, [])
-    
+
     const user = useMemo(() => {
-        return JSON.parse(localStorage.getItem('user'))
+        try {
+            return JSON.parse(localStorage.getItem('user'))
+        } catch {
+            return null
+        }
     }, [])
 
     const practice_id = useMemo(() => {
@@ -34,8 +35,10 @@ function PracticeMyAssignment() {
 
     const [remainedWords, setRemainedWords] = useState([...words]);
     const [usedWords, setUsedWords] = useState([]);
+    const [startButtonLabel, setStartButtonLabel] = useState('Start')
     const [randWord, setRandWord] = useState('');
-    const [errMessage, setErrMessage] = useState('')
+    const [errMessage, setErrMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const [isInputDisabled, setIsInputDisabled] = useState(false);
     const [restart, setRestart] = useState(true);
@@ -50,7 +53,7 @@ function PracticeMyAssignment() {
     const [formData, setFormData] = useState({ session_id: '', practice_id: '', school_id: '', sessionData: {}, sessionScore: 0 })
 
     const [listOfWords, setListOfWords] = useState([])
-    const [listOfAnswers, setListOfAnswers] = useState([])
+
 
 
 
@@ -67,12 +70,23 @@ function PracticeMyAssignment() {
         }
     }, [words, remainedWords])
 
-    const getRandomWordAndDelete = () => {
+    const getRandomWordAndDelete = async () => {
+
         if (remainedWords.length === 0) {
-            sayTheRandomWord('You have finished all the words, please reset to start again');
+            sayTheRandomWord('You have finished all the words, please reset to start again OR submit your answers');
+            setStartButtonLabel('Restart');
             setHideGetWord(true);
+            setIsInputDisabled(true);
+            setRestart(false)
+
+            if (practiceSession.length === 0 || listOfWords.length === 0) {
+                const encourage = await gentleEncouragement();
+                await sayTheRandomWord(`COME ON ${user?.name}  ${encourage}`);
+                restartPractice();
+            };
             return;
         }
+
 
         const randomIndex = Math.floor(Math.random() * remainedWords.length);
         const randomWord = remainedWords[randomIndex].toLowerCase();
@@ -82,67 +96,84 @@ function PracticeMyAssignment() {
             setUsedWords(prevUsedWords => [...prevUsedWords, randomWord]);
         }
 
+        setStartButtonLabel('Get New Word')
         const updatedRemainingWords = remainedWords.filter((word, index) => index !== randomIndex);
         setRemainedWords(updatedRemainingWords);
-        sayTheRandomWord(randomWord)
+        await sayTheRandomWord(randomWord);
+
     };
 
     const formatedExamples = useMemo(() => {
         return extractwordFromExamples(randWord, wordsAndExamples)
     }, [wordsAndExamples, randWord]);
 
-
     useEffect(() => {
         setDisplayExamples(formatedExamples?.formatedExamples?.map(el => <p>{el}</p>))
     }, [formatedExamples])
 
-    const checkCorrectWord = (e) => {
-        e.preventDefault()
+    const checkCorrectWord = async (e) => {
+        e.preventDefault();
+
+        if (answer === '') {
+            await sayTheRandomWord('No answer recorded')
+            return
+        }
 
         if (answer === randWord) {
             setMyScore((prev) => prev + 1)
             setChecked(<MdCheckCircleOutline />)
             setTimeout(() => {
-                sayTheRandomWord('Correct ')
-                setDisplayExamples(formatedExamples?.originalExample?.map(el => <p>{el}</p>))
-                setChecked(null)
-            }, 400)
+                sayTheRandomWord('Correct ');
+                setDisplayExamples(formatedExamples?.originalExample?.map(el => <p>{el}</p>));
+                setChecked(null);
+            }, 400);
 
         } else {
-            setMyScore((prev) => prev - 1)
+
+            setMyScore((prev) => {
+                // This ensures if the score not to go negative number.
+                if (prev <= 0) {
+                    return prev
+                } else {
+                    return prev - 1
+                }
+            });
+
             setTimeout(() => {
                 sayTheRandomWord('Not yet')
-            }, 400)
+            }, 400);
 
         }
 
-        setAnswer('')
-        setPracticeSession(((prev) => [...prev, { [randWord]: answer }]))
-        setListOfWords((prev) => [...prev, randWord])
-        setListOfAnswers((prev) => [...prev, answer])
+        setAnswer('');
+        setPracticeSession(((prev) => [...prev, { [randWord]: answer }]));
+        setListOfWords((prev) => [...prev, [randWord, answer]]);
 
-        setTimeout(getRandomWordAndDelete, 1500)
+        setTimeout(getRandomWordAndDelete, 1500);
 
     }
 
-    const restartPractice = () => {
+    const restartPractice = async () => {
         if (words.length > 0) {
             setRemainedWords([...words]);
         } else {
-            setErrMessage('Please get your the assignment first')
-        }
+            setErrMessage('Please get your the assignment first');
+        };
 
         setPracticeSession([]);
-        setListOfAnswers([])
-        setListOfWords([])
+        setListOfWords([]);
         setUsedWords([]);
+        setDisplayExamples([]);
 
-        sayTheRandomWord('You are ready to go');
-        setDisplayExamples([])
-        setIsInputDisabled(false)
+        //setRestart(true) // This is important, it stops flickering submit button
 
-        setRestart(true)
-        setErrMessage('')
+        await sayTheRandomWord('You are ready to go');
+        setDisplayExamples([]);
+        setIsInputDisabled(false);
+
+        setRestart(true);
+        setErrMessage('');
+        setSuccessMessage('')
     }
 
     const handleCheck = (e) => {
@@ -203,12 +234,66 @@ function PracticeMyAssignment() {
         const response = await allOtherAxiosRequest.post(`/api/v1/spelling/practicesSessions/createSession`, formData)
 
         if (response.status === 201) {
-            setErrMessage('Well done you have submitted your practice GOOD JOOOOOB')
+            setSuccessMessage('🏆 Well done 💪');
+            await sayTheRandomWord('Good Job  ');
+            await sayTheRandomWord(`${user?.name}  your score and data have successfully recorded! KEEP UP`)
+
             setAllSessions([])
             setMyScore(0)
             setPracticeSession([])
-            setFormData({ session_id: '', practice_id: '', school_id: '', sessionData: {}, sessionScore: 0 })
+            setFormData({ session_id: '', practice_id: '', school_id: '', sessionData: {}, sessionScore: 0 });
+
+            setTimeout(() => restartPractice(), 500)
         }
+    }
+
+    const displayExamplesSection = () => {
+        if (startButtonLabel === 'Get New Word') {
+            return <div>
+                <div className={`${classes.examplesBox}`}>
+                    {displayExamples ? displayExamples : formatedExamples?.formatedExamples?.map(el => {
+                        return (
+                            <div>
+                                <p>{el} </p>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+        } else {
+            return null
+        }
+
+    }
+    const displayAndAnswersSection = () => {
+        if (practiceSession.length >= 1) {
+            return <div className={classes.wordsAndAnswersContainer}>
+
+                {listOfWords?.map((word) => {
+                    return (
+                        <div className={`${classes.correctWordsContainer}`}>
+                            <p>{
+                                (word[1] === word[0]) ?
+                                    <div>
+                                        <p> ✅ </p>
+                                        <p> {word[1]} </p>
+                                    </div>
+                                    :
+                                    <div>
+                                        <p className={`${classes.wrongAnswerRedLight}`}> 🚨 </p>
+                                        <p className={`${classes.wrongAnswer}`}> {word[1]} </p>
+                                        <p>⬇️</p>
+                                        <p>{word[0]}</p>
+                                    </div>
+                            }</p>
+                        </div>
+                    );
+                })}
+            </div>
+        } else {
+            return null
+        }
+
     }
 
     return (
@@ -217,51 +302,47 @@ function PracticeMyAssignment() {
 
             <h1 className={`${classes.title}`}>Practice Page</h1>
             {checked && <h1 style={{ color: "gold" }}>{checked}</h1>}
-            {myScore && <h1 style={{ color: "gold" }}>{myScore}</h1>}
-            {errMessage && <h1 style={{ color: 'red' }}>{errMessage}</h1>}
+            {errMessage ? <h1 style={{ color: 'red' }}>{errMessage}</h1> : <h1 style={{ color: 'green' }}>{successMessage}</h1>}
 
-            <div className={`${classes.answerBox}`}>
+            {
+                practice_id === null ||
+                    practice_id === undefined ||
+                    practice_id === ''
+                    ? null
+                    :
+                    <div>
+                        {myScore && <h1 style={{ color: "gold" }}>Your Score: <strong> {myScore} </strong></h1>}
+                        <div className={`${classes.answerBox}`}>
 
-                <input
-                    id="answer"
-                    type="text"
-                    placeholder="Write your Answer here"
-                    value={answer}
-                    onChange={handleCheck}
-                    onKeyDown={(e) => e.key === 'Enter' && checkCorrectWord(e)}
-                    required
-                    disabled={isInputDisabled}
-                />
-                <Button color="black" label='Check' backgroundColor='' onClick={checkCorrectWord} />
-            </div>
+                            <input
+                                id="answer"
+                                type="text"
+                                placeholder="Write your Answer here"
+                                value={answer}
+                                onChange={handleCheck}
+                                onKeyDown={(e) => e.key === 'Enter' && checkCorrectWord(e)}
+                                required
+                                disabled={isInputDisabled}
+                                autoComplete="off"
+                                autoCapitalize="off"
+                                autoCorrect="off"
+                                spellCheck="false"
+                            />
+                            <Button className={`${classes.checkAnswerButton}`} color="black" label='Check' backgroundColor='lightgreen' onClick={checkCorrectWord} />
+                        </div>
 
-            <div className={`${classes.examplesBox}`}>
+                        <div className={`${classes.practicePageBtnsContainer}`}>
+                            <Button className={`${classes.newWordButton}`} label={startButtonLabel} backgroundColor='#3b82f6' onClick={getRandomWordAndDelete} hidden={hideGetWord} />
+                            <Button className={`${classes.restButton}`} label='Reset ' backgroundColor='#10b981' onClick={restartPractice} hidden={restart} />
+                            <Button className={`${classes.repeatButton}`} label='Repeat' backgroundColor='#f59e0b' onClick={() => sayTheRandomWord(randWord)} hidden={hideGetWord} />
+                            <Button className={`${classes.submitButton}`} label='Submit' backgroundColor='#8b5cf6' onClick={handleSubmint} hidden={restart} />
+                        </div>
 
-                {displayExamples ? displayExamples : formatedExamples?.formatedExamples?.map(el => {
-                    return <div>
-                        <p>{el} </p>
+                        <div> {displayExamplesSection()} </div>
+                        <div> {displayAndAnswersSection()}</div>
                     </div>
-                })}
+            }
 
-            </div>
-
-            <div className={`${classes.wordsBox}`}>
-                {listOfWords?.map((word) => {
-                    return <strong>{word}</strong>
-                })}
-            </div>
-            <div className={`${classes.wordsBox}`}>
-                {listOfAnswers?.map((word) => {
-                    return <strong>{word}</strong>
-                })}
-            </div>
-
-            <div className={`${classes.practicePageBtnsContainer}`}>
-                <Button className={`${classes.practicePageBtns}`} label='Get Next Word' backgroundColor='Blue' onClick={getRandomWordAndDelete} hidden={hideGetWord} />
-                <Button className={`${classes.practicePageBtns}`} label='Reset' backgroundColor='Green' onClick={restartPractice} hidden={restart} />
-                <Button className={`${classes.practicePageBtns}`} label='Repeat the word' backgroundColor='Red' onClick={() => sayTheRandomWord(randWord)} hidden={hideGetWord} />
-                <Button label='Submit' backgroundColor='blue' onClick={handleSubmint} />
-            </div>
         </div>
     );
 }
