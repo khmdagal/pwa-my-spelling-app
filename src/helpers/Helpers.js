@@ -2,10 +2,6 @@ exports.getDate = (str) => {
     return String(str).split('T')[0].split('-').reverse().join("-")
 }
 
-exports.getWords = (words) => {
-    //console.log(words)
-    return words
-}
 
 exports.sayTheRandomWord = async (word) => {
     return new Promise((resolve) => {
