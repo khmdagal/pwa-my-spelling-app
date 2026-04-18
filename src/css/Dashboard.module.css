@@ -33,14 +33,11 @@
   padding: 10px;
 }
 
-
-
 /* Main Content Section */
 .mainContent {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  margin-left: 20px;
   flex-grow: 1;
   transition: all 0.3s ease-in-out;
 }

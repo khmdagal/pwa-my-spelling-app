@@ -1,43 +1,83 @@
-
- .mainContainer {
-  max-width: 800px;
+.mainContainer {
+  width: inherit;
   margin: 2rem auto;
-  padding: clamp(1rem, 5vw, 3rem); 
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px); 
+  backdrop-filter: blur(10px);
   border-radius: 24px;
   box-shadow: 0 10px 30px rgba(175, 160, 160, 0.05);
   text-align: center;
 }
 
-.wordsBox{
-display: flex;
-flex-direction:row;
-justify-content: space-between;
+.wordsAndAnswersContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: fit-content;
+  gap: 10px;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow-glass);
+  perspective: 1000px;
 }
 
-.title {
-  font-size: clamp(1.5rem, 8vw, 2.5rem);
-  color: #1a1a1a;
-  margin-bottom: 2rem;
-  font-weight: 800;
-} 
+.wrongAnswer {
+  text-decoration: underline;
+  color: red;
+}
 
-/* Answer Box - Responsive Layout */
- .answerBox {
+.wrongAnswerRedLight {
+  transform-style: preserve-3d;
+  animation: rotateRedLight 5s linear infinite;
+}
+
+.answerBox {
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-bottom: 2rem;
-} 
+}
 
-/* Horizontal on screens wider than 480px */
+.checkAnswerButton {
+  width: 40%;
+  align-self: center;
+  border-radius: 30% 20%;
+  box-shadow: var(--box-shadow-glow);
+}
+
+.practicePageBtnsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.newWordButton,
+.newWordButton,
+.restButton,
+.repeatButton,
+.submitButton {
+  width: fit-content;
+  text-align: center;
+  box-shadow: var(--box-shadow-glow);
+  font-size: large;
+}
+
+.practicePageBtnsContainer button:hover {
+  filter: brightness(1.2);
+  transform: translateY(-2px);
+}
+
+.practicePageBtnsContainer button:active {
+  transform: translateY(0);
+}
+
 @media (min-width: 480px) {
   .answerBox {
     flex-direction: row;
   }
-} 
+}
 
 .answerBox input {
   flex: 1;
@@ -52,16 +92,15 @@ justify-content: space-between;
 .answerBox input:focus {
   border-color: #007bff;
   box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
-} 
+}
 
-/* Example Box styling */
 .examplesBox {
   background: #f8f9fa;
   padding: 1.5rem;
   border-radius: 16px;
   margin-bottom: 2rem;
   text-align: left;
-} 
+}
 
 .examplesBox p {
   font-size: 1.1rem;
@@ -69,40 +108,51 @@ justify-content: space-between;
   color: #444;
   padding: 10px 0;
   border-bottom: 1px dashed #ddd;
-} 
+}
 
 .examplesBox p:last-child {
   border-bottom: none;
 }
 
-/* Buttons Container - Wraps automatically */
 .practicePageBtnsContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
-} 
+}
 
-/* Make buttons responsive on small screens */
- .practicePageBtnsContainer button {
-  flex: 1 1 150px; 
-  padding: 12px 24px;
-  font-weight: 600;
-  border-radius: 12px;
+.practicePageBtnsContainer button {
   cursor: pointer;
   transition: transform 0.2s active;
 }
 
- .practicePageBtnsContainer button:active {
+.practicePageBtnsContainer button:active {
   transform: scale(0.60);
-} 
+}
 
-/* Error Message */
- .errMessage {
+.errMessage {
   color: #dc3545;
   background: #ffe6e6;
   padding: 10px;
   border-radius: 8px;
   font-size: 0.9rem;
   margin-bottom: 1rem;
-} 
+}
+
+@keyframes rotateRedLight {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  33.333% {
+    transform: rotateY(-120deg);
+  }
+
+  66.666% {
+    transform: rotateY(-240deg);
+  }
+
+  100% {
+    transform: rotateY(-360deg);
+  }
+}

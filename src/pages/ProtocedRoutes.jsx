@@ -43,7 +43,7 @@ function ProtectedRoutes({ children }) {
   }
 }
 
-  return <>{children}</>;
+  return <div>{children}</div>;
 }
 
 

@@ -39,7 +39,7 @@ function StudentsDashboard() {
            <header className={`${classes.dashboardHeader}`}>
              <h1>Student Dashboard</h1>
            </header>
-           <body className={`${classes.dashboardBody}`}>
+           <div className={`${classes.dashboardBody}`}>
             <aside className={`${classes.sidebar}`}>
                 <button onClick={displayAssignment}>My Assignment</button>
                 <button onClick={displayPracticePage}>Practice Page</button>
@@ -48,7 +48,7 @@ function StudentsDashboard() {
             <main className={`${classes.mainContent}`}>
                 {dispayMainContent()}
             </main>
-           </body>
+           </div>
         </div>
     )
 
