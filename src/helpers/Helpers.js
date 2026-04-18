@@ -7,22 +7,42 @@ exports.getWords = (words) => {
     return words
 }
 
-exports.sayTheRandomWord = (word) => {
-    speechSynthesis.cancel();
+exports.sayTheRandomWord = async (word) => {
+    return new Promise((resolve) => {
+        const synth = window.speechSynthesis;
+        synth.cancel(); // Stop any ongoing speech
 
-    const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(word);
-    const voices = synth.getVoices();
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.rate = 0.9;
+        utterance.pitch = 1;
+        utterance.volume = 1;
 
-    const preferredVoice = voices.find(v => v.name.includes("Google UK English"))
+        // Function to select the voice once voices are loaded
+        const setVoiceAndSpeak = () => {
+            const voices = synth.getVoices();
+            const preferredVoice = voices.find(v => v.name.includes("Google UK English"));
 
-    if (preferredVoice) utterance.voice = preferredVoice;
-    utterance.rate = 0.9;
-    utterance.pitch = 1;
-    utterance.volume = 1;
+            if (preferredVoice) {
+                utterance.voice = preferredVoice;
+            }
 
-    synth.speak(utterance);
-}
+            utterance.onend = () => {
+                resolve();
+            };
+
+            synth.speak(utterance);
+        };
+
+        // Voices may not be immediately available, so we wait for them
+        if (synth.getVoices().length === 0) {
+            synth.onvoiceschanged = () => {
+                setVoiceAndSpeak();
+            };
+        } else {
+            setVoiceAndSpeak();
+        }
+    });
+};
 
 exports.sanitizeInput = (input) => {
     let scannedInputData;
