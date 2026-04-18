@@ -80,8 +80,7 @@ function PracticeMyAssignment() {
             setRestart(false)
 
             if (practiceSession.length === 0 || listOfWords.length === 0) {
-                const encourage = await gentleEncouragement();
-                await sayTheRandomWord(`COME ON ${user?.name}  ${encourage}`);
+                await sayTheRandomWord(`COME ON ${user?.name}${await gentleEncouragement()}`);
                 restartPractice();
             };
             return;
