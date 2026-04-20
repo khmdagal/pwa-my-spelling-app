@@ -24,11 +24,11 @@ function SetAssignment() {
     const schoolId = JSON.parse(user)?.school_id;
 
     const navigate = useNavigate()
-    const [formData, setFormData] = useState({...initialForm, school_id: schoolId });
+    const [formData, setFormData] = useState({ ...initialForm, school_id: schoolId });
     const [allYears, setAllYears] = useState([]);
     const [year_id, setYearId] = useState('');
     const [spellingGroup, setspellingGroup] = useState([])
-    const [selectedWords, setSelectedWords] = useState([]); 
+    const [selectedWords, setSelectedWords] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
     const [assignmentId, setAssignmentId] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -146,7 +146,6 @@ function SetAssignment() {
                     <select name="targetyear" onChange={handleChange} required>
                         <option value=''> Select</option>
                         {allYears?.map((assignedYear) => {
-
                             return (
                                 <option key={assignedYear.year_id} value={assignedYear.year_id}> {assignedYear.year_name} </option>
                             )
@@ -154,7 +153,7 @@ function SetAssignment() {
                     </select>
                 </div>
 
-                    <div>
+                <div>
                     <label>Specify the spelling group to assign</label>
                     <select name="targetgroup" onChange={handleChange} required>
                         <option value=''> Select</option>
@@ -173,8 +172,12 @@ function SetAssignment() {
                 </div>
 
                 <div>
-                    <label htmlFor="words">Selected Words to assign to </label>
-                    <select value={selectedOption} onChange={handleDropdownChange}>
+                    <label htmlFor="wordsSelectionDropDown">Select Words to assign to </label>
+                    <select
+                        value={selectedOption}
+                        onChange={handleDropdownChange}
+                        id="wordsSelectionDropDown"
+                    >
                         <option value=''>== Words List ==</option>
                         <option value='wordsList'>Words</option>
                     </select>

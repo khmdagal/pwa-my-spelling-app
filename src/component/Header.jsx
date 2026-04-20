@@ -42,13 +42,8 @@ function Header() {
             await axiosForLoginAndSignUpOnly.get('/api/v1/spelling/users/logout', {
                 withCredentials: true,
             });
-            localStorage.removeItem('user');
-            localStorage.removeItem('words');
-            localStorage.removeItem('wordsAndExamples');
-            localStorage.removeItem('profile');
-            localStorage.removeItem('practice_id');
-            localStorage.removeItem('userProfile');
-            localStorage.removeItem('years');
+            localStorage.clear();
+        
             navigate('/login');
         } catch (error) {
             console.error('Logout failed:', error);
