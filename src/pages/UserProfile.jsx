@@ -121,11 +121,13 @@ function UserProfile({ years }) {
     <div className={`${classes.profile}`}>
       {errorMessage && <p>{errorMessage}</p>}
       <div className={`${classes.profileAvatarAndName}`}>
-        <p className={`${classes.profileName}`}>{userName}</p>
-        <p>{profile?.year_name}</p>
+        
         <div className={`${classes.profileAvatar}`} onClick={() => setHide((prev) => !prev)}>
           <Avatars avatarName={avatarName} />
         </div>
+
+        <p className={`${classes.profileName}`}>{userName}</p>
+        <p>{profile?.year_name}</p>
 
       </div>
       {hide && (
