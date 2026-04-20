@@ -1,0 +1,32 @@
+.exampleContainer {
+  max-width: 500px;
+  padding: 16px;
+  font-family: Arial, sans-serif;
+
+}
+
+.exampleContainer label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.exampleContainer p {
+  margin: 6px 0 12px;
+}
+
+.exampleContainer input {
+  margin-left: 8px;
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+.exampleContainer button {
+  margin-right: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.exampleContainer button:last-child {
+  margin-right: 0;
+}
