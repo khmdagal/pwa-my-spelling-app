@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { allOtherAxiosRequest } from '../api/axios';
-
+import  classes from '../css/Examples.module.css'
 
 function Example({ word_id, existingExamples }) {
     const [example1, setExample1] = useState(existingExamples.example1);
@@ -52,8 +52,10 @@ function Example({ word_id, existingExamples }) {
 
 
     return (
-        <div>
+        <div className={`${classes.exampleContainer}`}>
+            <label>Example 1: ⤵️</label>
             <p>{example1 || existingExamples.example1} <input value={example1} name='example1' type='text' style={{ display: isVisible ? 'inline' : 'none' }} onChange={(e) => setExample1(e.target.value)} /> </p>
+            <label>Example 2:⤵️</label>
             <p>{example2 || existingExamples.example2} <input value={example2} name='example2' type='text' style={{ display: isVisible ? 'inline' : 'none' }} onChange={(e) => setExample2(e.target.value)} /> </p>
 
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
