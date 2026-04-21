@@ -16,7 +16,7 @@ function Header() {
         return user ? JSON.parse(user).school_id : null;
     }, [user]);
 
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getAllYearsBySchool = async () => {
@@ -42,13 +42,8 @@ function Header() {
             await axiosForLoginAndSignUpOnly.get('/api/v1/spelling/users/logout', {
                 withCredentials: true,
             });
-            localStorage.removeItem('user');
-            localStorage.removeItem('words');
-            localStorage.removeItem('wordsAndExamples');
-            localStorage.removeItem('profile');
-            localStorage.removeItem('practice_id');
-            localStorage.removeItem('userProfile');
-            localStorage.removeItem('years');
+            localStorage.clear();
+
             navigate('/login');
         } catch (error) {
             console.error('Logout failed:', error);
@@ -56,11 +51,40 @@ function Header() {
     };
 
 
-   
+
     return (
         <header className={`${classes.header}`}>
             {errors && <p style={{ color: 'red' }}>{errors}</p>}
-            {isLoggedIn && <UserProfile years={years} />}
+            <div>
+                <div className={`${classes.ProfileContainer}`} >{isLoggedIn && <UserProfile years={years} />}</div>
+                <div className="buttonsContainer">
+                    {isLoggedIn ? (
+                        <Button
+                            backgroundColor="lightgreen"
+                            color="black"
+                            label="Logout"
+                            onClick={handleLogout}
+                        />
+                    ) : (
+                        <>
+                            <Button
+                                backgroundColor="green"
+                                color="white"
+                                label="Login"
+                                onClick={() => navigate('/login')}
+                            />
+                            <Button
+                                backgroundColor="blue"
+                                color="white"
+                                label="Sign up"
+                                onClick={() => navigate('/signUp')}
+                            />
+                        </>
+                    )}
+                </div>
+            </div>
+
+
             <nav className={`${classes.nav} ${classes.container}`}>
                 <ul className={`${classes.navList}`}>
                     {pages.map(page => (
@@ -80,32 +104,6 @@ function Header() {
                     ))}
                 </ul>
             </nav>
-
-            <div className="buttonsContainer">
-                {isLoggedIn ? (
-                    <Button
-                        backgroundColor="lightgreen"
-                        color="black"
-                        label="Logout"
-                        onClick={handleLogout}
-                    />
-                ) : (
-                    <>
-                        <Button
-                            backgroundColor="green"
-                            color="white"
-                            label="Login"
-                            onClick={() => navigate('/login')}
-                        />
-                        <Button
-                            backgroundColor="blue"
-                            color="white"
-                            label="Sign up"
-                            onClick={() => navigate('/signUp')}
-                        />
-                    </>
-                )}
-            </div>
         </header>
     );
 }

@@ -1,36 +1,24 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
 import { allOtherAxiosRequest } from '../api/axios';
 import Button from '../component/Button';
-import { sanitizeInput } from '../helpers/Helpers'
 import Example from './Example';
 
 import classes from '../css/Words.module.css'
 
-function Words({ onSelectedWordsChange}) {
+function Words({ onSelectedWordsChange }) {
     const [wordsData, setWordsData] = useState([])
     const [errorMessage, setErrorMessage] = useState('')
     const [selectedWords, setSelectedWords] = useState([])
     const [showHide, setShowHide] = useState(true)
-    const [yearWords, setYearWords] = useState('y3and4words')
-    
-
-    const navigate = useNavigate()
+    const [yearWords, setYearWords] = useState('y3and4words');
+    const [wordsTtitle, setWordsTtitle] = useState('')
+    const [sortedWordsData, setSortedWordsData] = useState([])
+    const [search, setSearch] = useState('');
+    const [searchedWords, setSearchedWords] = useState([])
 
     const handleYearWords = (e) => {
-        e.preventDefault()
         const selectedYearWords = e.target.value
-        if (sanitizeInput(selectedYearWords)) {
-            setErrorMessage('Invalid selection 💪💪')
-            localStorage.clear()
-            setTimeout(() => {
-                navigate('/login')
-            }, 3000)
-
-        } else {
-            setYearWords(selectedYearWords)
-        }
-
+        setYearWords(selectedYearWords)
     }
 
 
@@ -44,7 +32,33 @@ function Words({ onSelectedWordsChange}) {
                 setErrorMessage(error.response.data.message)
             }
         }
-        fetchWords()
+        fetchWords();
+
+        /*
+        Keep tracking first state on rendering, and 
+        taking the advantage of using one useEffect hook
+        */
+        switch (yearWords) {
+            case 'yr1words':
+                setWordsTtitle('Year 1 Words')
+                break;
+
+            case 'yr2words':
+                setWordsTtitle('Year 2 Words')
+                break;
+
+            case 'y3and4words':
+                setWordsTtitle('Year 3 and 4 Words')
+                break;
+
+            case 'y5and6words':
+                setWordsTtitle('Year 5 and 6 Words')
+                break;
+
+            default:
+                setWordsTtitle('yr1words')
+                break;
+        };
     }, [yearWords])
 
     const handleCheckboxChange = (e, wordObj) => {
@@ -62,35 +76,67 @@ function Words({ onSelectedWordsChange}) {
     }
     // send selected words to SetAssignment component
     useEffect(() => {
-            onSelectedWordsChange(selectedWords);
+        onSelectedWordsChange(selectedWords);
     }, [selectedWords, onSelectedWordsChange]);
-   
-    
-    
+
+
+    useEffect(() => {
+        // Sort words before displying them
+        setSortedWordsData(wordsData.sort((a, b) => a.word_id - b.word_id))
+
+    }, [wordsData])
+
+
+    useEffect(() => {
+        setSearchedWords(sortedWordsData.filter((el) => {
+
+            return el.word.toLowerCase() === search ? el : null
+        }));
+
+
+    }, [sortedWordsData, search, wordsTtitle]);
+
+
+
+    const handleSearch = (e) => {
+        const searchedValue = e.target.value;
+        setSearch(searchedValue)
+    }
+
     if (!wordsData) <p>...loading</p>
-
-    // Sort words before displying them
-    wordsData.sort((a, b) => a.word_id - b.word_id)
-
-
     return (
 
         <div className={`${classes.mainContainer}`}>
             <div className={`${classes.wordsContainer}`}>
-                <select onChange={handleYearWords}>
+                <label>What year words?</label>
+                <select
+                    value={yearWords}
+                    onChange={handleYearWords}
+                >
                     {errorMessage && <p>{errorMessage}</p>}
-                    <option value='yr1words'>Year 1 spelling words</option>
-                    <option value='yr2words'>Year 2 spelling words</option>
-                    <option value='y3and4words'>Year 3 and 4 spelling words</option>
-                    <option value='y5and6words'>Year 5 and 6 spelling words</option>
+                    <option value='yr1words'>Year 1 Words</option>
+                    <option value='yr2words'>Year 2 Words</option>
+                    <option value='y3and4words'>Year 3 and 4 Words</option>
+                    <option value='y5and6words'>Year 5 and 6 Words</option>
                 </select>
-                <h1>Words for {yearWords}</h1>
-                <Button type='button' className={`${classes.showHideButton}`} backgroundColor='#04AA6D' label={`${showHide ? 'Hide Words' : 'Show Words'}`} onClick={() => setShowHide((prev) => !prev)} />
+
+                <label>Search Box</label>
+                <input
+                    type='text'
+                    value={search}
+                    placeholder='Type the word here'
+                    onChange={handleSearch}
+                />
+
+
+                <h2>{wordsTtitle}</h2>
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                {(searchedWords.length === 0 && search.trim() !== "") ? <p style={{ color: 'red' }}>{`This word ➡️ " ${search} " is not in ${wordsTtitle}`}</p> : ''}
+                <Button type='button' className={`${classes.showHideButton}`} backgroundColor='white' label={`${showHide ? '❎ Hide' : '✅ Show'}`} onClick={() => setShowHide((prev) => !prev)} />
 
                 <div className={`${classes.word_list}`} style={{ display: `${showHide ? 'grid' : 'none'}` }}>
 
-                    {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                    {wordsData?.map(word => (
+                    {(searchedWords.length > 0 ? searchedWords : sortedWordsData)?.map(word => (
                         <div className={`${classes.word_container}`} key={word.word_id}>
                             <input
                                 type="checkbox"
