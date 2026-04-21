@@ -1,6 +1,34 @@
-.profileAvatarAndName{
+.profile {
     display: flex;
+    flex-direction: column;
+    border-radius: 10% 40%;
+    align-self: flex-start;
 }
-.profileName{
+
+.profileAvatarAndName {
+    display: flex;
+    width: inherit;
+    width: 40%;
+    align-self: flex-end;
+
+}
+
+.profileName {
     color: white;
+    width: inherit;
+   
+}
+
+.dropDownContainer {
+    color: aqua;
+    width: 100%;
+}
+
+.dropDownContainer select{
+    height: 50px;
+    width: 100%;
+}
+    
+.profileAvatarUpdate{
+    width: 100%;
 }
