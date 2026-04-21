@@ -126,8 +126,11 @@ function UserProfile({ years }) {
           <Avatars avatarName={avatarName} />
         </div>
 
-        <p className={`${classes.profileName}`}>{userName}</p>
-        <p>{profile?.year_name}</p>
+        <div>
+          <p className={`${classes.profileName}`}>{userName}</p>
+          <p className={`${classes.profileName}`}>{profile?.year_name}</p>
+        </div>
+
 
       </div>
       {hide && (
@@ -145,17 +148,17 @@ function UserProfile({ years }) {
           </div>
 
           {!profile && 
-          <div className={`${classes.dropDownContainer}`}>
-            <label htmlFor="years">Select year: </label>
-            <select  onChange={handleYears} >
-              <option value=''>== Select year ==</option>
-              {
-                years?.map(el => {
-                  return (<option key={el.year_id} value={el.year_id}>{el.year_name}</option>)
-                })
-              }
-            </select>
-          </div>}
+            <div className={`${classes.dropDownContainer}`}>
+              <label htmlFor="years">Select year: </label>
+              <select  onChange={handleYears} >
+                <option value=''>== Select year ==</option>
+                {
+                  years?.map(el => {
+                    return (<option key={el.year_id} value={el.year_id}>{el.year_name}</option>)
+                  })
+                }
+              </select>
+            </div>}
           {showCreateButton ? <button onClick={updateMyprofile}>Update Avatar</button> : <button onClick={createMyprofile} >Create profile</button>}
 
         </div>

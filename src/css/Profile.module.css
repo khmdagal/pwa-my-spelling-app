@@ -8,8 +8,8 @@
 .profileAvatarAndName {
     display: flex;
     width: inherit;
-    width: 40%;
-    align-self: flex-end;
+    width: 50%;
+    align-self:center;
 
 }
 
