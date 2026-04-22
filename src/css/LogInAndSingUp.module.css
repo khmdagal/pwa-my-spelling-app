@@ -1,6 +1,7 @@
 /* ===== Default design is mobile version up to 421px ==== */
 .app{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   width: 100%;
   border: solid ;
