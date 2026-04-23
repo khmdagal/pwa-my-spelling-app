@@ -1,6 +1,50 @@
-.profileAvatarAndName{
+.profile {
     display: flex;
+    flex-direction: row;
+    flex-direction: row-reverse;
+    border-radius: 10% 40%;
 }
-.profileName{
+
+.profileAvatarAndName {
+    display: flex;
+    width: 50%;
+    align-self: center;
+}
+
+.profileName {
     color: white;
+    width: inherit;
+}
+
+.dropDownContainer {
+    color: aqua;
+    width: 100%;
+}
+
+.dropDownContainer select {
+    height: 50px;
+    width: 100%;
+}
+
+.profileAvatarUpdate {
+    width: 100%;
+}
+
+@media screen and (max-width: 433px) {
+    .profile {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .profileAvatarAndName {
+        display: flex;
+        flex-direction: column;
+        
+    }
+
+    .dropDownContainer {
+        display: flex;
+        flex-direction: column;
+        font-size: small;
+    }
 }

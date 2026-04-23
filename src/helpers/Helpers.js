@@ -168,22 +168,3 @@ exports.organiseStudentPracticeRecord = (allowedInCorrectPercentage, data) => {
     }
     return organisedData;
 };
-
-exports.gentleEncouragement = async ()=>{
-    const sentences = [
-  "Why not try first?",
-  "Give it a go!",
-  "Let's see an attempt.",
-  "Just one try.",
-  "Time to take a turn.",
-  "Give it a little shot.",
-  "Ready to try?",
-  "How about a go?"
-];
-
-const min = Math.ceil(0);
-const max = Math.floor(sentences?.length);
-const randomIndex =  (await Math.floor(Math.random() * (max - min + 1) + min));
-
-return sentences[randomIndex];
-};

@@ -55,9 +55,12 @@ function Header() {
     return (
         <header className={`${classes.header}`}>
             {errors && <p style={{ color: 'red' }}>{errors}</p>}
-            <div>
-                <div className={`${classes.ProfileContainer}`} >{isLoggedIn && <UserProfile years={years} />}</div>
-                <div className="buttonsContainer">
+
+
+
+            <div className={`${classes.ProfileContainer}`} >
+                {isLoggedIn && <UserProfile years={years} />}
+                <div className={`${classes.buttonsContainer}`}>
                     {isLoggedIn ? (
                         <Button
                             backgroundColor="lightgreen"

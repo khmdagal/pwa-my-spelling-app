@@ -2,7 +2,6 @@
 .studentDashboard {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   background-color: #f7f7f7;
   font-family: 'Arial', sans-serif;
   width: 100%;
@@ -36,10 +35,12 @@
 /* Main Content Section */
 .mainContent {
   background-color: white;
+  width: 100%;
   padding: 20px;
   border-radius: 8px;
   flex-grow: 1;
   transition: all 0.3s ease-in-out;
+  align-self: center;
 }
 
 /* Sidebar Styling */
@@ -181,7 +182,6 @@
 div {
   font-size: 0.70rem;
   color: #555;
-  margin: 2px 0;
 }
 
 .dateDiv {
@@ -221,11 +221,20 @@ div {
   line-height: 1.5;
 }
 
+.submitButton {
+  align-self: center;
+  width: fit-content;
+  background-color: rgb(27, 119, 27);
+  font-size: 1rem;
+}
+
 
 /* ============ */
 
-/* == Tables and larger screens ==== */
+/* == Tablets and larger screens ==== */
 @media (min-width: 431px) {
+
+  /* Layout */
   .dashboardBody {
     display: flex;
     flex-direction: row;
@@ -236,7 +245,6 @@ div {
   .sidebar {
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
     justify-content: flex-start;
     gap: 1.5em;
   }
@@ -251,7 +259,6 @@ div {
 
   .dateDiv {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     gap: 15px;
   }

@@ -27,7 +27,7 @@ function Avatars({ avatarName }) {
 
     const avatar = useMemo(() => {
         return createAvatar(selectedAvatar, {
-            size: 100,
+            size: 50,
             seed: 'demo-user-seed',
         }).toDataUri();
     }, [selectedAvatar]);

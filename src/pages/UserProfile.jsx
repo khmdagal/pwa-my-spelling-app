@@ -121,20 +121,23 @@ function UserProfile({ years }) {
     <div className={`${classes.profile}`}>
       {errorMessage && <p>{errorMessage}</p>}
       <div className={`${classes.profileAvatarAndName}`}>
-        
+
         <div className={`${classes.profileAvatar}`} onClick={() => setHide((prev) => !prev)}>
           <Avatars avatarName={avatarName} />
         </div>
 
-        <p className={`${classes.profileName}`}>{userName}</p>
-        <p>{profile?.year_name}</p>
+        <div>
+          <p className={`${classes.profileName}`}>{userName}</p>
+          <p className={`${classes.profileName}`}>{profile?.year_name}</p>
+        </div>
+
 
       </div>
       {hide && (
         <div className={`${classes.profileAvatarUpdate}`}>
-          <div>
+          <div className={`${classes.dropDownContainer}`}>
             <label htmlFor="avatarName">Select avatar: </label>
-            <select onChange={handleAvatarName}>
+            <select id="avatarName" onChange={handleAvatarName}>
               <option value=''>== Select ==</option>
               {
                 avatarsList?.map(el => {
@@ -144,20 +147,18 @@ function UserProfile({ years }) {
             </select>
           </div>
 
-          {!profile && <div>
-            <label htmlFor="years">Select year: </label>
-            <select onChange={handleYears} >
-              <option value=''>== Select year ==</option>
-              {
-                years?.map(el => {
-                  return (<option key={el.year_id} value={el.year_id}>{el.year_name}</option>)
-                })
-              }
-            </select>
-          </div>}
-
-
-
+          {!profile && 
+            <div className={`${classes.dropDownContainer}`}>
+              <label htmlFor="years">Select year: </label>
+              <select  onChange={handleYears} >
+                <option value=''>== Select year ==</option>
+                {
+                  years?.map(el => {
+                    return (<option key={el.year_id} value={el.year_id}>{el.year_name}</option>)
+                  })
+                }
+              </select>
+            </div>}
           {showCreateButton ? <button onClick={updateMyprofile}>Update Avatar</button> : <button onClick={createMyprofile} >Create profile</button>}
 
         </div>

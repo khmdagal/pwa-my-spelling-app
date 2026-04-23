@@ -6,7 +6,7 @@ import Button from '../component/Button';
 import Spinner from '../component/Spinner';
 import { sanitizeInput } from '../helpers/Helpers'
 
-import classes from '../css/LogInAndSingUp.module.css'
+import loginPageStyle from '../css/LogInAndSingUp.module.css'
 
 function LogIn() {
     const [formData, setFormData] = useState({
@@ -72,20 +72,20 @@ function LogIn() {
     };
 
     return (
-        <div className={`${classes.mainContainer}`}>
+        <div className={`${loginPageStyle.mainContainer}`}>
             {spinner && <Spinner />}
-            <header className={`${classes.pageHeader}`}>
-                <p className={`${classes.pageHeaderParagraph}`}>Long in Form</p>
+            <header className={`${loginPageStyle.pageHeader}`}>
+                <p className={`${loginPageStyle.pageHeaderParagraph}`}>Long in Form</p>
             </header>
 
             {errors && <p style={{ color: 'red' }}>{errors}</p>}
             <form onSubmit={handleSubmit}>
 
-                <div className={`${classes.inputDive}`}>
+                <div className={`${loginPageStyle.inputDive}`}>
                     <label htmlFor="usernameInput">Username </label>
                     <input type="text" name="username" value={formData.username} onChange={handleChange} required />
                 </div>
-                <div className={`${classes.inputDive}`}>
+                <div className={`${loginPageStyle.inputDive}`}>
                     <label htmlFor="password">Password </label>
                     <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange} required />
                     <img src={visibilityIcon} alt='Show password icon' onClick={() => setShowPassword((previous) => !previous)} />

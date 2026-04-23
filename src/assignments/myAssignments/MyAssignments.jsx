@@ -6,7 +6,7 @@ import Button from "../../component/Button";
 import Spinner from "../../component/Spinner";
 import { sanitizeInput, sayTheRandomWord } from "../../helpers/Helpers"
 
-import classes from '../../css/Dashboard.module.css'
+import myAssignmentStyle from '../../css/Dashboard.module.css'
 
 function MyAssignment() {
     const [assignment, setAssignment] = useState('')
@@ -127,10 +127,10 @@ function MyAssignment() {
 
 
     return (
-        <div className={`${classes.assignmentForm}`}>
+        <div className={`${myAssignmentStyle.assignmentForm}`}>
             {spinner && <Spinner />}
-            {errorMessage && <p className={`${classes.errorMessage}`}>{errorMessage}</p>}
-            <button className={`${classes.getAssignmentBtn}`} onClick={() => getSingleAssignment(practice_id)}>Get the Assignment</button>
+            {errorMessage && <p className={`${myAssignmentStyle.errorMessage}`}>{errorMessage}</p>}
+            <button className={`${myAssignmentStyle.getAssignmentBtn}`} onClick={() => getSingleAssignment(practice_id)}>Get the Assignment</button>
             <div>
                 <label htmlFor="practice_id">Enter your Assignment Code</label>
                 <input 
@@ -142,7 +142,7 @@ function MyAssignment() {
                 />
             </div>
             {assignment && (
-                <div className={`${classes.assignmentInfo}`}>
+                <div className={`${myAssignmentStyle.assignmentInfo}`}>
                     <div>
                         <label>Title</label>
                         <p>{assignment.title}</p>
@@ -160,19 +160,19 @@ function MyAssignment() {
 
                 </div>
             )}
-            <label className={`${classes.wordsLabel}`}>Words :</label>
-            <div className={`${classes.selectedWordsContainer}`}>
+            <label className={`${myAssignmentStyle.wordsLabel}`}>Words :</label>
+            <div className={`${myAssignmentStyle.selectedWordsContainer}`}>
                 {wordAssignment?.map((el, index) => (
-                    <div key={el.word} className={`${classes.words}`} name="words" >
+                    <div key={el.word} className={`${myAssignmentStyle.words}`} name="words" >
                         {el.word && (
                             <div>
-                                <strong className={`${classes.word}`}>{el.word}</strong>
+                                <strong className={`${myAssignmentStyle.word}`}>{el.word}</strong>
                             </div>
                         )}
                         {Object.entries(el.example || {}).map(([key, exampleValue], exampleIndex) => (
                             <div key={exampleIndex}>
-                                <p className={`${classes.example}`}> {exampleValue} </p>
-                                <Button className={`${classes.practicePageBtns}`}
+                                <p className={`${myAssignmentStyle.example}`}> {exampleValue} </p>
+                                <Button className={`${myAssignmentStyle.practicePageBtns}`}
                                     label={<FaVolumeDown />}
                                     backgroundColor='Blue'
                                     onClick={() => sayTheRandomWord(exampleValue)}

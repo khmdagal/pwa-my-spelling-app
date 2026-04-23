@@ -1,5 +1,6 @@
 import axios from "axios";
-const baseURL =  'https://spelling-server-backend-409238149045.europe-west1.run.app'
+const baseURL =  'http://localhost:8080'
+//'https://spelling-server-backend-409238149045.europe-west1.run.app'
 
 const axiosForLoginAndSignUpOnly = axios.create({
     baseURL: baseURL,

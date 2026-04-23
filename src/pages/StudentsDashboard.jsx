@@ -5,7 +5,7 @@ import Leaderboard from "./LeaderBoard";
 
 
 
-import classes from '../css/Dashboard.module.css'
+import studentDashboardStyle from '../css/Dashboard.module.css'
 
 function StudentsDashboard() {
     const [activeView, setActiveView] =  useState('myAssignment')
@@ -35,17 +35,17 @@ function StudentsDashboard() {
 
 
     return (
-        <div className={`${classes.studentDashboard}`}>
-           <header className={`${classes.dashboardHeader}`}>
+        <div className={`${studentDashboardStyle.studentDashboard}`}>
+           <header className={`${studentDashboardStyle.dashboardHeader}`}>
              <h1>Student Dashboard</h1>
            </header>
-           <div className={`${classes.dashboardBody}`}>
-            <aside className={`${classes.sidebar}`}>
+           <div className={`${studentDashboardStyle.dashboardBody}`}>
+            <aside className={`${studentDashboardStyle.sidebar}`}>
                 <button onClick={displayAssignment}>My Assignment</button>
                 <button onClick={displayPracticePage}>Practice Page</button>
                 <button onClick={displayLeaderBoard}>LeaderBoard</button>
             </aside>
-            <main className={`${classes.mainContent}`}>
+            <main className={`${studentDashboardStyle.mainContent}`}>
                 {dispayMainContent()}
             </main>
            </div>
