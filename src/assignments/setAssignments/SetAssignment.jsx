@@ -207,7 +207,7 @@ function SetAssignment() {
                     </div>
                 </div>
 
-                <Button color='Golden' onClick={handleSubmit} type='submit' label='Submit' />
+                <Button className={`${classes.submitButton}`}  color='Golden' onClick={handleSubmit} type='submit' label='Submit' />
                 {successMessage && <p className={`${classes.successMessage}`}>{successMessage}</p>}
             </form>
         </div>

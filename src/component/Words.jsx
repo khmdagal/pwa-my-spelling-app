@@ -87,21 +87,20 @@ function Words({ onSelectedWordsChange }) {
     }, [wordsData])
 
 
+    
+    const handleSearch = (e) => {
+        const searchedValue = e.target.value.toLowerCase();
+        setSearch(searchedValue)
+    }
+
+
     useEffect(() => {
         setSearchedWords(sortedWordsData.filter((el) => {
-
-            return el.word.toLowerCase() === search ? el : null
+            return el.word.toLowerCase().includes(search) ? el : null
         }));
 
 
     }, [sortedWordsData, search, wordsTtitle]);
-
-
-
-    const handleSearch = (e) => {
-        const searchedValue = e.target.value;
-        setSearch(searchedValue)
-    }
 
     if (!wordsData) <p>...loading</p>
     return (
@@ -131,12 +130,12 @@ function Words({ onSelectedWordsChange }) {
 
                 <h2>{wordsTtitle}</h2>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                {(searchedWords.length === 0 && search.trim() !== "") ? <p style={{ color: 'red' }}>{`This word ➡️ " ${search} " is not in ${wordsTtitle}`}</p> : ''}
+                {(searchedWords.length === 0 && search.trim() !== "") ? <b style={{ color: 'red' }}>{`➡️ " ${search} " is not in ${wordsTtitle}`}</b> : ''}
                 <Button type='button' className={`${classes.showHideButton}`} backgroundColor='white' label={`${showHide ? '❎ Hide' : '✅ Show'}`} onClick={() => setShowHide((prev) => !prev)} />
 
                 <div className={`${classes.word_list}`} style={{ display: `${showHide ? 'grid' : 'none'}` }}>
 
-                    {(searchedWords.length > 0 ? searchedWords : sortedWordsData)?.map(word => (
+                    {(searchedWords.length > 0 ? searchedWords : [])?.map(word => (
                         <div className={`${classes.word_container}`} key={word.word_id}>
                             <input
                                 type="checkbox"

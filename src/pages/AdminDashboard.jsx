@@ -7,7 +7,7 @@ import CreateYear from '../pages/CreateYear';
 import CreateYearGroup from '../pages/CreateYearGroup';
 import Leaderboard from '../pages/LeaderBoard';
 
-import classes from '../css/Dashboard.module.css';
+import adminDashboardStyle from '../css/Dashboard.module.css';
 
 function Dashboard() {
     const [activeView, setActiveView] =  useState('setAssignment')
@@ -51,13 +51,13 @@ function Dashboard() {
     
 
     return (
-            <div className={`${classes.teachersDashboard}`}>
-               <header className={`${classes.dashboardHeader}`}>
+            <div className={`${adminDashboardStyle.teachersDashboard}`}>
+               <header className={`${adminDashboardStyle.dashboardHeader}`}>
                  <h1>Teachers Dashboard</h1>
                  <Time />
                </header>
-               <div className={`${classes.dashboardBody}`}>
-                <aside className={`${classes.sidebar}`}>
+               <div className={`${adminDashboardStyle.dashboardBody}`}>
+                <aside className={`${adminDashboardStyle.sidebar}`}>
                     <button onClick={displayAssignment}>Set Assignment</button>
                     <button onClick={displayStudentsRecord}>Students Acticities</button>
                     <button onClick={displayAssignments}>Assignments</button>
@@ -65,7 +65,7 @@ function Dashboard() {
                     <button onClick={displayCreateYear}>Create a Year</button>
                     <button onClick={displayCreateYearGroup}>Create a Group</button>
                 </aside>
-                <main className={`${classes.mainContent}`}>
+                <main className={`${adminDashboardStyle.mainContent}`}>
                     {dispayMainContent()}
                 </main>
                </div>

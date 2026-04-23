@@ -5,7 +5,7 @@ import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 import Button from '../component/Button';
 import { sanitizeInput } from '../helpers/Helpers'
 
-import classes from '../css/LogInAndSingUp.module.css'
+import signUpPageStyle from '../css/LogInAndSingUp.module.css'
 
 
 function SignUp() {
@@ -95,36 +95,36 @@ function SignUp() {
     }, [])
 
     return (
-        <div className={`${classes.mainContainer}`}>
-            <header className={`${classes.pageHeader}`}>
-                <p className={`${classes.pageHeaderParagraph}`}>Sign Up Form</p>
+        <div className={`${signUpPageStyle.mainContainer}`}>
+            <header className={`${signUpPageStyle.pageHeader}`}>
+                <p className={`${signUpPageStyle.pageHeaderParagraph}`}>Sign Up Form</p>
             </header>
 
             {errors && <p style={{ color: 'red' }}>{errors}</p>}
             <form onSubmit={handleSubmit}>
 
-                <div className={`${classes.inputDive}`}>
+                <div className={`${signUpPageStyle.inputDive}`}>
                     <label htmlFor="name">Name </label>
                     <input type="text" name="name" value={formData.name} onChange={handleChange} required minLength={6}/>
                 </div>
 
-                <div className={`${classes.inputDive}`}>
+                <div className={`${signUpPageStyle.inputDive}`}>
                     <label htmlFor="usernameInput">Username </label>
                     <input type="text" name="username" value={formData.username} onChange={handleChange} required />
                 </div>
 
-                <div className={`${classes.inputDive}`}>
+                <div className={`${signUpPageStyle.inputDive}`}>
                     <label htmlFor="password">Password </label>
                     <input type={showPassword ? 'text' : 'password'} name="password" value={formData.password} onChange={handleChange} required />
                     <img src={visibilityIcon} alt='Show password icon' onClick={() => setShowPassword((previous) => !previous)} />
                 </div>
 
-                <div className={`${classes.inputDive}`}>
+                <div className={`${signUpPageStyle.inputDive}`}>
                     <label htmlFor="email">Email </label>
                     <input type="email" name="email" value={formData.email} onChange={handleChange} required />
                 </div>
 
-                <div className={`${classes.roleOptions}`}>
+                <div className={`${signUpPageStyle.roleOptions}`}>
                     <label htmlFor="userRole">Select your role </label>
                     <select name='role' onChange={handleChange}>
                         <option>--Select--</option>
@@ -132,7 +132,7 @@ function SignUp() {
                     </select>
                 </div>
 
-                <div className={`${classes.schoolOptions}`}>
+                <div className={`${signUpPageStyle.schoolOptions}`}>
                     <label htmlFor="school">Select your school </label>
                     <select name='school_id' onChange={handleChange}>
                         <option>--Select your school--</option>

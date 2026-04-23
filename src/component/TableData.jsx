@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import classes from '../css/Table.module.css';
+import tableDataPageStyle from '../css/Table.module.css';
 
 function TableData({ formData }) {
     const [tableData, setTableData] = useState([]);
@@ -29,49 +29,65 @@ function TableData({ formData }) {
     }, [formData, searchInfo]);
 
     return (
-        <div className={`${classes.tableContainer}`}>
+        <div className={`${tableDataPageStyle.tableContainer}`}>
 
-            <div className={`${classes.searchBar}`}>
-                <strong>Search</strong>
+            <div className={`${tableDataPageStyle.searchBar}`}>
+                <h2>Search</h2>
                 <input name="search" onChange={filterData} />
             </div>
 
-            <table className={`${classes.table}`}>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Words & Examples</th>
-                        <th>Due Date</th>
-                        <th>Assignment ID</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {tableData.map((item) => (
-                        <tr key={item.practice_id}>
-                            <td className={`${classes.eachRowData}`}>
-                                {item.assignment.title}
-                            </td>
-                            <td className={`${classes.eachRowData}`}>
-                                {item.assignment.description}
-                            </td>
-                            <td className={`${classes.wordsTdContainer}`}>
+
+            <div className={`${tableDataPageStyle.mainContainter}`}>
+
+                {tableData.map((item) => (
+                    <details className={`${tableDataPageStyle.practiceDetails}`}>
+                        <summary className={`${tableDataPageStyle.practiceSummary}`}>
+                          📖  {item.assignment.title}
+                        </summary>
+                        <div className={`${tableDataPageStyle.assignmentDataContainer}`}>
+                            <div className={`${tableDataPageStyle.assignmentInfoContainer}`}>
+                                <div>
+                                    <h3>Description</h3>
+                                    <div>{item.assignment.description}</div>
+                                </div>
+                                <div>
+                                    <h3> Due Date  </h3>
+                                    <div>{item.assignment.expires_in}</div>
+                                </div>
+                                <div>
+                                    <h3> Assignment ID </h3>
+                                    <div>{item.practice_id}</div>
+
+                                </div>
+
+                            </div>
+
+                            <div className={`${tableDataPageStyle.wordsTdContainer}`}>
+
+
                                 {item.assignment.words?.map((word) => (
-                                    <div className={`${classes.eachWord}`} key={word.word_id}>
-                                        <strong>{word.word}</strong>
-                                        <p className={`${classes.examples}`}>{word.example.example1}</p>
-                                        <p className={`${classes.examples}`}>{word.example.example2}</p>
+
+                                    <div className={`${tableDataPageStyle.eachWord}`} key={word.word_id}>
+                                        <h3>{word.word}</h3>
+                                        <div>
+                                            <p className={`${tableDataPageStyle.examples}`}>{word.example.example1}</p>
+                                            <p className={`${tableDataPageStyle.examples}`}>{word.example.example2}</p>
+                                        </div>
+
                                     </div>
+
                                 ))}
-                            </td>
-                            <td className={`${classes.eachRowData}`}>
-                                {item.assignment.expires_in}
-                            </td>
-                            <td>{item.practice_id}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+
+
+                            </div>
+                        </div>
+
+
+                    </details>
+                ))}
+            </div>
+
+
         </div>
     );
 }

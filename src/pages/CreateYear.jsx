@@ -4,7 +4,7 @@ import { sanitizeInput } from "../helpers/Helpers";
 import { allOtherAxiosRequest, axiosForLoginAndSignUpOnly } from '../api/axios';
 import Button from "../component/Button";
 
-import classes from '../css/Dashboard.module.css'
+import createYearPageStyle from '../css/Dashboard.module.css'
 
 function CreateYear() {
 
@@ -82,13 +82,13 @@ function CreateYear() {
 
 
     return (
-        <div>
-            <form className={`${classes.newClassForm}`} onSubmit={handleSubmit}>
+       
+            <form className={`${createYearPageStyle.newClassForm}`} onSubmit={handleSubmit}>
                 {errors && <p style={{ 'backgroundColor': 'red', 'color': 'white' }}>{errors}</p>}
                 {successMessage && <p style={{ 'backgroundColor': '#4CAF50', 'color': 'white' }}>{successMessage}</p>}
-                <h2>Create a new year or Spelling Group </h2>
+                <h2>Create a new year </h2>
                 <div>
-                    <label>Class/Group name</label>
+                    <label>Year name</label>
                     <input
                         name="year_name"
                         type="text"
@@ -96,9 +96,9 @@ function CreateYear() {
                         onChange={handleChange}
                         required />
                 </div>
-                <Button color='Golden' type='submit' label='Submit' />
+                <Button className={`${createYearPageStyle.submitButton}`}  color='Golden' type='submit' label='Submit' />
             </form>
-        </div>
+       
     )
 
 }
