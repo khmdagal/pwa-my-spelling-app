@@ -53,11 +53,11 @@ function LogIn() {
                 localStorage.setItem('user', JSON.stringify({
                     name: response.data.name,
                     school_id: response.data.school_id,
-                    approved: response.data.approved
+                    admin: response.data.admin
                 }));
 
                 // Redirect based on role or user type
-                if (response.data.approved === 'true') {
+                if (response.data.admin === 'true') {
                     navigate('/admin_dashboard');
                 } else {
                     navigate('/student_dashboard');
