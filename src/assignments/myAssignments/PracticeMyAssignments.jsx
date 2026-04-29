@@ -330,7 +330,7 @@ function PracticeMyAssignment() {
                     practice_id === ''
                     ? null
                     :
-                    <div>
+                    <div className={`${practicePageStyle.answerBoxAndButtonsContainer}`}>
                         {myScore && <h1 style={{ color: "gold" }}>Your Score: <strong> {myScore} </strong></h1>}
                         <div className={`${practicePageStyle.answerBox}`}>
 

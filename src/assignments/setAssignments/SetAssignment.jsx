@@ -10,7 +10,6 @@ import classes from '../../css/Dashboard.module.css';
 const initialForm = {
     title: '',
     targetyear: '',
-    targetgroup: '',
     school_id: '',
     practice_id: uuidv4(),
     description: '',
@@ -94,9 +93,13 @@ function SetAssignment() {
         return false
     }
 
+    console.log('===..>',formData)
+
+
     async function handleSubmit(e) {
         e.preventDefault()
 
+        
         if (rejectEmptyFormSubmission(formData)) return
 
 

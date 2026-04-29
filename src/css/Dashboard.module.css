@@ -21,6 +21,7 @@
 .dashboardHeader h1 {
   font-size: 2em;
   margin: 0;
+  color: white;
 }
 
 /* Body section with sidebar and main content */
@@ -170,7 +171,8 @@
   border-radius: 10px;
   padding: 12px;
   border-left: var(--nice-left-border);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--box-shadow-glow);
+
 }
 
 .words p:first-child {
@@ -199,7 +201,6 @@ div {
   background-color: #ffffff;
   border-radius: 8px;
   padding: 16px 20px;
-  max-width: 500px;
   border: 1px solid #e5e7eb;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -208,7 +209,7 @@ div {
   display: block;
   font-size: 13px;
   font-weight: 600;
-  color: #6b7280;
+  color: black;
   margin-bottom: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -228,6 +229,18 @@ div {
   font-size: 1rem;
 }
 
+.getAssignmentBtn {
+  width: 150px;
+  align-self: center;
+}
+
+.getAssignmentContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  border-bottom: solid rgb(128, 208, 128);
+}
 
 /* ============ */
 
@@ -265,7 +278,38 @@ div {
 
   .assignmentInfo {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 2rem;
   }
+
+  .assignmentInfo label {
+    font-weight: bolder;
+    font-size: large;
+
+  }
+
+  .dashboardHeader h1 {
+    font-size: 3em;
+  }
+
+  .selectedWordsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    flex-wrap: wrap;
+  }
+
+  .getAssignmentContainer {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .selectedWordsContainer {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
 
 }

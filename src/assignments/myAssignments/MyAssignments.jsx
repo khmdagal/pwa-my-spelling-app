@@ -130,17 +130,21 @@ function MyAssignment() {
         <div className={`${myAssignmentStyle.assignmentForm}`}>
             {spinner && <Spinner />}
             {errorMessage && <p className={`${myAssignmentStyle.errorMessage}`}>{errorMessage}</p>}
-            <button className={`${myAssignmentStyle.getAssignmentBtn}`} onClick={() => getSingleAssignment(practice_id)}>Get the Assignment</button>
-            <div>
-                <label htmlFor="practice_id">Enter your Assignment Code</label>
-                <input 
-                id="practice_id" 
-                name="practice_id" 
-                type="text"
-                value={practice_id}
-                onChange={handleChange} 
-                />
+            <div className={`${myAssignmentStyle.getAssignmentContainer}`}>
+                <div>
+                    <label htmlFor="practice_id">Enter your Assignment Code</label>
+                    <input
+                        id="practice_id"
+                        name="practice_id"
+                        type="text"
+                        value={practice_id}
+                        onChange={handleChange}
+                    />
+                </div>
+                <button className={`${myAssignmentStyle.getAssignmentBtn}`} onClick={() => getSingleAssignment(practice_id)}>Get the Assignment</button>
             </div>
+
+
             {assignment && (
                 <div className={`${myAssignmentStyle.assignmentInfo}`}>
                     <div>
